@@ -1,0 +1,678 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C70DA3FA2438E34A00EF7217 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70DA3F92438E34A00EF7217 /* Array+Ext.swift */; };
+		C70DA3FC2438E67800EF7217 /* Math+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70DA3FB2438E67800EF7217 /* Math+Ext.swift */; };
+		C70DA3FF2438E82600EF7217 /* SHSquadCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70DA3FE2438E82600EF7217 /* SHSquadCollectionViewManager.swift */; };
+		C70DA4012438E84000EF7217 /* SHHeroesTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70DA4002438E84000EF7217 /* SHHeroesTableViewManager.swift */; };
+		C70DA4032438E8E400EF7217 /* SHRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70DA4022438E8E400EF7217 /* SHRow.swift */; };
+		C70DA4062438E99200EF7217 /* SHSquadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70DA4042438E99200EF7217 /* SHSquadCollectionViewCell.swift */; };
+		C70DA4072438E99200EF7217 /* SHSquadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C70DA4052438E99200EF7217 /* SHSquadCollectionViewCell.xib */; };
+		C740F7142436363200C47497 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740F7132436363200C47497 /* AppDelegate.swift */; };
+		C740F7162436363200C47497 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740F7152436363200C47497 /* SceneDelegate.swift */; };
+		C740F71D2436363600C47497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C740F71C2436363600C47497 /* Assets.xcassets */; };
+		C740F7202436363600C47497 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C740F71E2436363600C47497 /* LaunchScreen.storyboard */; };
+		C740F72B2436363600C47497 /* PlumSuperheroSquadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740F72A2436363600C47497 /* PlumSuperheroSquadTests.swift */; };
+		C78E6E6A2438C2C0005F67B4 /* SHAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E6E692438C2C0005F67B4 /* SHAPIClient.swift */; };
+		C78E6E6C2438C315005F67B4 /* SHURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E6E6B2438C315005F67B4 /* SHURLSession.swift */; };
+		C78E6E6E2438C366005F67B4 /* SHError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E6E6D2438C366005F67B4 /* SHError.swift */; };
+		C78E6E722438CA9E005F67B4 /* SHCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E6E712438CA9E005F67B4 /* SHCustomButton.swift */; };
+		C78E6E742438CBD1005F67B4 /* SHCustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E6E732438CBD1005F67B4 /* SHCustomImageView.swift */; };
+		C78E6E762438CF1A005F67B4 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E6E752438CF1A005F67B4 /* UIImage+Ext.swift */; };
+		C78E6E782438CF78005F67B4 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E6E772438CF78005F67B4 /* UIView+Ext.swift */; };
+		C78E6E7A2438DFCB005F67B4 /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E6E792438DFCB005F67B4 /* UIFont+Ext.swift */; };
+		C78E6E7C2438E032005F67B4 /* Marvel-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C78E6E7B2438E032005F67B4 /* Marvel-Regular.ttf */; };
+		C7AF4DA12438EB570066DEB0 /* SHHeroesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AF4D9F2438EB570066DEB0 /* SHHeroesTableViewCell.swift */; };
+		C7AF4DA22438EB570066DEB0 /* SHHeroesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7AF4DA02438EB570066DEB0 /* SHHeroesTableViewCell.xib */; };
+		C7AF4DA42438EF2D0066DEB0 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AF4DA32438EF2D0066DEB0 /* UITableView+Ext.swift */; };
+		C7AF4DA62438EF8A0066DEB0 /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AF4DA52438EF8A0066DEB0 /* UICollectionView+Ext.swift */; };
+		C7E983D32438AA07003A8E54 /* SHNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E983D22438AA07003A8E54 /* SHNavigationViewController.swift */; };
+		C7E983D82438AB82003A8E54 /* SHHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E983D62438AB82003A8E54 /* SHHomeViewController.swift */; };
+		C7E983D92438AB82003A8E54 /* SHHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E983D72438AB82003A8E54 /* SHHomeViewController.xib */; };
+		C7E983DC2438AC1A003A8E54 /* SHSquadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E983DB2438AC1A003A8E54 /* SHSquadViewModel.swift */; };
+		C7E983DE2438ACE8003A8E54 /* SHCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E983DD2438ACE8003A8E54 /* SHCharacter.swift */; };
+		C7E983E02438AF46003A8E54 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E983DF2438AF46003A8E54 /* UIButton+Ext.swift */; };
+		C7E983E22438AF79003A8E54 /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E983E12438AF79003A8E54 /* UIImageView+Ext.swift */; };
+		C7E983E42438BC4A003A8E54 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E983E32438BC4A003A8E54 /* UIColor+Ext.swift */; };
+		C7E983E62438C010003A8E54 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E983E52438C010003A8E54 /* UIViewController+Ext.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C740F7272436363600C47497 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C740F7082436363200C47497 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C740F70F2436363200C47497;
+			remoteInfo = PlumSuperheroSquad;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C70DA3F92438E34A00EF7217 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
+		C70DA3FB2438E67800EF7217 /* Math+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Math+Ext.swift"; sourceTree = "<group>"; };
+		C70DA3FE2438E82600EF7217 /* SHSquadCollectionViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHSquadCollectionViewManager.swift; sourceTree = "<group>"; };
+		C70DA4002438E84000EF7217 /* SHHeroesTableViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHHeroesTableViewManager.swift; sourceTree = "<group>"; };
+		C70DA4022438E8E400EF7217 /* SHRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHRow.swift; sourceTree = "<group>"; };
+		C70DA4042438E99200EF7217 /* SHSquadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHSquadCollectionViewCell.swift; sourceTree = "<group>"; };
+		C70DA4052438E99200EF7217 /* SHSquadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SHSquadCollectionViewCell.xib; sourceTree = "<group>"; };
+		C740F7102436363200C47497 /* SuperheroSquad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperheroSquad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C740F7132436363200C47497 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C740F7152436363200C47497 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C740F71C2436363600C47497 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C740F71F2436363600C47497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C740F7212436363600C47497 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C740F7262436363600C47497 /* SuperheroSquadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SuperheroSquadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C740F72A2436363600C47497 /* PlumSuperheroSquadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlumSuperheroSquadTests.swift; sourceTree = "<group>"; };
+		C740F72C2436363600C47497 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C78E6E692438C2C0005F67B4 /* SHAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHAPIClient.swift; sourceTree = "<group>"; };
+		C78E6E6B2438C315005F67B4 /* SHURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHURLSession.swift; sourceTree = "<group>"; };
+		C78E6E6D2438C366005F67B4 /* SHError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHError.swift; sourceTree = "<group>"; };
+		C78E6E712438CA9E005F67B4 /* SHCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHCustomButton.swift; sourceTree = "<group>"; };
+		C78E6E732438CBD1005F67B4 /* SHCustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHCustomImageView.swift; sourceTree = "<group>"; };
+		C78E6E752438CF1A005F67B4 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		C78E6E772438CF78005F67B4 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		C78E6E792438DFCB005F67B4 /* UIFont+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
+		C78E6E7B2438E032005F67B4 /* Marvel-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Marvel-Regular.ttf"; sourceTree = "<group>"; };
+		C7AF4D9F2438EB570066DEB0 /* SHHeroesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHHeroesTableViewCell.swift; sourceTree = "<group>"; };
+		C7AF4DA02438EB570066DEB0 /* SHHeroesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SHHeroesTableViewCell.xib; sourceTree = "<group>"; };
+		C7AF4DA32438EF2D0066DEB0 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		C7AF4DA52438EF8A0066DEB0 /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
+		C7E983D22438AA07003A8E54 /* SHNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHNavigationViewController.swift; sourceTree = "<group>"; };
+		C7E983D62438AB82003A8E54 /* SHHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHHomeViewController.swift; sourceTree = "<group>"; };
+		C7E983D72438AB82003A8E54 /* SHHomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SHHomeViewController.xib; sourceTree = "<group>"; };
+		C7E983DB2438AC1A003A8E54 /* SHSquadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHSquadViewModel.swift; sourceTree = "<group>"; };
+		C7E983DD2438ACE8003A8E54 /* SHCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHCharacter.swift; sourceTree = "<group>"; };
+		C7E983DF2438AF46003A8E54 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
+		C7E983E12438AF79003A8E54 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
+		C7E983E32438BC4A003A8E54 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		C7E983E52438C010003A8E54 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C740F70D2436363200C47497 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C740F7232436363600C47497 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C70DA3FD2438E77500EF7217 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C70DA4022438E8E400EF7217 /* SHRow.swift */,
+				C70DA3FE2438E82600EF7217 /* SHSquadCollectionViewManager.swift */,
+				C70DA4002438E84000EF7217 /* SHHeroesTableViewManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		C740F7072436363200C47497 = {
+			isa = PBXGroup;
+			children = (
+				C740F7122436363200C47497 /* SuperheroSquad */,
+				C740F7292436363600C47497 /* SuperheroSquadTests */,
+				C740F7112436363200C47497 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C740F7112436363200C47497 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C740F7102436363200C47497 /* SuperheroSquad.app */,
+				C740F7262436363600C47497 /* SuperheroSquadTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C740F7122436363200C47497 /* SuperheroSquad */ = {
+			isa = PBXGroup;
+			children = (
+				C7B57BBF2438966A00C94378 /* AppDelegate */,
+				C7B57BC22438990700C94378 /* Models */,
+				C7E983DA2438ABE1003A8E54 /* Views */,
+				C7B57BC1243898ED00C94378 /* ViewModels */,
+				C7B57BC42438995600C94378 /* Resources */,
+				C7B57BC824389BBB00C94378 /* Extensions */,
+				C7B57BC32438994C00C94378 /* Services */,
+				C7B57BC52438997700C94378 /* Storyboards */,
+				C7B57BC62438999200C94378 /* SupportingFiles */,
+			);
+			path = SuperheroSquad;
+			sourceTree = "<group>";
+		};
+		C740F7292436363600C47497 /* SuperheroSquadTests */ = {
+			isa = PBXGroup;
+			children = (
+				C740F72A2436363600C47497 /* PlumSuperheroSquadTests.swift */,
+				C740F72C2436363600C47497 /* Info.plist */,
+			);
+			path = SuperheroSquadTests;
+			sourceTree = "<group>";
+		};
+		C78E6E6F2438CA10005F67B4 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C7AF4D9F2438EB570066DEB0 /* SHHeroesTableViewCell.swift */,
+				C7AF4DA02438EB570066DEB0 /* SHHeroesTableViewCell.xib */,
+				C70DA4042438E99200EF7217 /* SHSquadCollectionViewCell.swift */,
+				C70DA4052438E99200EF7217 /* SHSquadCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		C78E6E702438CA88005F67B4 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				C78E6E712438CA9E005F67B4 /* SHCustomButton.swift */,
+				C78E6E732438CBD1005F67B4 /* SHCustomImageView.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		C7B57BBF2438966A00C94378 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				C740F7132436363200C47497 /* AppDelegate.swift */,
+				C740F7152436363200C47497 /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		C7B57BC0243898CC00C94378 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C7E983D22438AA07003A8E54 /* SHNavigationViewController.swift */,
+				C7E983D62438AB82003A8E54 /* SHHomeViewController.swift */,
+				C7E983D72438AB82003A8E54 /* SHHomeViewController.xib */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C7B57BC1243898ED00C94378 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				C7E983DB2438AC1A003A8E54 /* SHSquadViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		C7B57BC22438990700C94378 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C7E983DD2438ACE8003A8E54 /* SHCharacter.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C7B57BC32438994C00C94378 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C78E6E6D2438C366005F67B4 /* SHError.swift */,
+				C78E6E6B2438C315005F67B4 /* SHURLSession.swift */,
+				C78E6E692438C2C0005F67B4 /* SHAPIClient.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C7B57BC42438995600C94378 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C78E6E7B2438E032005F67B4 /* Marvel-Regular.ttf */,
+				C740F71C2436363600C47497 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C7B57BC52438997700C94378 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				C740F71E2436363600C47497 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		C7B57BC62438999200C94378 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C740F7212436363600C47497 /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C7B57BC824389BBB00C94378 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C7E983DF2438AF46003A8E54 /* UIButton+Ext.swift */,
+				C7E983E12438AF79003A8E54 /* UIImageView+Ext.swift */,
+				C7E983E32438BC4A003A8E54 /* UIColor+Ext.swift */,
+				C7E983E52438C010003A8E54 /* UIViewController+Ext.swift */,
+				C78E6E752438CF1A005F67B4 /* UIImage+Ext.swift */,
+				C78E6E772438CF78005F67B4 /* UIView+Ext.swift */,
+				C78E6E792438DFCB005F67B4 /* UIFont+Ext.swift */,
+				C70DA3F92438E34A00EF7217 /* Array+Ext.swift */,
+				C70DA3FB2438E67800EF7217 /* Math+Ext.swift */,
+				C7AF4DA32438EF2D0066DEB0 /* UITableView+Ext.swift */,
+				C7AF4DA52438EF8A0066DEB0 /* UICollectionView+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C7E983DA2438ABE1003A8E54 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C70DA3FD2438E77500EF7217 /* Managers */,
+				C78E6E702438CA88005F67B4 /* Custom */,
+				C78E6E6F2438CA10005F67B4 /* Cells */,
+				C7B57BC0243898CC00C94378 /* Controllers */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C740F70F2436363200C47497 /* SuperheroSquad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C740F72F2436363600C47497 /* Build configuration list for PBXNativeTarget "SuperheroSquad" */;
+			buildPhases = (
+				C740F70C2436363200C47497 /* Sources */,
+				C740F70D2436363200C47497 /* Frameworks */,
+				C740F70E2436363200C47497 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SuperheroSquad;
+			productName = PlumSuperheroSquad;
+			productReference = C740F7102436363200C47497 /* SuperheroSquad.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C740F7252436363600C47497 /* SuperheroSquadTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C740F7322436363600C47497 /* Build configuration list for PBXNativeTarget "SuperheroSquadTests" */;
+			buildPhases = (
+				C740F7222436363600C47497 /* Sources */,
+				C740F7232436363600C47497 /* Frameworks */,
+				C740F7242436363600C47497 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C740F7282436363600C47497 /* PBXTargetDependency */,
+			);
+			name = SuperheroSquadTests;
+			productName = PlumSuperheroSquadTests;
+			productReference = C740F7262436363600C47497 /* SuperheroSquadTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C740F7082436363200C47497 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "GEORGE QUENTIN";
+				TargetAttributes = {
+					C740F70F2436363200C47497 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					C740F7252436363600C47497 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = C740F70F2436363200C47497;
+					};
+				};
+			};
+			buildConfigurationList = C740F70B2436363200C47497 /* Build configuration list for PBXProject "SuperheroSquad" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C740F7072436363200C47497;
+			productRefGroup = C740F7112436363200C47497 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C740F70F2436363200C47497 /* SuperheroSquad */,
+				C740F7252436363600C47497 /* SuperheroSquadTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C740F70E2436363200C47497 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C740F7202436363600C47497 /* LaunchScreen.storyboard in Resources */,
+				C740F71D2436363600C47497 /* Assets.xcassets in Resources */,
+				C78E6E7C2438E032005F67B4 /* Marvel-Regular.ttf in Resources */,
+				C70DA4072438E99200EF7217 /* SHSquadCollectionViewCell.xib in Resources */,
+				C7AF4DA22438EB570066DEB0 /* SHHeroesTableViewCell.xib in Resources */,
+				C7E983D92438AB82003A8E54 /* SHHomeViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C740F7242436363600C47497 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C740F70C2436363200C47497 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C78E6E782438CF78005F67B4 /* UIView+Ext.swift in Sources */,
+				C7E983DC2438AC1A003A8E54 /* SHSquadViewModel.swift in Sources */,
+				C70DA4062438E99200EF7217 /* SHSquadCollectionViewCell.swift in Sources */,
+				C7E983E22438AF79003A8E54 /* UIImageView+Ext.swift in Sources */,
+				C7AF4DA12438EB570066DEB0 /* SHHeroesTableViewCell.swift in Sources */,
+				C7AF4DA42438EF2D0066DEB0 /* UITableView+Ext.swift in Sources */,
+				C7E983E62438C010003A8E54 /* UIViewController+Ext.swift in Sources */,
+				C7AF4DA62438EF8A0066DEB0 /* UICollectionView+Ext.swift in Sources */,
+				C78E6E6C2438C315005F67B4 /* SHURLSession.swift in Sources */,
+				C78E6E742438CBD1005F67B4 /* SHCustomImageView.swift in Sources */,
+				C78E6E7A2438DFCB005F67B4 /* UIFont+Ext.swift in Sources */,
+				C7E983DE2438ACE8003A8E54 /* SHCharacter.swift in Sources */,
+				C78E6E722438CA9E005F67B4 /* SHCustomButton.swift in Sources */,
+				C70DA3FF2438E82600EF7217 /* SHSquadCollectionViewManager.swift in Sources */,
+				C70DA4032438E8E400EF7217 /* SHRow.swift in Sources */,
+				C7E983E02438AF46003A8E54 /* UIButton+Ext.swift in Sources */,
+				C78E6E6A2438C2C0005F67B4 /* SHAPIClient.swift in Sources */,
+				C70DA4012438E84000EF7217 /* SHHeroesTableViewManager.swift in Sources */,
+				C70DA3FA2438E34A00EF7217 /* Array+Ext.swift in Sources */,
+				C78E6E762438CF1A005F67B4 /* UIImage+Ext.swift in Sources */,
+				C7E983D82438AB82003A8E54 /* SHHomeViewController.swift in Sources */,
+				C740F7142436363200C47497 /* AppDelegate.swift in Sources */,
+				C70DA3FC2438E67800EF7217 /* Math+Ext.swift in Sources */,
+				C7E983E42438BC4A003A8E54 /* UIColor+Ext.swift in Sources */,
+				C78E6E6E2438C366005F67B4 /* SHError.swift in Sources */,
+				C7E983D32438AA07003A8E54 /* SHNavigationViewController.swift in Sources */,
+				C740F7162436363200C47497 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C740F7222436363600C47497 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C740F72B2436363600C47497 /* PlumSuperheroSquadTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C740F7282436363600C47497 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C740F70F2436363200C47497 /* SuperheroSquad */;
+			targetProxy = C740F7272436363600C47497 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C740F71E2436363600C47497 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C740F71F2436363600C47497 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C740F72D2436363600C47497 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C740F72E2436363600C47497 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C740F7302436363600C47497 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TTRX47ZAU4;
+				INFOPLIST_FILE = SuperheroSquad/SupportingFiles/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geo-games.PlumSuperheroSquad";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C740F7312436363600C47497 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TTRX47ZAU4;
+				INFOPLIST_FILE = SuperheroSquad/SupportingFiles/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geo-games.PlumSuperheroSquad";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C740F7332436363600C47497 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TTRX47ZAU4;
+				INFOPLIST_FILE = SuperheroSquadTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geo-games.PlumSuperheroSquadTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SuperheroSquad.app/SuperheroSquad";
+			};
+			name = Debug;
+		};
+		C740F7342436363600C47497 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TTRX47ZAU4;
+				INFOPLIST_FILE = SuperheroSquadTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geo-games.PlumSuperheroSquadTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SuperheroSquad.app/SuperheroSquad";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C740F70B2436363200C47497 /* Build configuration list for PBXProject "SuperheroSquad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C740F72D2436363600C47497 /* Debug */,
+				C740F72E2436363600C47497 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C740F72F2436363600C47497 /* Build configuration list for PBXNativeTarget "SuperheroSquad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C740F7302436363600C47497 /* Debug */,
+				C740F7312436363600C47497 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C740F7322436363600C47497 /* Build configuration list for PBXNativeTarget "SuperheroSquadTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C740F7332436363600C47497 /* Debug */,
+				C740F7342436363600C47497 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C740F7082436363200C47497 /* Project object */;
+}

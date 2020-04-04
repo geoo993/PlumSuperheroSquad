@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Marvel-Regular.ttf">
+            <string>Marvel-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SHHomeViewController" customModule="SuperheroSquad" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundImageView" destination="5uG-eF-pih" id="yhG-IS-HFB"/>
+                <outlet property="backgroundLabel" destination="nnY-3G-MBt" id="zlU-4P-qZS"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iron-man" translatesAutoresizingMaskIntoConstraints="NO" id="5uG-eF-pih">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="THE SQUAD WILL BE HERE SOON" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnY-3G-MBt">
+                    <rect key="frame" x="20" y="782" width="374" height="30"/>
+                    <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="30"/>
+                    <color key="textColor" red="1" green="0.79810768369999996" blue="0.59851801400000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="5uG-eF-pih" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="3UO-VR-mCG"/>
+                <constraint firstItem="nnY-3G-MBt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="AZS-Fp-93M"/>
+                <constraint firstItem="5uG-eF-pih" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Q3H-94-KMm"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="nnY-3G-MBt" secondAttribute="trailing" constant="20" id="X9X-py-Mhd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="nnY-3G-MBt" secondAttribute="bottom" constant="50" id="YPg-mJ-RgS"/>
+                <constraint firstAttribute="bottom" secondItem="5uG-eF-pih" secondAttribute="bottom" id="idD-GR-7gf"/>
+                <constraint firstItem="5uG-eF-pih" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="vPO-El-s6t"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="iron-man" width="2000" height="2000"/>
+    </resources>
+</document>
