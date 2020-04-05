@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  SuperheroSquad
+
+  Created by GEORGE QUENTIN on 04/04/2020.
+  Copyright © 2020 GEORGE QUENTIN. All rights reserved.
+*/
+
+"home__background_title" = "THE SQUAD WILL BE HERE SOON";
+
+"alert__try_again_btn" = "TRY AGAIN";
+"alert__cancel_btn" = "Cancel";

@@ -6,6 +6,7 @@
 //  Copyright © 2020 GEORGE QUENTIN. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 final class SHHomeViewController: UIViewController {
@@ -14,7 +15,7 @@ final class SHHomeViewController: UIViewController {
     // MARK: - UIConstants
     
     enum UIConstants {
-        static let backgroundTitle = "THE SQUAD WILL BE HERE SOON"
+        static let backgroundTitle = "home__background_title".localized
         static let backgroundFont = SHFontStyle.marvel(30).font
     }
     
@@ -90,5 +91,16 @@ final class SHHomeViewController: UIViewController {
     
     @objc func onPullToRefreshControl() {
         viewModel.reload()
+    }
+    
+    func presentAlert(title: String, message: String) {
+        let alert: UIAlertController = {
+            let actions = [
+                SHAlertAction(title: "alert__try_again_btn".localized, style: .default),
+                SHAlertAction(title: "alert__cancel_btn".localized, style: .cancel)
+            ]
+            return UIAlertController(title: title, message: message, actions: actions)
+        }()
+        present(alert, animated: true, completion: nil)
     }
 }

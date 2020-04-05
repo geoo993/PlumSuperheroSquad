@@ -19,7 +19,7 @@ final class SHSquadViewModel: NSObject {
     
     
     // MARK: - Properties
-
+    fileprivate let dataProvider = SHMarvelAPIProvider()
  
     // MARK: - Internal functions
     
@@ -35,8 +35,55 @@ final class SHSquadViewModel: NSObject {
 
     private func fetchHeroes() {
         
-       
+        dataProvider.fetchCharacters { (result) in
+            switch result {
+            case .value(let characters):
+                characters.forEach({ char in
+                    print()
+                    print(char.id)
+                    print(char.name)
+                    print(char.description)
+                    print(char.thumbnail.url.absoluteString)
+                })
+                print(characters.count)
+                
+            case .error(let err): break
+            }
+        }
     }
+    
+    private func fetchCharacter(id: Int) {
+        dataProvider.fetchCharacter(with: id) { (result) in
+            switch result {
+            case .value(let characters):
+                let character = characters.first!
+                print()
+                print(character.id)
+                print(character.name)
+                print(character.description)
+                print(character.thumbnail.url.absoluteString)
+            case .error(let err): break
+            }
+        }
+        
+    }
+   
+    private func fetchComics() {
+        dataProvider.fetchComics { (result) in
+            switch result {
+            case .value(let comics):
+                comics.forEach({ com in
+                    print()
+                    print(com.id)
+                    print(com.title)
+                    print(com.thumbnail.url.absoluteString)
+                })
+                print(comics.count)
+                
+            case .error(let err): break
+            }
+        }
+     }
     
 }
 
