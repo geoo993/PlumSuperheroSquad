@@ -7,24 +7,17 @@
 //
 
 import Foundation
-import UIKit
-
-// MARK: - SHNetworkResult
-
-public enum SHNetworkResult<T> {
-    case value([T])
-    case error(SHError)
-}
 
 // MARK: - SHURLSessionProtocol
 
-public protocol SHURLSessionProtocol {
+
+protocol SHURLSessionProtocol {
     func dataTask(with request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> SHURLSessionDataTaskProtocol
 }
 
 //MARK: - SHURLSessionDataTaskProtocol
 
-public protocol SHURLSessionDataTaskProtocol {
+protocol SHURLSessionDataTaskProtocol {
     func resume()
 }
 
@@ -32,7 +25,7 @@ public protocol SHURLSessionDataTaskProtocol {
 
 extension URLSession: SHURLSessionProtocol {
     
-    public func dataTask(with request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> SHURLSessionDataTaskProtocol {
+    func dataTask(with request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> SHURLSessionDataTaskProtocol {
         return (dataTask(with: request, completionHandler: completion) as URLSessionDataTask) as SHURLSessionDataTaskProtocol
     }
 }
