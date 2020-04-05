@@ -1,0 +1,5 @@
+# carthage bootstrap [RepositoryName] --no-use-binaries --platform ios --cache-builds
+# or (beware!)
+# carthage update [RepositoryName] --no-use-binaries --platform ios  --cache-builds
+
+github "krzyzanowskim/CryptoSwift"
