@@ -40,19 +40,21 @@ class SHAPIRequest<SHEndpoint: SHEndpointType>: SHURLRequestProtocol {
         
         do {
             let request = try self.request(from: endpoint)
-            task = session.dataTask(with: request) { (data, response, error) in
+            task = session.dataTask(with: request) { [weak self] (data, response, error) in
+                guard let self = self else { return }
                 if let error = error {
                     // TODO: Could also fail because of network connection
                     completion(nil, SHError.failed(error.localizedDescription))
-                }
-                if let response = response as? HTTPURLResponse {
+                } else if let response = response as? HTTPURLResponse {
                     if 200..<300 ~= response.statusCode {
                         completion(data, nil)
                     } else {
                         
-                        let responseError = self.handleResponse(with: response)
+                        let responseError = self.session.handleResponse(with: response)
                         completion(nil, responseError)
                     }
+                } else {
+                    completion(nil, nil)
                 }
             } as? URLSessionDataTask
         } catch {
@@ -109,12 +111,4 @@ class SHAPIRequest<SHEndpoint: SHEndpointType>: SHURLRequestProtocol {
         }
     }
     
-    fileprivate func handleResponse(with response: HTTPURLResponse) -> SHError {
-        switch response.statusCode {
-        case 401...500: return SHError.authenticationError
-        case 501..<600: return SHError.badResponse(code: response.statusCode)
-        case 600: return SHError.outdatedRequest
-        default: return SHError.unknown
-        }
-    }
 }

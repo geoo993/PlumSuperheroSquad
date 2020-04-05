@@ -13,6 +13,19 @@ import Foundation
 
 protocol SHURLSessionProtocol {
     func dataTask(with request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> SHURLSessionDataTaskProtocol
+    func handleResponse(with response: HTTPURLResponse) -> SHError
+}
+
+extension SHURLSessionProtocol {
+    
+    func handleResponse(with response: HTTPURLResponse) -> SHError {
+        switch response.statusCode {
+        case 401...500: return SHError.authenticationError
+        case 501..<600: return SHError.badResponse(code: response.statusCode)
+        case 600: return SHError.outdatedRequest
+        default: return SHError.unknown
+        }
+    }
 }
 
 //MARK: - SHURLSessionDataTaskProtocol

@@ -37,3 +37,25 @@ public enum SHError: Error {
         }
     }
 }
+
+extension SHError {
+    
+    // MARK: - Equatable
+    
+    static func == (lhs: SHError, rhs:SHError) -> Bool {
+        switch (lhs, rhs) {
+        case (.unknown, .unknown): return true
+        case (.failed(let lResult), .failed(let rResult)): return lResult == rResult
+        case (.noConnection, .noConnection): return true
+        case (.authenticationError, .authenticationError): return true
+        case (.dataTaskFailed, .dataTaskFailed): return true
+        case (.urlMissing, .urlMissing): return true
+        case (.noData, .noData): return true
+        case (.encodingFailed, .encodingFailed): return true
+        case (.decodingError, .decodingError): return true
+        case (.outdatedRequest, .outdatedRequest): return true
+        case (.badResponse(let lCode), .badResponse(let rCode)): return lCode == rCode
+        default: return false
+        }
+    }
+}
