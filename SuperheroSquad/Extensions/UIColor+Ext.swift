@@ -37,7 +37,14 @@ public extension UIColor {
     static var brandWhite: UIColor {
         return UIColor(red: 240, green: 240, blue: 255)
     }
-
+    
+    /**
+    Style guide: Main gray color
+    */
+    static var brandGray: UIColor {
+        return UIColor(hex: 0x979797)
+    }
+    
     // MARK: - Initializers
     
     convenience private init(red: CGFloat, green: CGFloat, blue: CGFloat) {
