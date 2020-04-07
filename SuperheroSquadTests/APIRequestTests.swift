@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import SuperheroSquad
+@testable import SHAPIKit
 
 // MARK: - Mock Endpoint
 

@@ -6,8 +6,8 @@
 //  Copyright © 2020 GEORGE QUENTIN. All rights reserved.
 //
 
-import Foundation
-
+import SHCore
+import SHData
 import UIKit
 
 final class SHSquadCollectionViewManager: NSObject {
@@ -38,6 +38,12 @@ final class SHSquadCollectionViewManager: NSObject {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .brandPrimary
+    }
+    
+    // MARK: -
+       
+    func rebuildDataSource(with width: CGFloat, heroes: [SHCharacter]) {
+       
     }
     
     // MARK: - Internal functions

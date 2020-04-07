@@ -8,8 +8,8 @@
 
 import Foundation
 
-typealias SHParameters = [String: Any]
+public typealias SHParameters = [String: Any]
 
-protocol SHParameterEncoder {
+public protocol SHParameterEncoder {
     static func encode(urlRequest: inout URLRequest, with parameters: SHParameters) throws
 }

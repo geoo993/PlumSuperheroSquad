@@ -30,7 +30,7 @@ public enum SHFontStyle {
     
     public func font(scalable: Bool) -> UIFont {
         switch self {
-        case .main: return UIFont(name: fontName, size: 22) ?? UIFont.boldSystemFont(ofSize: 22)
+        case .main: return UIFont(name: "AvenirNext-DemiBold", size: 22) ?? UIFont.boldSystemFont(ofSize: 22)
         
         default:
             let tuple = scalableFontStyleTuple
@@ -44,10 +44,6 @@ public enum SHFontStyle {
     }
 
     // MARK: - Private helper
-    
-    private var fontName: String {
-        return "AvenirNext-DemiBold"
-    }
     
     private var scalableFontStyleTuple: (textStyle: UIFont.TextStyle, font: UIFont) {
         switch self {

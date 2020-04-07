@@ -6,6 +6,8 @@
 //  Copyright © 2020 GEORGE QUENTIN. All rights reserved.
 //
 
+import SHCore
+import SHData
 import UIKit
 
 final class SHHeroesTableViewCell: UITableViewCell {
@@ -13,14 +15,17 @@ final class SHHeroesTableViewCell: UITableViewCell {
     // MARK: - UI Constants
     
     enum UIConstants {
-        
+        static let padding: CGFloat = 10
+        static let cellHeight: CGFloat = 150
+        static let background: UIColor = .brandSecondary
+        static let titleTextColor: UIColor = .brandWhite
+        static let titleFont = SHFontStyle.marvel(20).font
     }
     
     // MARK: - IBOutlet Properties
     
-    
-    // MARK: - Properties
-    
+    @IBOutlet weak var heroImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     // MARK: - UICollectionViewCell life cycle
     
@@ -43,13 +48,17 @@ final class SHHeroesTableViewCell: UITableViewCell {
     // MARK: - UI Setup
     
     private func setupUI() {
-        
+        backgroundColor = UIConstants.background
+        tintColor = UIConstants.titleTextColor
+        titleLabel.textColor = UIConstants.titleTextColor
+        titleLabel.font = UIConstants.titleFont
     }
     
     // MARK: - Configuration
     
-    func configure(name: String) {
-        
+    func configure(image: SHImageResource, name: String, description: String) {
+        heroImageView.setImage(with: image.url)
+        titleLabel.text = name
     }
 
 }
@@ -60,6 +69,6 @@ extension SHHeroesTableViewCell {
     
     static func height(forWidth width: CGFloat, name: String) -> CGFloat {
         
-        return 0.0
+        return UIConstants.cellHeight
     }
 }

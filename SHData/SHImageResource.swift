@@ -8,22 +8,24 @@
 
 import Foundation
 
-struct SHImageResource: Decodable {
+public struct SHImageResource: Decodable {
     
     enum ImageKeys: String, CodingKey {
         case path = "path"
         case fileExtension = "extension"
     }
 
-    let url: URL
+    public let url: URL
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ImageKeys.self)
 
         let path = try container.decode(String.self, forKey: .path)
         let fileExtension = try container.decode(String.self, forKey: .fileExtension)
 
-        guard let url = URL(string: "\(path).\(fileExtension)") else { throw SHError.decodingError }
+        guard let url = URL(string: "\(path).\(fileExtension)") else {
+            throw NSError(domain: "Could not create image url", code: 1, userInfo: [:] )
+        }
 
         self.url = url
     }

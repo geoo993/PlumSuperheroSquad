@@ -37,24 +37,26 @@ class SHAPIRequest<SHEndpoint: SHEndpointType>: SHURLRequestProtocol {
     // MARK: - Requests
     
     func request(with endpoint: SHEndpoint, completion: @escaping SHNetworkCompletion) {
-        
         do {
             let request = try self.request(from: endpoint)
             task = session.dataTask(with: request) { [weak self] (data, response, error) in
                 guard let self = self else { return }
-                if let error = error {
-                    // TODO: Could also fail because of network connection
-                    completion(nil, SHError.failed(error.localizedDescription))
-                } else if let response = response as? HTTPURLResponse {
-                    if 200..<300 ~= response.statusCode {
-                        completion(data, nil)
-                    } else {
-                        
-                        let responseError = self.session.handleResponse(with: response)
-                        completion(nil, responseError)
-                    }
+                if let status = SHAPINetworkStatusMonitor.shared.status, status == .offline {
+                    completion(nil, SHError.noConnection)
                 } else {
-                    completion(nil, nil)
+                    if let error = error {
+                        completion(nil, SHError.failed(error.localizedDescription))
+                    } else if let response = response as? HTTPURLResponse {
+                        if 200..<300 ~= response.statusCode {
+                            completion(data, nil)
+                        } else {
+                            
+                            let responseError = self.session.handleResponse(with: response)
+                            completion(nil, responseError)
+                        }
+                    } else {
+                        completion(nil, nil)
+                    }
                 }
             } as? URLSessionDataTask
         } catch {

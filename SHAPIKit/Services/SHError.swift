@@ -21,7 +21,7 @@ public enum SHError: Error {
     case outdatedRequest
     case badResponse(code: Int)
    
-    var localizedDescription: String {
+    public var localizedDescription: String {
         switch self {
         case .unknown: return "Unknown"
         case .failed(let error): return "Error: \(error)"

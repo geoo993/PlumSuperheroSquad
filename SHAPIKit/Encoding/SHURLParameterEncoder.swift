@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct SHURLParameterEncoder: SHParameterEncoder {
+public struct SHURLParameterEncoder: SHParameterEncoder {
     
-    static func encode(urlRequest: inout URLRequest, with parameters: SHParameters) throws {
+    public static func encode(urlRequest: inout URLRequest, with parameters: SHParameters) throws {
         guard let url = urlRequest.url else { throw SHError.urlMissing }
         
         if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {

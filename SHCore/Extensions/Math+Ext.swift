@@ -11,7 +11,7 @@ import Foundation
 extension Int {
 
     /// Returns a random integer between min and max
-    static func random(min: Int, max: Int) -> Int {
+    public static func random(min: Int, max: Int) -> Int {
         guard min < max else { return min }
         return Int(arc4random_uniform(UInt32(1 + max - min))) + min
     }

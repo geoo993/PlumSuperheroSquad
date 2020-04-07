@@ -24,7 +24,7 @@ extension UIViewController {
         return nil
     }
     
-    func setTitleView(with image: UIImage?) {
+    public func setTitleView(with image: UIImage?) {
         var titleView: UIImageView? {
             guard let image = image else { return nil }
             let imageView = UIImageView(image: image)

@@ -15,6 +15,7 @@ enum SHRowType: String {
     
     case squad
     case heroes
+    case loading
     
     // MARK: - Properties
 
@@ -32,6 +33,8 @@ enum SHRowType: String {
             return SHSquadCollectionViewCell.self
         case .heroes:
             return SHHeroesTableViewCell.self
+        case .loading:
+            return SHLoadingTableViewCell.self
         }
     }
 }

@@ -8,7 +8,7 @@
 
 
 import XCTest
-@testable import SuperheroSquad
+@testable import SHAPIKit
 
 // MARK: - Mock URLSessionDataTask
 
@@ -31,17 +31,21 @@ class MockURLSession: SHURLSessionProtocol {
     
     func dataTask(with request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> SHURLSessionDataTaskProtocol {
         lastURL = request.url
-        if let error = nextError {
-            completion(nextData, nextResponse, SHError.failed(error.localizedDescription))
-        } else if let response = nextResponse as? HTTPURLResponse {
-            if 200..<300 ~= response.statusCode {
-                completion(nextData, response, nil)
-            } else {
-                let responseError = self.handleResponse(with: response)
-                completion(nextData, response, responseError)
-            }
+        if let status = SHAPINetworkStatusMonitor.shared.status, status == .offline {
+            completion(nil, nil, SHError.noConnection)
         } else {
-            completion(nextData, nextResponse, SHError.unknown)
+            if let error = nextError {
+                completion(nextData, nextResponse, SHError.failed(error.localizedDescription))
+            } else if let response = nextResponse as? HTTPURLResponse {
+                if 200..<300 ~= response.statusCode {
+                    completion(nextData, response, nil)
+                } else {
+                    let responseError = self.handleResponse(with: response)
+                    completion(nextData, response, responseError)
+                }
+            } else {
+                completion(nextData, nextResponse, SHError.unknown)
+            }
         }
         return nextDataTask
     }
@@ -66,6 +70,7 @@ class URLSessionTests: XCTestCase {
         let urlString = "www.google.com"
         
         // When
+        guard SHAPINetworkStatusMonitor.shared.isConnected else { return }
         guard let url = URL(string: urlString) else {
             XCTFail()
             return
@@ -126,6 +131,9 @@ class URLSessionTests: XCTestCase {
         let urlString = "www.google.com"
         
         // When
+        
+        guard SHAPINetworkStatusMonitor.shared.isConnected else { return }
+        
         guard let url = URL(string: urlString) else {
             XCTFail()
             return
@@ -160,6 +168,7 @@ class URLSessionTests: XCTestCase {
         let urlString = "www.google.com"
         
         // When
+        guard SHAPINetworkStatusMonitor.shared.isConnected else { return }
         guard let url = URL(string: urlString) else {
             XCTFail()
             return
@@ -202,6 +211,7 @@ class URLSessionTests: XCTestCase {
         let urlString = "www.google.com"
         
         // When
+        guard SHAPINetworkStatusMonitor.shared.isConnected else { return }
         guard let url = URL(string: urlString) else {
             XCTFail()
             return
@@ -242,6 +252,7 @@ class URLSessionTests: XCTestCase {
         let urlString = "www.google.com"
 
         // When
+        guard SHAPINetworkStatusMonitor.shared.isConnected else { return }
         guard let url = URL(string: urlString) else {
            XCTFail()
            return

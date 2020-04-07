@@ -1,17 +1,17 @@
 //
 //  SHComic.swift
-//  SuperheroSquad
+//  SHData
 //
-//  Created by GEORGE QUENTIN on 05/04/2020.
+//  Created by GEORGE QUENTIN on 06/04/2020.
 //  Copyright © 2020 GEORGE QUENTIN. All rights reserved.
 //
 
 import Foundation
 
-struct SHComic {
-    let id: Int
-    let title: String
-    let thumbnail: SHImageResource
+public struct SHComic {
+    public let id: Int
+    public let title: String
+    public let thumbnail: SHImageResource
 }
 
 extension SHComic: Decodable {
@@ -22,7 +22,7 @@ extension SHComic: Decodable {
         case thumbnail = "thumbnail"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let comicContainer = try decoder.container(keyedBy: ComicCodingKeys.self)
         self.id = try comicContainer.decode(Int.self, forKey: .id)
         self.title = try comicContainer.decode(String.self, forKey: .title)

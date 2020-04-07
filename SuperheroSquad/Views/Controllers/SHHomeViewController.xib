@@ -16,6 +16,7 @@
             <connections>
                 <outlet property="backgroundImageView" destination="5uG-eF-pih" id="yhG-IS-HFB"/>
                 <outlet property="backgroundLabel" destination="nnY-3G-MBt" id="zlU-4P-qZS"/>
+                <outlet property="heroesTableView" destination="RNv-Iy-gp7" id="c3m-Xc-lb8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,15 +34,32 @@
                     <color key="textColor" red="1" green="0.79810768369999996" blue="0.59851801400000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jj9-Hc-Vwm">
+                    <rect key="frame" x="0.0" y="44" width="414" height="10"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="LmX-Ca-P9B"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RNv-Iy-gp7">
+                    <rect key="frame" x="0.0" y="54" width="414" height="808"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="5uG-eF-pih" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="3UO-VR-mCG"/>
                 <constraint firstItem="nnY-3G-MBt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="AZS-Fp-93M"/>
+                <constraint firstItem="RNv-Iy-gp7" firstAttribute="top" secondItem="Jj9-Hc-Vwm" secondAttribute="bottom" id="FBC-st-w47"/>
+                <constraint firstItem="RNv-Iy-gp7" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="KXX-h8-o3b"/>
+                <constraint firstItem="Jj9-Hc-Vwm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="NtR-6B-62g"/>
+                <constraint firstItem="Jj9-Hc-Vwm" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Q0e-kn-MOf"/>
                 <constraint firstItem="5uG-eF-pih" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Q3H-94-KMm"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="nnY-3G-MBt" secondAttribute="trailing" constant="20" id="X9X-py-Mhd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="nnY-3G-MBt" secondAttribute="bottom" constant="50" id="YPg-mJ-RgS"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RNv-Iy-gp7" secondAttribute="trailing" id="b44-MK-qTI"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Jj9-Hc-Vwm" secondAttribute="trailing" id="glN-Rp-ehx"/>
                 <constraint firstAttribute="bottom" secondItem="5uG-eF-pih" secondAttribute="bottom" id="idD-GR-7gf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="RNv-Iy-gp7" secondAttribute="bottom" id="u8k-zC-ZaI"/>
                 <constraint firstItem="5uG-eF-pih" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="vPO-El-s6t"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

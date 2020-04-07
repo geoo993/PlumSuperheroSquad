@@ -6,10 +6,24 @@
 //  Copyright © 2020 GEORGE QUENTIN. All rights reserved.
 //
 
-import Foundation
+import SHData
 
-final class SHMarvelAPIProvider {
+// MARK: - SHNetworkResult
 
+public enum SHNetworkResult<T> {
+    
+    case value(T)
+    case error(SHError)
+}
+
+// MARK: - SHMarvelAPIProvider
+
+public final class SHMarvelAPIProvider {
+
+    // MARK: - Properties
+    
+    public typealias SHCharactersResult = (characters: [SHCharacter], pagination: SHPagination)
+    public typealias SHComicsResult = (characters: [SHComic], pagination: SHPagination)
     private let marvel = SHAPIRequest<SHMarvelAPI>()
     
     // MARK: - Initializer
@@ -18,8 +32,8 @@ final class SHMarvelAPIProvider {
     
     // MARK: - Helper functions
     
-    func fetchCharacter(with characterId: Int, completion: @escaping ((SHNetworkResult<[SHCharacter]>) -> Void) ) {
-        let complete: ((SHNetworkResult<[SHCharacter]>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
+    public func fetchCharacter(with characterId: Int, completion: @escaping ((SHNetworkResult<SHCharacter>) -> Void) ) {
+        let complete: ((SHNetworkResult<SHCharacter>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
         marvel.request(with: .character(characterId: characterId)) { (data, error) in
             if let error = error {
                 complete(SHNetworkResult.error(error))
@@ -29,12 +43,13 @@ final class SHMarvelAPIProvider {
                     return
                 }
                 do {
-                    guard let newData = try self.data(with: responseData) else {
+                    guard
+                        let newData = try self.data(with: responseData),
+                        let character = try JSONDecoder().decode([SHCharacter].self, from: newData.results).first else {
                         complete(SHNetworkResult.error(SHError.decodingError))
                         return
                     }
-                    let characters = try JSONDecoder().decode([SHCharacter].self, from: newData)
-                    complete(SHNetworkResult.value(characters))
+                    complete(SHNetworkResult.value(character))
                 } catch _ {
                     complete(SHNetworkResult.error(SHError.decodingError))
                 }
@@ -43,8 +58,8 @@ final class SHMarvelAPIProvider {
     
     }
     
-    func fetchCharacters(with limit: Int = 100, offset: Int = 0, completion: @escaping ((SHNetworkResult<[SHCharacter]>) -> Void) ) {
-        let complete: ((SHNetworkResult<[SHCharacter]>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
+    public func fetchCharacters(limit: Int = 50, offset: Int = 0, completion: @escaping ((SHNetworkResult<SHCharactersResult>) -> Void) ) {
+        let complete: ((SHNetworkResult<SHCharactersResult>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
         marvel.request(with: .characters(limit: limit, offset: offset)) { (data, error) in
             if let error = error {
                 complete(SHNetworkResult.error(error))
@@ -58,8 +73,9 @@ final class SHMarvelAPIProvider {
                         complete(SHNetworkResult.error(SHError.decodingError))
                         return
                     }
-                    let characters = try JSONDecoder().decode([SHCharacter].self, from: newData)
-                    complete(SHNetworkResult.value(characters))
+                    let pagination = try JSONDecoder().decode(SHPagination.self, from: newData.root)
+                    let characters = try JSONDecoder().decode([SHCharacter].self, from: newData.results)
+                    complete(SHNetworkResult.value((characters, pagination)))
                 } catch _ {
                     complete(SHNetworkResult.error(SHError.decodingError))
                 }
@@ -67,8 +83,8 @@ final class SHMarvelAPIProvider {
         }
     }
     
-    func fetchComics(with limit: Int = 100, offset: Int = 0,completion: @escaping ((SHNetworkResult<[SHComic]>) -> Void) ) {
-        let complete: ((SHNetworkResult<[SHComic]>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
+    public func fetchComics(limit: Int = 50, offset: Int = 0,completion: @escaping ((SHNetworkResult<SHComicsResult>) -> Void) ) {
+        let complete: ((SHNetworkResult<SHComicsResult>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
         marvel.request(with: .comics(limit: limit, offset: offset)) { (data, error) in
             if let error = error {
                 complete(SHNetworkResult.error(error))
@@ -78,12 +94,14 @@ final class SHMarvelAPIProvider {
                     return
                 }
                 do {
-                    guard let newData = try self.data(with: responseData) else {
+                    guard
+                        let newData = try self.data(with: responseData) else {
                         complete(SHNetworkResult.error(SHError.decodingError))
                         return
                     }
-                    let comics = try JSONDecoder().decode([SHComic].self, from: newData)
-                    complete(SHNetworkResult.value(comics))
+                    let pagination = try JSONDecoder().decode(SHPagination.self, from: newData.root)
+                    let comics = try JSONDecoder().decode([SHComic].self, from: newData.results)
+                    complete(SHNetworkResult.value((comics, pagination)))
                 } catch _ {
                     complete(SHNetworkResult.error(SHError.decodingError))
                 }
@@ -91,13 +109,16 @@ final class SHMarvelAPIProvider {
         }
     }
     
-    private func data(with responseData: Data) throws -> Data? {
+    private func data(with responseData: Data) throws -> (root: Data, results: Data)? {
         let json = try JSONSerialization.jsonObject(with: responseData, options: [])
         guard
             let dict = json as? Dictionary<String, AnyObject>,
-            let results = dict["data"]?["results"] as? [[String: Any]] else {
+            let root = dict["data"] as? [String: Any],
+            let results = root["results"] as? [[String: Any]] else {
                 return nil
         }
-        return  try JSONSerialization.data(withJSONObject: results, options: .prettyPrinted)
+        let rootData = try JSONSerialization.data(withJSONObject: root, options: .prettyPrinted)
+        let resultData = try JSONSerialization.data(withJSONObject: results, options: .prettyPrinted)
+        return (rootData, resultData)
     }
 }

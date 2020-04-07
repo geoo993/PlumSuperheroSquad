@@ -8,9 +8,9 @@
 
 import UIKit
 
-struct SHAlertAction {
+public struct SHAlertAction {
 
-    typealias ActionHandler = (() -> Void)
+    public typealias ActionHandler = (() -> Void)
 
     // MARK: - Properties
     
@@ -20,7 +20,7 @@ struct SHAlertAction {
 
     // MARK: - Initializer
 
-    init(title: String, style: UIAlertAction.Style = .default, handler: ActionHandler? = nil) {
+    public init(title: String, style: UIAlertAction.Style = .default, handler: ActionHandler? = nil) {
         self.title = title
         self.style = style
         self.handler = handler
@@ -33,7 +33,7 @@ extension UIAlertController {
 
     // MARK: - Convenience initializer
 
-    convenience init(title: String?, message: String?, actions: [SHAlertAction], style: UIAlertController.Style = .alert) {
+    public convenience init(title: String?, message: String?, actions: [SHAlertAction], style: UIAlertController.Style = .alert) {
         self.init(title: title, message: message, preferredStyle: style)
 
         actions.map { (action) -> UIAlertAction in
