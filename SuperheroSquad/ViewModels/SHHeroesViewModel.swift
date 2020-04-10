@@ -18,6 +18,7 @@ protocol SHHeroesViewModelDelegate: class {
     func didGet(characters : [SHCharacter])
     func didLoad(isLoading: Bool)
     func didLoadNextPage(isLoading: Bool)
+    func didGet(error: SHError)
 }
 
 // MARK: -
@@ -79,9 +80,10 @@ final class SHHeroesViewModel: NSObject {
                 self?.isLoading = false
                 self?.delegate?.didLoad(isLoading: false)
                 self?.updateData(with: data.characters, and: data.pagination)
-            case .error(let err):
+            case .error(let error):
                 self?.isLoading = false
                 self?.delegate?.didLoad(isLoading: false)
+                self?.delegate?.didGet(error: error)
             }
         }
     }
@@ -105,19 +107,21 @@ final class SHHeroesViewModel: NSObject {
                 self?.isLoadingNextPage = false
                 self?.delegate?.didLoadNextPage(isLoading: false)
                 self?.updateData(with: data.characters, and: data.pagination, isNextPage: true)
-            case .error(let err):
+            case .error(let error):
                 self?.isLoadingNextPage = false
                 self?.delegate?.didLoadNextPage(isLoading: false)
+                self?.delegate?.didGet(error: error)
             }
         }
     }
     
     private func fetchCharacter(id: Int) {
-        dataProvider.fetchCharacter(with: id) { (result) in
+        dataProvider.fetchCharacter(with: id) { [weak self] (result) in
             switch result {
             case .value(let character):
                 break
-            case .error(let err): break
+            case .error(let error):
+                self?.delegate?.didGet(error: error)
             }
         }
         

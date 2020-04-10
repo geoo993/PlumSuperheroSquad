@@ -48,11 +48,6 @@ extension SHPagination {
             return offset + limit <= total
         }
     }
-    
-    public var itemsToLoadIndexed: Int {
-        return offset + count - 1
-    }
-    
 }
 
 // MARK: -

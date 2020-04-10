@@ -8,7 +8,9 @@
 
 import SHCore
 import SHData
+import SHAPIKit
 import UIKit
+import TransitionAnimation
 
 final class SHHomeViewController: UIViewController {
 
@@ -24,24 +26,21 @@ final class SHHomeViewController: UIViewController {
     // MARK: - IBOutlet properties
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var backgroundLabel: UILabel!
-    @IBOutlet private weak var headerView: UIView!
-    @IBOutlet private weak var heroesCollectionView: UITableView!
-    @IBOutlet private weak var heroesTableView: UITableView!
+    @IBOutlet private weak var heroesCollectionView: UICollectionView!
     
     // MARK: - Properties
     
     private let squadViewModel: SHSquadViewModel
     private let heroesViewModel: SHHeroesViewModel
-    private var collectionViewManager: SHSquadCollectionViewManager?
-    private var tableViewManager: SHHeroesTableViewManager
-    private let refreshControl = UIRefreshControl()
+    private var squadCollectionViewManager: SHSquadCollectionViewManager?
+    private var heroesCollectionViewManager: SHHeroesCollectionViewManager?
+    private var transition: CardTransition?
 
     // MARK: - Initializers
 
     init(squadViewModel: SHSquadViewModel, heroesViewModel: SHHeroesViewModel) {
         self.squadViewModel = squadViewModel
         self.heroesViewModel = heroesViewModel
-        self.tableViewManager = SHHeroesTableViewManager(viewModel: heroesViewModel)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -69,14 +68,15 @@ final class SHHomeViewController: UIViewController {
         backgroundLabel.text = UIConstants.backgroundTitle
         backgroundLabel.font = UIConstants.backgroundFont
         backgroundLabel.textColor = UIColor.brandWhite
-        refreshControl.tintColor = UIColor.brandWhite
-        refreshControl.addTarget(self, action: #selector(onPullToRefreshControl(sender:)), for: .valueChanged)
         setTitleView(with: UIImage(named: "marvel"))
         
+        heroesCollectionView.keyboardDismissMode = .interactive
+        heroesCollectionView.refreshControl = UIRefreshControl()
+        heroesCollectionView.refreshControl?.tintColor = UIColor.brandWhite
+        heroesCollectionView.refreshControl?.addTarget(self, action: #selector(onPullToRefreshControl(sender:)), for: .valueChanged)
+        heroesCollectionViewManager = SHHeroesCollectionViewManager(viewModel: heroesViewModel, collectionView: heroesCollectionView)
+        heroesCollectionViewManager?.delegate = self
         heroesViewModel.delegate = self
-        heroesTableView.addSubview(refreshControl)
-        tableViewManager.tableView = heroesTableView
-        tableViewManager.delegate = self
     }
     
     // MARK: - UI / Content update
@@ -107,8 +107,7 @@ final class SHHomeViewController: UIViewController {
     func presentAlert(title: String, message: String) {
         let alert: UIAlertController = {
             let actions = [
-                SHAlertAction(title: "alert__try_again_btn".localized, style: .default),
-                SHAlertAction(title: "alert__cancel_btn".localized, style: .cancel)
+                SHAlertAction(title: "home_alert__ok_btn".localized, style: .default)
             ]
             return UIAlertController(title: title, message: message, actions: actions)
         }()
@@ -124,37 +123,57 @@ extension SHHomeViewController: SHHeroesViewModelDelegate {
     // MARK: - SHHeroesViewModelDelegate
     
     func didGet(characters: [SHCharacter]) {
+        heroesCollectionView.reloadData()
         
-        heroesTableView.reloadData()
     }
     
     func didLoad(isLoading: Bool) {
         if !isLoading {
-            refreshControl.endRefreshing()
+            heroesCollectionView.refreshControl?.endRefreshing()
         }
     }
     
     func didLoadNextPage(isLoading: Bool) {
-        heroesTableView.tableFooterView = {
-            guard isLoading else { return UIView() }
-            let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-            activityIndicator.frame = CGRect(x: 0, y: 0, width: heroesTableView.bounds.width, height: UIConstants.nextPageLoadingViewHeight)
-            activityIndicator.startAnimating()
-            return activityIndicator
-        }()
-        
+       
     }
    
+    func didGet(error: SHError) {
+        heroesCollectionView.refreshControl?.endRefreshing()
+        switch error {
+        case .noConnection, .noData, .badResponse, .outdatedRequest, .failed:
+            presentAlert(title: "home_alert__title".localized, message: "home_alert__description".localized)
+        default: break
+        }
+    }
 }
 
 // MARK: -
 
-extension SHHomeViewController: SHHeroesTableViewManagerDelegate {
+extension SHHomeViewController: SHHeroesCollectionViewManagerDelegate {
+
     
     // MARK: - SHHeroesTableViewManagerDelegate
     
-    func didSelectHero(_ tableViewManager: SHHeroesTableViewManager, selectedHero hero: SHCharacter) {
+    func didSelectHero(_ collectionViewManager: SHHeroesCollectionViewManager, didSelectHero hero: SHCharacter, in cell: SHHereosCollectionViewCell) {
+        
+        let squadVC = SHSquadDetailViewController(hero: hero)
+        
+        // Get the location of the selected cell
+        let padding = SHHereosCollectionViewCell.UIConstants.padding
+        let bottomPadding = SHHereosCollectionViewCell.UIConstants.titleHeight + padding
+        cell.settings.cardContainerInsets =
+            UIEdgeInsets(top: padding, left: padding, bottom: bottomPadding, right: padding)
+        cell.settings.isEnabledBottomClose = false
+        
+        transition = CardTransition(cell: cell, settings: cell.settings)
+        squadVC.settings = cell.settings
+        squadVC.transitioningDelegate = transition
+        squadVC.modalPresentationStyle = .custom
+        
+        present(viewController: squadVC, from: cell, animated: true, completion: nil)
         
     }
     
 }
+
+extension SHHomeViewController: CardsViewController { }

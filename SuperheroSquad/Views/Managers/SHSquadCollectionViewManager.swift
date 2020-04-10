@@ -15,7 +15,7 @@ final class SHSquadCollectionViewManager: NSObject {
     // MARK: - UIConstants
     
     fileprivate enum UIConstants {
-        static let cellIdentifier = "SQUADCellID"
+
     }
 
     // MARK: - properties
@@ -48,7 +48,7 @@ final class SHSquadCollectionViewManager: NSObject {
     
     // MARK: - Internal functions
        
-    fileprivate func height(at index: Int, width: CGFloat) -> CGFloat {
+    fileprivate func height(at indexPath: IndexPath, width: CGFloat) -> CGFloat {
         return UITableView.automaticDimension
     }
 
@@ -86,7 +86,7 @@ extension SHSquadCollectionViewManager: UICollectionViewDelegateFlowLayout {
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: height(at: indexPath.row, width: collectionView.frame.width))
+        return CGSize(width: collectionView.frame.width, height: height(at: indexPath, width: collectionView.frame.width))
     }
 
 }

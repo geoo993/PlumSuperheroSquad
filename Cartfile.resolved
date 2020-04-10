@@ -1,1 +1,3 @@
+github "SDWebImage/SDWebImage" "5.7.0"
+github "appssemble/appstore-card-transition" "1.0.4"
 github "krzyzanowskim/CryptoSwift" "1.3.0"

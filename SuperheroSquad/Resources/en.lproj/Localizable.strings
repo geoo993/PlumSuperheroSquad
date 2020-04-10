@@ -7,6 +7,8 @@
 */
 
 "home__background_title" = "THE SQUAD WILL BE HERE SOON";
-
-"alert__try_again_btn" = "TRY AGAIN";
-"alert__cancel_btn" = "Cancel";
+"home_alert__ok_btn" = "OK";
+"home_alert__try_again_btn" = "Try Again";
+"home_alert__cancel_btn" = "Cancel";
+"home_alert__title" = "😬😬😬";
+"home_alert__description" = "Sorry, something when wrong. Please try again or come back later.";

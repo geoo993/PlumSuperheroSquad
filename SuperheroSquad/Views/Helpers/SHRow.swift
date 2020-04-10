@@ -32,9 +32,9 @@ enum SHRowType: String {
         case .squad:
             return SHSquadCollectionViewCell.self
         case .heroes:
-            return SHHeroesTableViewCell.self
+            return SHHereosCollectionViewCell.self
         case .loading:
-            return SHLoadingTableViewCell.self
+            return SHLoadingCollectionViewCell.self
         }
     }
 }

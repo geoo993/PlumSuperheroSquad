@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SHSquadDetailViewController" customModule="SuperheroSquad" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="7IK-dm-Jsc" id="9TJ-ud-3Ga"/>
+                <outlet property="containerView" destination="ILH-h7-1fu" id="8sL-45-8Pv"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ILH-h7-1fu">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="7IK-dm-Jsc">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FFf-NF-jXI">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ze-0l-vjw">
+                            <rect key="frame" x="180" y="816" width="54" height="30"/>
+                            <state key="normal" title="Dismiss"/>
+                            <connections>
+                                <action selector="dismiss:" destination="-1" eventType="touchUpInside" id="pju-xH-CLx"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="7IK-dm-Jsc" secondAttribute="bottom" id="Tnc-c6-kG5"/>
+                        <constraint firstAttribute="bottom" secondItem="3Ze-0l-vjw" secondAttribute="bottom" constant="50" id="TrT-AY-lrV"/>
+                        <constraint firstItem="7IK-dm-Jsc" firstAttribute="top" secondItem="ILH-h7-1fu" secondAttribute="top" id="cSu-fL-dcJ"/>
+                        <constraint firstItem="7IK-dm-Jsc" firstAttribute="leading" secondItem="ILH-h7-1fu" secondAttribute="leading" id="dw6-45-E94"/>
+                        <constraint firstItem="3Ze-0l-vjw" firstAttribute="centerX" secondItem="ILH-h7-1fu" secondAttribute="centerX" id="g6x-yV-mT7"/>
+                        <constraint firstAttribute="trailing" secondItem="7IK-dm-Jsc" secondAttribute="trailing" id="rq5-9e-eAP"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ILH-h7-1fu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="2rH-hx-1WF"/>
+                <constraint firstAttribute="bottom" secondItem="ILH-h7-1fu" secondAttribute="bottom" id="F9D-qn-bYd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ILH-h7-1fu" secondAttribute="trailing" id="X1X-Ei-qup"/>
+                <constraint firstItem="ILH-h7-1fu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bOI-Mf-H96"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="139" y="145"/>
+        </view>
+    </objects>
+</document>

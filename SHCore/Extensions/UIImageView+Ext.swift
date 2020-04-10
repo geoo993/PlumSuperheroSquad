@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 private var ImageViewLoadingAssociatedObjectHandle: UInt8 = 0
 
@@ -27,6 +28,7 @@ public extension UIImageView {
         currentURL = url
         guard let currentURL = currentURL else { return }
 
+        self.sd_setImage(with: currentURL, completed: nil)
        // TODO: cache image here
     }
 }
