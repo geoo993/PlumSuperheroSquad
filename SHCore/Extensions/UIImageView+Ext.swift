@@ -29,6 +29,6 @@ public extension UIImageView {
         guard let currentURL = currentURL else { return }
 
         self.sd_setImage(with: currentURL, completed: nil)
-       // TODO: cache image here
+       
     }
 }

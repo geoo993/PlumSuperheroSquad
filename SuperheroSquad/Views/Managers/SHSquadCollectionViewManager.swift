@@ -81,6 +81,18 @@ extension SHSquadCollectionViewManager: UICollectionViewDataSource {
 
 // MARK: -
 
+extension SHSquadCollectionViewManager: UICollectionViewDelegate {
+    
+    // MARK: - UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+
+}
+// MARK: -
+
 extension SHSquadCollectionViewManager: UICollectionViewDelegateFlowLayout {
     
     // MARK: - UICollectionViewDelegateFlowLayout

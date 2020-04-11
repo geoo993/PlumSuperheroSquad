@@ -25,14 +25,16 @@ final class SHSquadDetailViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-
     // MARK: - Properties
-    private var heroCharacter: SHCharacter
-
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    private let viewModel: SHSquadDetailViewModel
+    private var squadDetailCollectionViewManager: SHSquadDetailCollectionViewManager?
+    
     // MARK: - Initializers
 
-    init(hero: SHCharacter) {
-        self.heroCharacter = hero
+    init(viewModel: SHSquadDetailViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -56,13 +58,17 @@ final class SHSquadDetailViewController: UIViewController {
     // MARK: - UI Setup
 
     private func setup() {
-
+        view.backgroundColor = SHHomeViewController.UIConstants.background
+        view.clipsToBounds = true
+        squadDetailCollectionViewManager = SHSquadDetailCollectionViewManager(viewModel: viewModel, collectionView: collectionView)
+        squadDetailCollectionViewManager?.delegate = self
+        viewModel.delegate = self
     }
 
     // MARK: - Update
 
     func refreshUI() {
-        
+        viewModel.reload()
         
     }
     
@@ -70,6 +76,46 @@ final class SHSquadDetailViewController: UIViewController {
     
     @IBAction func dismiss(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+// MARK: -
+
+extension SHSquadDetailViewController: SHSquadDetailViewModelDelegate {
+    
+    // MARK: - SHSquadDetailViewModelDelegate
+
+    func didGet(comics : [SHComic]) {
+        collectionView.reloadData()
+    }
+    
+    func didLoad(isLoading: Bool) {
+        
+    }
+    
+    func didLoadNextPage(isLoading: Bool) {
+        
+    }
+    
+    func didGet(error: SHError) {
+        
+    }
+
+}
+
+// MARK: -
+
+extension SHSquadDetailViewController: SHSquadDetailCollectionViewManagerDelegate {
+    
+    // MARK: - SHSquadDetailCollectionViewManagerDelegate
+    
+    func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didFireHeroFromSquad hero: SHCharacter) {
+        
+    }
+    
+    func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didSelectComic comic: SHComic) {
+        
     }
     
 }

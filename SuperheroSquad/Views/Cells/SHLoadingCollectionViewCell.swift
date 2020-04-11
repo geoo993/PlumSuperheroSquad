@@ -33,10 +33,6 @@ final class SHLoadingCollectionViewCell: UICollectionViewCell {
       setupUI()
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
     // MARK: - Setup
 
     private func setupUI() {

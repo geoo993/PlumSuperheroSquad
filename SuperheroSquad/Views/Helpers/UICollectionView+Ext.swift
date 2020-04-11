@@ -24,6 +24,15 @@ extension UICollectionView {
         }
     }
     
+    func registerHeaderNib(_ cellType: SHRowType) {
+        if let nibName = cellType.nibName {
+            let bundle = Bundle(for: cellType.cellClass)
+            register(UINib(nibName: nibName, bundle: bundle), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: cellType.identifier)
+        } else {
+            fatalError("Cell type for header with identifier: \(cellType.identifier) doesn't have a nib name defined")
+        }
+    }
+    
     func registerFooterNib(_ cellType: SHRowType) {
         if let nibName = cellType.nibName {
             let bundle = Bundle(for: cellType.cellClass)

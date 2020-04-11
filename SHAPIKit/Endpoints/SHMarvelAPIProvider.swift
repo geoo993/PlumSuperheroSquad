@@ -23,7 +23,7 @@ public final class SHMarvelAPIProvider {
     // MARK: - Properties
     
     public typealias SHCharactersResult = (characters: [SHCharacter], pagination: SHPagination)
-    public typealias SHComicsResult = (characters: [SHComic], pagination: SHPagination)
+    public typealias SHComicsResult = (comics: [SHComic], pagination: SHPagination)
     private let marvel = SHAPIRequest<SHMarvelAPI>()
     
     // MARK: - Initializer
@@ -31,32 +31,6 @@ public final class SHMarvelAPIProvider {
     public init() {}
     
     // MARK: - Helper functions
-    
-    public func fetchCharacter(with characterId: Int, completion: @escaping ((SHNetworkResult<SHCharacter>) -> Void) ) {
-        let complete: ((SHNetworkResult<SHCharacter>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
-        marvel.request(with: .character(characterId: characterId)) { (data, error) in
-            if let error = error {
-                complete(SHNetworkResult.error(error))
-            } else {
-                guard let responseData = data else {
-                    complete(SHNetworkResult.error(SHError.noData))
-                    return
-                }
-                do {
-                    guard
-                        let newData = try self.data(with: responseData),
-                        let character = try JSONDecoder().decode([SHCharacter].self, from: newData.results).first else {
-                        complete(SHNetworkResult.error(SHError.decodingError))
-                        return
-                    }
-                    complete(SHNetworkResult.value(character))
-                } catch _ {
-                    complete(SHNetworkResult.error(SHError.decodingError))
-                }
-            }
-        }
-    
-    }
     
     public func fetchCharacters(limit: Int = 50, offset: Int = 0, completion: @escaping ((SHNetworkResult<SHCharactersResult>) -> Void) ) {
         let complete: ((SHNetworkResult<SHCharactersResult>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
@@ -83,9 +57,9 @@ public final class SHMarvelAPIProvider {
         }
     }
     
-    public func fetchComics(limit: Int = 50, offset: Int = 0,completion: @escaping ((SHNetworkResult<SHComicsResult>) -> Void) ) {
+    public func fetchComics(character: SHCharacter, limit: Int = 50, offset: Int = 0,completion: @escaping ((SHNetworkResult<SHComicsResult>) -> Void) ) {
         let complete: ((SHNetworkResult<SHComicsResult>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
-        marvel.request(with: .comics(limit: limit, offset: offset)) { (data, error) in
+        marvel.request(with: .comics(characterId: character.id, limit: limit, offset: offset)) { (data, error) in
             if let error = error {
                 complete(SHNetworkResult.error(error))
             } else {

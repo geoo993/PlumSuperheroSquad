@@ -12,3 +12,6 @@
 "home_alert__cancel_btn" = "Cancel";
 "home_alert__title" = "😬😬😬";
 "home_alert__description" = "Sorry, something when wrong. Please try again or come back later.";
+"squad_detail__free_character" = "💪 Recruit to Squad";
+"squad_detail__hired_character" = "🔥 Fire from squad";
+"squad_detail__last_appeared" = "Last appeared in";

@@ -20,20 +20,21 @@ final class SHHereosCollectionViewCell: UICollectionViewCell {
         static let titleHeight: CGFloat = 60
         static let aspectRatio: CGFloat = 1.272
         static let cornerRadius: CGFloat = 10
-        static let cellHeight: CGFloat = 150
         static let background: UIColor = .brandSecondary
         static let titleTextColor: UIColor = .brandWhite
         static let titleFont = SHFontStyle.marvel(20).font
+        static let gradientLayerKey = "gradientLayerKey"
     }
 
     // MARK: - IBOutlet properties
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var backgroundImage: UIImageView!
-    @IBOutlet weak var seperator: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     
-      
+    // MARK: - Properties
+    var layers: [String: CALayer] = [:]
+    
     // MARK: - UICollectionViewCell life cycle
 
     override func awakeFromNib() {
@@ -41,15 +42,28 @@ final class SHHereosCollectionViewCell: UICollectionViewCell {
       setupUI()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        guard let gradientLayer = layers[UIConstants.gradientLayerKey] else { return }
+        gradientLayer.frame = self.bounds
+        gradientLayer.frame.origin.y -= bounds.height
+    }
+   
     // MARK: - Setup
 
     private func setupUI() {
         
         backgroundColor = UIConstants.background
-        seperator.backgroundColor = UIConstants.background
+        
         roundCorners(withRadius: UIConstants.cornerRadius)
         titleLabel.textColor = UIConstants.titleTextColor
         titleLabel.font = UIConstants.titleFont
+        layers[UIConstants.gradientLayerKey] = setupGradient(in: containerView, with: [UIColor.clear.cgColor, UIConstants.background.cgColor])
+        containerView.roundCorners(withRadius: UIConstants.cornerRadius)
+        containerView.backgroundColor = UIConstants.background
+        containerView.clipsToBounds = true
+        containerView.bringSubviewToFront(titleLabel)
     }
 
     // MARK: - Cell configuration

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="SHButtonCollectionViewCell" customModule="SuperheroSquad" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="345" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="345" height="60"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URI-e3-LA9">
+                        <rect key="frame" x="0.0" y="0.0" width="345" height="60"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yJ-7n-cln">
+                                <rect key="frame" x="0.0" y="15" width="345" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="2yJ-7n-cln" firstAttribute="top" secondItem="URI-e3-LA9" secondAttribute="top" constant="15" id="4Gb-gL-nyM"/>
+                            <constraint firstItem="2yJ-7n-cln" firstAttribute="leading" secondItem="URI-e3-LA9" secondAttribute="leading" id="5rv-CF-Nj9"/>
+                            <constraint firstAttribute="trailing" secondItem="2yJ-7n-cln" secondAttribute="trailing" id="JH8-xn-PgG"/>
+                            <constraint firstAttribute="bottom" secondItem="2yJ-7n-cln" secondAttribute="bottom" constant="15" id="fJg-qT-NGw"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="URI-e3-LA9" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="i3y-Qz-wGd"/>
+                <constraint firstAttribute="trailing" secondItem="URI-e3-LA9" secondAttribute="trailing" id="jOO-vj-5WM"/>
+                <constraint firstItem="URI-e3-LA9" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="pOi-bm-3LE"/>
+                <constraint firstAttribute="bottom" secondItem="URI-e3-LA9" secondAttribute="bottom" id="sjh-yy-ueG"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="button" destination="2yJ-7n-cln" id="Bxm-ao-I8w"/>
+                <outlet property="containerView" destination="URI-e3-LA9" id="G2u-hr-j3I"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="145"/>
+        </collectionViewCell>
+    </objects>
+</document>

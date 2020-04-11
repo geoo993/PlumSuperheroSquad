@@ -14,7 +14,7 @@ protocol SHHeroesCollectionViewManagerDelegate: class {
     
     // MARK: - SHHeroesCollectionViewManagerDelegate
     
-    func didSelectHero(_ collectionViewManager: SHHeroesCollectionViewManager, didSelectHero hero: SHCharacter, in cell: SHHereosCollectionViewCell)
+    func manager(_ collectionViewManager: SHHeroesCollectionViewManager, didSelectHero hero: SHCharacter, in cell: SHHereosCollectionViewCell)
 }
 
 final class SHHeroesCollectionViewManager: NSObject {
@@ -26,6 +26,7 @@ final class SHHeroesCollectionViewManager: NSObject {
         static let separatorColor = UIColor.brandSecondary
         static let cellSpacing: CGFloat = 10.0
         static let bottomPullThreshold: Float = 100
+        static let padding: CGFloat = 15
     }
     
     // MARK: - Properties
@@ -98,7 +99,7 @@ extension SHHeroesCollectionViewManager: UICollectionViewDelegate {
             let item = dataSource[safe: indexPath.row],
             let cell = collectionView.cellForItem(at: indexPath) as? SHHereosCollectionViewCell else
                { return }
-        delegate?.didSelectHero(self, didSelectHero: item, in: cell)
+        delegate?.manager(self, didSelectHero: item, in: cell)
     }
     
     // MARK: - Pagination
@@ -136,8 +137,13 @@ extension SHHeroesCollectionViewManager: UICollectionViewDelegateFlowLayout {
     
     // MARK: - UICollectionViewDelegateFlowLayout
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: UIConstants.padding, left: 0, bottom: UIConstants.padding, right: 0)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: height(at: indexPath, width: collectionView.frame.width))
+        let width = collectionView.frame.width - (UIConstants.padding * 2)
+        return CGSize(width: width, height: height(at: indexPath, width: width))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -148,7 +154,8 @@ extension SHHeroesCollectionViewManager: UICollectionViewDelegateFlowLayout {
         if let pagination = viewModel.pagination, pagination.isNextListAvailable == false {
             return CGSize.zero
         }
-        return CGSize(width: collectionView.frame.width, height: SHLoadingCollectionViewCell.UIConstants.cellHeight)
+        let width = collectionView.frame.width - (UIConstants.padding * 2) - 5
+        return CGSize(width: width, height: SHLoadingCollectionViewCell.UIConstants.cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

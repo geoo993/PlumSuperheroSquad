@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     
@@ -20,5 +21,16 @@ extension String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: comment)
     }
    
-    // MARK: -
+    // MARK: - Sizing
+    
+    public func boundingBox(constrainedWith width: CGFloat, font: UIFont) -> CGRect {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        return boundingBox
+    }
+
+    public func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        return ceil(boundingBox(constrainedWith: width, font: font).height)
+    }
+    
 }

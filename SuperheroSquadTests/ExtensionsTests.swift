@@ -21,13 +21,6 @@ class ExtensionsTests: XCTestCase {
         super.tearDown()
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
     // MARK: - Safe Collection
    
    func testSafeCollection() {
@@ -42,5 +35,23 @@ class ExtensionsTests: XCTestCase {
        
        XCTAssertTrue(safeCode == 403)
    }
+    
+    func testTupleArray() {
+        let array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        let result = array.tuple()
+        
+        XCTAssertTrue(result.count == 5)
+        XCTAssertNotNil(result[0].1)
+        XCTAssertNotNil(result[1].1)
+        XCTAssertNotNil(result[2].1)
+        XCTAssertNotNil(result[3].1)
+        XCTAssertNil(result[4].1)
+    }
+    
+    func testTupleArrayMeasured() {
+        self.measure {
+            _ = [0..<1000000].flatMap{$0}.tuple()
+        }
+    }
        
 }

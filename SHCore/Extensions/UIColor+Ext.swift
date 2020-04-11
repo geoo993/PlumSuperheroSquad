@@ -45,6 +45,20 @@ public extension UIColor {
         return UIColor(hex: 0x979797)
     }
     
+    /**
+    Style guide: Main Deluge color
+    */
+    static var brandDeluge: UIColor {
+        return UIColor(hex: 0x827397)
+    }
+    
+    /**
+    Style guide: Main dark blue color
+    */
+    static var brandDarkBlue: UIColor {
+        return UIColor(hex: 0x335473)
+    }
+    
     // MARK: - Initializers
     
     convenience private init(red: CGFloat, green: CGFloat, blue: CGFloat) {

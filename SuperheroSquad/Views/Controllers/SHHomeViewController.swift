@@ -18,6 +18,7 @@ final class SHHomeViewController: UIViewController {
     // MARK: - UIConstants
     
     enum UIConstants {
+        static let background: UIColor = .brandPrimary
         static let backgroundTitle = "home__background_title".localized
         static let backgroundFont = SHFontStyle.marvel(30).font
         static let nextPageLoadingViewHeight: CGFloat = 80.0
@@ -30,17 +31,16 @@ final class SHHomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let squadViewModel: SHSquadViewModel
-    private let heroesViewModel: SHHeroesViewModel
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    private let viewModel: SHHeroesViewModel
     private var squadCollectionViewManager: SHSquadCollectionViewManager?
     private var heroesCollectionViewManager: SHHeroesCollectionViewManager?
     private var transition: CardTransition?
 
     // MARK: - Initializers
 
-    init(squadViewModel: SHSquadViewModel, heroesViewModel: SHHeroesViewModel) {
-        self.squadViewModel = squadViewModel
-        self.heroesViewModel = heroesViewModel
+    init(viewModel: SHHeroesViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -53,40 +53,31 @@ final class SHHomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
         refreshUI()
     }
-
+    
     // MARK: - UI Setup
     
     private func setup() {
-        view.backgroundColor = .brandPrimary
-        backgroundImageView.image = heroesViewModel.randomBackground
+        view.backgroundColor = UIConstants.background
+        backgroundImageView.image = viewModel.randomBackground
         backgroundLabel.text = UIConstants.backgroundTitle
         backgroundLabel.font = UIConstants.backgroundFont
         backgroundLabel.textColor = UIColor.brandWhite
         setTitleView(with: UIImage(named: "marvel"))
         
-        heroesCollectionView.keyboardDismissMode = .interactive
         heroesCollectionView.refreshControl = UIRefreshControl()
         heroesCollectionView.refreshControl?.tintColor = UIColor.brandWhite
         heroesCollectionView.refreshControl?.addTarget(self, action: #selector(onPullToRefreshControl(sender:)), for: .valueChanged)
-        heroesCollectionViewManager = SHHeroesCollectionViewManager(viewModel: heroesViewModel, collectionView: heroesCollectionView)
+        heroesCollectionViewManager = SHHeroesCollectionViewManager(viewModel: viewModel, collectionView: heroesCollectionView)
         heroesCollectionViewManager?.delegate = self
-        heroesViewModel.delegate = self
+        viewModel.delegate = self
     }
     
     // MARK: - UI / Content update
-    
-    private func updateHeader(forYOffset offset: CGFloat, in width: CGFloat) {
-       
-    }
-    
+   
     private func refreshUI() {
-        heroesViewModel.reload()
+        viewModel.reload()
         
     }
  
@@ -154,18 +145,18 @@ extension SHHomeViewController: SHHeroesCollectionViewManagerDelegate {
     
     // MARK: - SHHeroesTableViewManagerDelegate
     
-    func didSelectHero(_ collectionViewManager: SHHeroesCollectionViewManager, didSelectHero hero: SHCharacter, in cell: SHHereosCollectionViewCell) {
+    func manager(_ collectionViewManager: SHHeroesCollectionViewManager, didSelectHero hero: SHCharacter, in cell: SHHereosCollectionViewCell) {
         
-        let squadVC = SHSquadDetailViewController(hero: hero)
+        let squadVC = SHSquadDetailViewController(viewModel: SHSquadDetailViewModel(character: hero))
+        squadVC.loadViewIfNeeded()
+        squadVC.view.layoutIfNeeded()
         
-        // Get the location of the selected cell
-        let padding = SHHereosCollectionViewCell.UIConstants.padding
-        let bottomPadding = SHHereosCollectionViewCell.UIConstants.titleHeight + padding
-        cell.settings.cardContainerInsets =
-            UIEdgeInsets(top: padding, left: padding, bottom: bottomPadding, right: padding)
         cell.settings.isEnabledBottomClose = false
-        
+        cell.settings.cardCornerRadius = SHHereosCollectionViewCell.UIConstants.cornerRadius
+        cell.settings.cardVerticalExpandingStyle = .fromTop
+        cell.settings.cardContainerInsets = UIEdgeInsets.zero
         transition = CardTransition(cell: cell, settings: cell.settings)
+        
         squadVC.settings = cell.settings
         squadVC.transitioningDelegate = transition
         squadVC.modalPresentationStyle = .custom

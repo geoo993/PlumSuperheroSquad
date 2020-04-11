@@ -16,6 +16,8 @@ public enum SHFontStyle {
 
     // MARK: - Cases (dynamic font sizes)
     
+    case title1
+    case title3
     case headline
     case body
     case callout
@@ -47,6 +49,8 @@ public enum SHFontStyle {
     
     private var scalableFontStyleTuple: (textStyle: UIFont.TextStyle, font: UIFont) {
         switch self {
+        case .title1: return (UIFont.TextStyle.title1, UIFont.boldSystemFont(ofSize: 34))
+        case .title3: return (UIFont.TextStyle.title2, UIFont.boldSystemFont(ofSize: 20))
         case .headline: return (UIFont.TextStyle.headline, UIFont.boldSystemFont(ofSize: 17))
         case .body: return (UIFont.TextStyle.body, UIFont.systemFont(ofSize: 17))
         case .callout: return (UIFont.TextStyle.callout, UIFont.systemFont(ofSize: 15))

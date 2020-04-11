@@ -114,19 +114,7 @@ final class SHHeroesViewModel: NSObject {
             }
         }
     }
-    
-    private func fetchCharacter(id: Int) {
-        dataProvider.fetchCharacter(with: id) { [weak self] (result) in
-            switch result {
-            case .value(let character):
-                break
-            case .error(let error):
-                self?.delegate?.didGet(error: error)
-            }
-        }
-        
-    }
-    
+  
     private func updateData(with characters: [SHCharacter], and pagination: SHPagination, isNextPage: Bool = false) {
         self.pagination = pagination
         let previousCharacters = self.characters

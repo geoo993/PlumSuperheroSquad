@@ -16,6 +16,12 @@ enum SHRowType: String {
     case squad
     case heroes
     case loading
+    case header
+    case title
+    case button
+    case paragraph
+    case heading
+    case comic
     
     // MARK: - Properties
 
@@ -35,6 +41,14 @@ enum SHRowType: String {
             return SHHereosCollectionViewCell.self
         case .loading:
             return SHLoadingCollectionViewCell.self
+        case .header:
+            return SHHeaderCollectionViewCell.self
+        case .title, .paragraph, .heading:
+            return SHLabelCollectionViewCell.self
+        case .button:
+            return SHButtonCollectionViewCell.self
+        case .comic:
+            return SHComicsCollectionViewCell.self
         }
     }
 }
@@ -47,15 +61,11 @@ struct SHRow<T> {
     
     let type: SHRowType
     let data: T
-    let width: CGFloat
-    let accessoryType: UITableViewCell.AccessoryType
     
     // MARK: - Initialiser
     
-    init(_ type: SHRowType, data: T, width: CGFloat = 0, accessoryType: UITableViewCell.AccessoryType = .none) {
+    init(_ type: SHRowType, data: T) {
         self.type = type
         self.data = data
-        self.width = width
-        self.accessoryType = accessoryType
     }
 }

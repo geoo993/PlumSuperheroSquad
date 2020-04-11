@@ -18,11 +18,8 @@ private enum Constants {
 
 enum SHMarvelAPI {
     case characters(limit: Int, offset: Int)
-    case character(characterId: Int)
-    case characterComics(characterId: Int)
-    case comics(limit: Int, offset: Int)
+    case comics(characterId: Int, limit: Int, offset: Int)
     case comic(comicId: Int)
-    case comicCharacters(comicId: Int)
 }
 
 //MAR: - SHMarvelAPIType Extension
@@ -37,16 +34,10 @@ extension SHMarvelAPI: SHEndpointType {
         switch self {
         case .characters:
             return "/v1/public/characters"
-        case .character(let characterId):
-            return "/v1/public/characters/\(characterId)"
-        case .characterComics(let characterId):
+        case .comics(let characterId, _, _):
             return "/v1/public/characters/\(characterId)/comics"
-        case .comics:
-            return "/v1/public/comics"
         case .comic(let comicId):
             return "/v1/public/comics/\(comicId)"
-        case .comicCharacters(let comicId):
-            return "/v1/public/comics/\(comicId)/characters"
         }
     }
     
@@ -56,7 +47,7 @@ extension SHMarvelAPI: SHEndpointType {
     
     var task: SHHTTPTask {
         switch self {
-        case .comics(let limit, let offset):
+        case .comics(_, let limit, let offset):
             return .requestParameters(body: nil,
                                       url: ["ts":       Constants.ts,
                                             "apikey":   Constants.PUBLIC_KEY,
