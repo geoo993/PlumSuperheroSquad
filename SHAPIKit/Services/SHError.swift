@@ -20,6 +20,7 @@ public enum SHError: Error {
     case decodingError
     case outdatedRequest
     case badResponse(code: Int)
+    case coreDataError(String)
    
     public var localizedDescription: String {
         switch self {
@@ -34,6 +35,7 @@ public enum SHError: Error {
         case .decodingError: return "Failed to decode data"
         case .outdatedRequest: return "The url you requested is outdated"
         case .badResponse(let code): return "We had a bad network response with code \(code)"
+        case .coreDataError(let error): return "Enounctere error whilst persisting data: \(error)"
         }
     }
 }
@@ -55,6 +57,7 @@ extension SHError {
         case (.decodingError, .decodingError): return true
         case (.outdatedRequest, .outdatedRequest): return true
         case (.badResponse(let lCode), .badResponse(let rCode)): return lCode == rCode
+        case (.coreDataError(let lResult), .coreDataError(let rResult)): return lResult == rResult
         default: return false
         }
     }

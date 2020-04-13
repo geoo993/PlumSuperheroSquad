@@ -8,6 +8,11 @@
 
 import Foundation
 
+public enum SHPageReloadType {
+    case firstPage
+    case nextPage
+}
+
 public struct SHPagination {
 
     public let count: Int
@@ -43,10 +48,14 @@ extension SHPagination {
     
     public var isNextListAvailable: Bool {
         if count < limit {
-            return offset + count <= total
+            return nextOffset <= total
         } else {
-            return offset + limit <= total
+            return offset + count <= total
         }
+    }
+    
+    public var nextOffset: Int {
+        return offset + limit
     }
 }
 

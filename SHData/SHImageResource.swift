@@ -16,17 +16,26 @@ public struct SHImageResource: Decodable {
     }
 
     public let url: URL
-
+    public let lastPathComponent: String
+    
+    public init?(from string: String) {
+        guard let url = URL(string: string)  else {
+            return nil
+        }
+        self.url = url
+        self.lastPathComponent = url.deletingPathExtension().lastPathComponent
+    }
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ImageKeys.self)
 
         let path = try container.decode(String.self, forKey: .path)
         let fileExtension = try container.decode(String.self, forKey: .fileExtension)
-
-        guard let url = URL(string: "\(path).\(fileExtension)") else {
+        
+        guard let url = URL(string: "\(path).\(fileExtension)")  else {
             throw NSError(domain: "Could not create image url", code: 1, userInfo: [:] )
         }
-
         self.url = url
+        self.lastPathComponent = url.deletingPathExtension().lastPathComponent
     }
 }
