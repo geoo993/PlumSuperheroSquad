@@ -23,8 +23,6 @@ final class SHHeroesCollectionViewManager: NSObject {
     
     enum UIConstants {
         static let background = UIColor.brandPrimary
-        static let separatorColor = UIColor.brandSecondary
-        static let cellSpacing: CGFloat = 10.0
         static let bottomPullThreshold: Float = 100
         static let padding: CGFloat = 15
     }
@@ -32,7 +30,7 @@ final class SHHeroesCollectionViewManager: NSObject {
     // MARK: - Properties
     
     let collectionView: UICollectionView
-    var footerView: SHLoadingCollectionViewCell?
+    private var footerView: SHLoadingCollectionViewCell?
     private let viewModel: SHHeroesViewModel
     fileprivate var dataSource: [SHCharacter] { return viewModel.characters }
     weak var delegate: SHHeroesCollectionViewManagerDelegate?
@@ -120,10 +118,11 @@ extension SHHeroesCollectionViewManager: UICollectionViewDelegate {
         guard let footer = footerView else { return }
         let currentOffset = scrollView.contentOffset.y + scrollView.bounds.height
         let percentage = currentOffset / scrollView.contentSize.height
-        if percentage >= 0.8 || footer.isAnimating {
-            footer.startAnimation()
+        if percentage >= 0.8 {
             viewModel.reload(type: .nextPage)
-            if viewModel.isLoadingNextPage == false {
+            if viewModel.isLoadingNextPage {
+                footer.startAnimation()
+            } else  {
                 footer.stopAnimation()
             }
         }

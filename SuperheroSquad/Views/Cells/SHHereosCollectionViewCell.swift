@@ -22,7 +22,7 @@ final class SHHereosCollectionViewCell: UICollectionViewCell {
         static let cornerRadius: CGFloat = 10
         static let background: UIColor = .brandSecondary
         static let titleTextColor: UIColor = .brandWhite
-        static let titleFont = SHFontStyle.marvel(20).font
+        static let titleFont = SHFontStyle.marvel(22).font
         static let gradientLayerKey = "gradientLayerKey"
     }
 

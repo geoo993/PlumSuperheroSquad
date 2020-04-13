@@ -10,25 +10,9 @@ import SHAPIKit
 import SHData
 import SHCore
 import UIKit
-
-protocol SHHeroesViewModelDelegate: class {
-    
-    // MARK: - SHCharactersViewModelDelegate
-    
-    func didGet(characters : [SHCharacter])
-    func didLoad(isLoading: Bool)
-    func didLoadNextPage(isLoading: Bool)
-    func didGet(error: SHError)
-}
-
-// MARK: -
+import CoreData
 
 final class SHHeroesViewModel: NSObject {
-    
-    enum ReloadType {
-        case first
-        case nextPage
-    }
     
     // MARK: - Constants
     
@@ -38,32 +22,40 @@ final class SHHeroesViewModel: NSObject {
     }
     
     // MARK: - Properties
+    weak var delegate: SHViewModelDelegate?
     
-    weak var delegate: SHHeroesViewModelDelegate?
-    private let dataProvider = SHMarvelAPIProvider()
+    private var fullCharacters = [SHCharacter]()
     private (set)var characters = [SHCharacter]()
-    private (set)var pagination: SHPagination?
-    private var isLoading: Bool = false
-    private (set)var isLoadingNextPage: Bool = false
+    private (set)var squad = [SHCharacterModel]()
+    
+    var pagination: SHPagination?
+    var isLoading: Bool = false
+    var isLoadingNextPage: Bool = false
  
-    // MARK: - Internal functions
+    // MARK: Helpers
     
-    override init() {
-        super.init()
-    }
-    
-    func reload(type: ReloadType = .first) {
+    func reload(type: SHPageReloadType = .firstPage) {
         switch type {
-        case .first:
-            fetchHeroes()
+        case .firstPage:
+            fetchPage()
         case .nextPage:
-            fetchNextHeroes()
+            fetchNextPage()
         }
     }
     
-    // MARK: - Private functions
+    
+    func reloadSquad() {
+        updateStatus()
+       
+    }
+    
+}
 
-    private func fetchHeroes() {
+extension SHHeroesViewModel: SHPageModel {
+
+    // MARK: - SHMarvelAPIProvider
+
+    func fetchPage() {
         
         // 1
          guard isLoading == false else {
@@ -74,12 +66,12 @@ final class SHHeroesViewModel: NSObject {
         isLoading = true
         delegate?.didLoad(isLoading: true)
         
-        dataProvider.fetchCharacters(limit: Constants.charactersLimit) { [weak self] (result) in
+        SHMarvelAPIProvider.shared.fetchCharacters { [weak self] (result) in
             switch result {
             case .value(let data):
                 self?.isLoading = false
                 self?.delegate?.didLoad(isLoading: false)
-                self?.updateData(with: data.characters, and: data.pagination)
+                self?.update(marvelData: data.characters, and: data.pagination)
             case .error(let error):
                 self?.isLoading = false
                 self?.delegate?.didLoad(isLoading: false)
@@ -88,7 +80,7 @@ final class SHHeroesViewModel: NSObject {
         }
     }
     
-    private func fetchNextHeroes() {
+    func fetchNextPage() {
         
         // 1
          guard isLoadingNextPage == false, let pagination = pagination, pagination.isNextListAvailable else {
@@ -99,14 +91,12 @@ final class SHHeroesViewModel: NSObject {
         isLoadingNextPage = true
         delegate?.didLoadNextPage(isLoading: true)
         
-        let limit = Constants.charactersLimit
-        let offset = pagination.offset + Constants.charactersLimit
-        dataProvider.fetchCharacters(limit: limit, offset: offset) { [weak self] (result) in
+        SHMarvelAPIProvider.shared.fetchCharacters(offset: pagination.nextOffset) { [weak self] (result) in
             switch result {
             case .value(let data):
                 self?.isLoadingNextPage = false
                 self?.delegate?.didLoadNextPage(isLoading: false)
-                self?.updateData(with: data.characters, and: data.pagination, isNextPage: true)
+                self?.update(marvelData: data.characters, and: data.pagination, isNextPage: true)
             case .error(let error):
                 self?.isLoadingNextPage = false
                 self?.delegate?.didLoadNextPage(isLoading: false)
@@ -115,13 +105,30 @@ final class SHHeroesViewModel: NSObject {
         }
     }
   
-    private func updateData(with characters: [SHCharacter], and pagination: SHPagination, isNextPage: Bool = false) {
+    func update(marvelData: [SHCharacter], and pagination: SHPagination, isNextPage: Bool = false) {
         self.pagination = pagination
-        let previousCharacters = self.characters
-        self.characters = isNextPage ? previousCharacters + characters : characters
-        self.delegate?.didGet(characters: characters)
+        let previousCharacters = self.fullCharacters
+        let fullList = isNextPage ? previousCharacters + marvelData : marvelData
+        self.fullCharacters = fullList
+        self.characters = fullList.ignoreNotAvailableImages
+        self.delegate?.didGet(characters)
     }
-   
+    
+    // MARK: Core Data
+    
+    func updateStatus()  {
+        
+        SHMarvelAPIProvider.shared.fetchSquad { [weak self] (result) in
+            switch result {
+            case .value(let data):
+                self?.squad = data
+                self?.delegate?.didGet(data)
+            case .error(let error):
+                self?.delegate?.didGet(error: error)
+            }
+        }
+    }
+     
 }
 
 // MARK: -

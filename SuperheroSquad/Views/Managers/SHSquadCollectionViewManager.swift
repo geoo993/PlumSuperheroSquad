@@ -10,23 +10,36 @@ import SHCore
 import SHData
 import UIKit
 
+protocol SHSquadCollectionViewManagerDelegate: class {
+    
+    // MARK: - SHHeroesCollectionViewManagerDelegate
+    
+    func manager(_ collectionViewManager: SHSquadCollectionViewManager, didSelectHero hero: SHCharacter, in cell: SHSquadCollectionViewCell)
+}
+
 final class SHSquadCollectionViewManager: NSObject {
 
     // MARK: - UIConstants
     
     fileprivate enum UIConstants {
-
+        static let height: CGFloat = 110.0
+        static let aspectRatio: CGFloat = 0.615
     }
 
     // MARK: - properties
     
+    weak var delegate: SHSquadCollectionViewManagerDelegate?
     private let collectionView: UICollectionView
-    fileprivate var dataSource: [SHRow<SHCharacter>] = []
+    private let viewModel: SHHeroesViewModel
+    fileprivate var dataSource: [SHCharacter] {
+        return viewModel.squad.compactMap{ $0.asSquadCharacter }
+    }
     
     // MARK: - Initializer
     
-    init(collectionView: UICollectionView) {
+    init(viewModel: SHHeroesViewModel, collectionView: UICollectionView) {
         self.collectionView = collectionView
+        self.viewModel = viewModel
         super.init()
         setupCollectionView()
     }
@@ -37,21 +50,9 @@ final class SHSquadCollectionViewManager: NSObject {
         [SHRowType.squad].forEach { collectionView.registerNib($0) }
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .brandPrimary
+        collectionView.backgroundColor = .clear
+        collectionView.contentInsetAdjustmentBehavior = .never
     }
-    
-    // MARK: -
-       
-    func rebuildDataSource(with width: CGFloat, heroes: [SHCharacter]) {
-       
-    }
-    
-    // MARK: - Internal functions
-       
-    fileprivate func height(at indexPath: IndexPath, width: CGFloat) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
 }
 
 // MARK: -
@@ -70,12 +71,9 @@ extension SHSquadCollectionViewManager: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let item = dataSource[safe: indexPath.row] else { return UICollectionViewCell() }
-        switch item.type {
-        case .squad:
-            guard let cell = collectionView.dequeueReusableCell(.squad, for: indexPath) as? SHSquadCollectionViewCell else { return UICollectionViewCell() }
-            return cell
-        default: return UICollectionViewCell()
-        }
+        guard let cell = collectionView.dequeueReusableCell(.squad, for: indexPath) as? SHSquadCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(name: item.name, url: item.thumbnail.url)
+        return cell
     }
 }
 
@@ -86,11 +84,15 @@ extension SHSquadCollectionViewManager: UICollectionViewDelegate {
     // MARK: - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        guard
+            let item = dataSource[safe: indexPath.row],
+            let cell = collectionView.cellForItem(at: indexPath) as? SHSquadCollectionViewCell else
+               { return }
+        delegate?.manager(self, didSelectHero: item, in: cell)
     }
-    
 
 }
+
 // MARK: -
 
 extension SHSquadCollectionViewManager: UICollectionViewDelegateFlowLayout {
@@ -98,7 +100,12 @@ extension SHSquadCollectionViewManager: UICollectionViewDelegateFlowLayout {
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: height(at: indexPath, width: collectionView.frame.width))
+        let width = UIConstants.height * UIConstants.aspectRatio
+        return CGSize(width: width, height: UIConstants.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
     }
 
 }

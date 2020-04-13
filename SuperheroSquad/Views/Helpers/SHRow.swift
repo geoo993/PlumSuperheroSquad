@@ -21,6 +21,8 @@ enum SHRowType: String {
     case button
     case paragraph
     case heading
+    case more
+    case comics
     case comic
     
     // MARK: - Properties
@@ -43,12 +45,14 @@ enum SHRowType: String {
             return SHLoadingCollectionViewCell.self
         case .header:
             return SHHeaderCollectionViewCell.self
-        case .title, .paragraph, .heading:
+        case .title, .paragraph, .heading, .more:
             return SHLabelCollectionViewCell.self
         case .button:
             return SHButtonCollectionViewCell.self
-        case .comic:
+        case .comics:
             return SHComicsCollectionViewCell.self
+        case .comic:
+            return SHComicCollectionViewCell.self
         }
     }
 }

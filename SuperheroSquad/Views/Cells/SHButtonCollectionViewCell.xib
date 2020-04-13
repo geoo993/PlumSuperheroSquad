@@ -20,15 +20,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="345" height="60"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yJ-7n-cln">
-                                <rect key="frame" x="0.0" y="15" width="345" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="345" height="60"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="statusButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="ggl-8B-k9c"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="2yJ-7n-cln" firstAttribute="top" secondItem="URI-e3-LA9" secondAttribute="top" constant="15" id="4Gb-gL-nyM"/>
+                            <constraint firstItem="2yJ-7n-cln" firstAttribute="top" secondItem="URI-e3-LA9" secondAttribute="top" id="4Gb-gL-nyM"/>
                             <constraint firstItem="2yJ-7n-cln" firstAttribute="leading" secondItem="URI-e3-LA9" secondAttribute="leading" id="5rv-CF-Nj9"/>
                             <constraint firstAttribute="trailing" secondItem="2yJ-7n-cln" secondAttribute="trailing" id="JH8-xn-PgG"/>
-                            <constraint firstAttribute="bottom" secondItem="2yJ-7n-cln" secondAttribute="bottom" constant="15" id="fJg-qT-NGw"/>
+                            <constraint firstAttribute="bottom" secondItem="2yJ-7n-cln" secondAttribute="bottom" id="fJg-qT-NGw"/>
                         </constraints>
                     </view>
                 </subviews>

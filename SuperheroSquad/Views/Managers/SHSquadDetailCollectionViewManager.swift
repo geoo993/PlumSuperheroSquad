@@ -10,12 +10,14 @@ import SHCore
 import SHData
 import UIKit
 
+
 protocol SHSquadDetailCollectionViewManagerDelegate: class {
+    
     
     // MARK: - SHHeroesCollectionViewManagerDelegate
     
-    func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didFireHeroFromSquad hero: SHCharacter)
-    func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didSelectComic comic: SHComic)
+    func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didSelectComic comic: SHComic,
+                 in cell: SHComicCollectionViewCell, at position: SHSquadDetailCollectionViewManager.SHComicPosition)
 }
 
 
@@ -25,23 +27,31 @@ final class SHSquadDetailCollectionViewManager: NSObject {
     
     fileprivate enum UIConstants {
         static let background = UIColor.brandPrimary
+        static let bottomPullThreshold: Float = 100
         static let padding: CGFloat = 15
     }
 
     // MARK: - Cell Type
     
+    enum SHComicPosition {
+        case left
+        case right
+    }
+    
     enum CellType {
         case title(String)
-        case button(SHSquadDetailViewModel.SquadStatus)
+        case button(SHSquadStatus)
         case paragraph(String)
         case heading(String)
-        case comic(SHComic?, SHComic?)
+        case comics(SHComic, SHComic?)
+        case more(String)
     }
     
     // MARK: - properties
 
     private let collectionView: UICollectionView
     private let viewModel: SHSquadDetailViewModel
+    private var footerView: SHLoadingCollectionViewCell?
     fileprivate var dataSource: [SHRow<CellType>] {
         var data = [SHRow<CellType>]()
         data.append(SHRow(.title, data: CellType.title(viewModel.character.name)))
@@ -50,7 +60,10 @@ final class SHSquadDetailCollectionViewManager: NSObject {
         let comicsPaired = viewModel.comics.tuple()
         if comicsPaired.count > 0 {
             data.append(SHRow(.heading, data: CellType.heading("squad_detail__last_appeared".localized)))
-            data += comicsPaired.map{ SHRow(.paragraph, data: CellType.comic($0.0, $0.1)) }
+            data += comicsPaired.map{ SHRow(.comics, data: CellType.comics($0.0, $0.1)) }
+        }
+        if viewModel.otherComics > 0 {
+            data.append(SHRow(.more, data: CellType.more(String(format: "squad_detail__other_comic".localized, "\(viewModel.otherComics)") )))
         }
         return data
     }
@@ -69,7 +82,7 @@ final class SHSquadDetailCollectionViewManager: NSObject {
     // MARK: - Setup
     
     private func setup(_ collectionView: UICollectionView) {
-        [.title, .button, .paragraph, .heading, .comic].forEach { collectionView.registerNib($0) }
+        [.title, .button, .paragraph, .heading, .comics, .more].forEach { collectionView.registerNib($0) }
         collectionView.registerHeaderNib(.header)
         collectionView.registerFooterNib(.loading)
         collectionView.dataSource = self
@@ -94,7 +107,8 @@ final class SHSquadDetailCollectionViewManager: NSObject {
         case .button(let status): return SHButtonCollectionViewCell.height(forWidth: width, title: status.value)
         case .paragraph(let text): return SHLabelCollectionViewCell.height(forWidth: width, type: .paragraph, text: text)
         case .heading(let text): return SHLabelCollectionViewCell.height(forWidth: width, type: .heading, text: text, enableBottomSpacing: false)
-        case .comic(let left, let right): return SHComicsCollectionViewCell.height(forWidth: width, leftTitle: left?.title, rightTitle: right?.title)
+        case .comics(let left, let right): return SHComicsCollectionViewCell.height(forWidth: width, leftTitle: left.title, rightTitle: right?.title)
+        case .more(let text): return SHLabelCollectionViewCell.height(forWidth: width, type: .more, text: text)
         }
     }
 
@@ -118,25 +132,36 @@ extension SHSquadDetailCollectionViewManager: UICollectionViewDataSource {
         guard let item = dataSource[safe: indexPath.row] else { return UICollectionViewCell() }
         switch item.data {
         case .title(let text):
-            guard let cell = collectionView.dequeueReusableCell(.title, for: indexPath) as? SHLabelCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(item.type, for: indexPath) as? SHLabelCollectionViewCell else { return UICollectionViewCell() }
             cell.configure(with: .title, text: text)
             return cell
         case .button(let status):
-            guard let cell = collectionView.dequeueReusableCell(.button, for: indexPath) as? SHButtonCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(item.type, for: indexPath) as? SHButtonCollectionViewCell else { return UICollectionViewCell() }
             cell.configure(with:  status)
+            cell.onTapStatus = { [weak self] () in
+                guard let self = self else { return }
+                self.viewModel.updateStatus()
+            }
             return cell
         case .paragraph(let text):
-            guard let cell = collectionView.dequeueReusableCell(.paragraph, for: indexPath) as? SHLabelCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(item.type, for: indexPath) as? SHLabelCollectionViewCell else { return UICollectionViewCell() }
             cell.configure(with: .paragraph, text: text)
             return cell
         case .heading(let text):
-            guard let cell = collectionView.dequeueReusableCell(.heading, for: indexPath) as? SHLabelCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(item.type, for: indexPath) as? SHLabelCollectionViewCell else { return UICollectionViewCell() }
             cell.configure(with: .heading, text: text)
             return cell
-        case .comic(let left, let right):
-            guard let cell = collectionView.dequeueReusableCell(.comic, for: indexPath) as? SHComicsCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(leftImage: left?.thumbnail.url, leftTitle: left?.title,
-                           rightImage: right?.thumbnail.url, rightTitle: right?.title)
+        case .comics(let itemOne, let itemTwo):
+            guard let cell = collectionView.dequeueReusableCell(item.type, for: indexPath) as? SHComicsCollectionViewCell else { return UICollectionViewCell() }
+            cell.configure(leftComic: itemOne, rightComic: itemTwo)
+            cell.onTapComic = { [weak self] data in
+                guard let self = self else { return }
+                self.delegate?.manager(self, didSelectComic: data.comic, in: data.cell, at: (data.indexPath.row == 0) ? .left : .right)
+            }
+            return cell
+        case .more(let text):
+            guard let cell = collectionView.dequeueReusableCell(item.type, for: indexPath) as? SHLabelCollectionViewCell else { return UICollectionViewCell() }
+            cell.configure(with: .more, text: text)
             return cell
         }
     }
@@ -146,13 +171,35 @@ extension SHSquadDetailCollectionViewManager: UICollectionViewDataSource {
 
 extension SHSquadDetailCollectionViewManager: UICollectionViewDelegate {
     
-    // MARK: - UICollectionViewDelegate
+    // MARK: - Pagination
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentSize.height - scrollView.contentOffset.y
+        var triggerThreshold  = Float((currentOffset - scrollView.bounds.size.height)) / UIConstants.bottomPullThreshold
+        triggerThreshold =  min(triggerThreshold, 0.0)
+        let pullRatio = min(abs(triggerThreshold), 1.0)
         
+        footerView?.setTransform(inTransform: CGAffineTransform.identity, scaleFactor: CGFloat(pullRatio))
+        if pullRatio >= 1.0 {
+            footerView?.startLoadingAnimation()
+        }
     }
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        guard let footer = footerView else { return }
+        let currentOffset = scrollView.contentOffset.y + scrollView.bounds.height
+        let percentage = currentOffset / scrollView.contentSize.height
+        if percentage >= 0.8 {
+            viewModel.reload(type: .nextPage)
+            if viewModel.isLoadingNextPage {
+                footer.startAnimation()
+            } else  {
+                footer.stopAnimation()
+            }
+        }
+    }
 }
+
 // MARK: -
 
 extension SHSquadDetailCollectionViewManager: UICollectionViewDelegateFlowLayout {
@@ -169,26 +216,39 @@ extension SHSquadDetailCollectionViewManager: UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize.zero
+        if let pagination = viewModel.pagination, pagination.isNextListAvailable == false {
+            return CGSize.zero
+        }
+        let width = collectionView.frame.width - (UIConstants.padding * 2) - 5
+        return CGSize(width: width, height: SHLoadingCollectionViewCell.UIConstants.cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
         if kind == UICollectionView.elementKindSectionHeader {
-            guard let view = collectionView.dequeueReusableSupplementaryView(.header, with: kind, for: indexPath) as? SHHeaderCollectionViewCell else { return UICollectionReusableView() }
-            view.configure(with: viewModel.character.thumbnail.url)
-            return view
+            let view = collectionView.dequeueReusableSupplementaryView(.header, with: kind, for: indexPath)
+            guard let header = view as? SHHeaderCollectionViewCell else { return view }
+            header.configure(with: viewModel.character.thumbnail.url)
+            return header
         } else {
-            return collectionView.dequeueReusableSupplementaryView(.loading, with: kind, for: indexPath)
+            let view = collectionView.dequeueReusableSupplementaryView(.loading, with: kind, for: indexPath)
+            guard let footer = view as? SHLoadingCollectionViewCell else { return UICollectionReusableView() }
+            footer.backgroundColor = .clear
+            footerView = footer
+            return footer
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-       
+        if elementKind == UICollectionView.elementKindSectionFooter {
+            footerView?.prepareInitialAnimation()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
-        
+        if elementKind == UICollectionView.elementKindSectionFooter {
+            footerView?.stopAnimation()
+        }
     }
-    
+
 }

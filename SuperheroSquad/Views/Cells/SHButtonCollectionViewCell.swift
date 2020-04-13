@@ -8,6 +8,7 @@
 
 import UIKit
 import SHCore
+import SHData
 
 final class SHButtonCollectionViewCell: UICollectionViewCell {
 
@@ -28,22 +29,38 @@ final class SHButtonCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var button: UIButton!
     
+    // MARK: - Properties
+    var onTapStatus: (() -> Void)?
+    
     // MARK: - UICollectionViewCell life cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        setupUI()
+        button.setTitleColor(UIConstants.textColor, for: .normal)
+    }
+    
+    // MARK: - UI Setup
+    
+    private func setupUI() {
+        button.titleLabel?.font = UIConstants.textFont
     }
  
     // MARK: - Configuration
     
-    func configure(with status: SHSquadDetailViewModel.SquadStatus) {
-        backgroundColor = status == SHSquadDetailViewModel.SquadStatus.hired ? UIConstants.background : UIConstants.borderColor
-        button.titleLabel?.font = UIConstants.textFont
-        button.setTitleColor(UIConstants.textColor, for: .normal)
-        button.setTitle(status.value, for: .normal)
+    func configure(with status: SHSquadStatus) {
+        updateStatus(with: status)
         roundCorners(withRadius: UIConstants.cornerRadius)
         setBorder(width: UIConstants.borderWidth, color: UIConstants.borderColor)
+    }
+    
+    private func updateStatus(with status: SHSquadStatus) {
+        backgroundColor = status == .hired ? UIConstants.background : UIConstants.borderColor
+        button.setTitle(status.value, for: .normal)
+    }
+    
+    @IBAction func statusButton(_ sender: UIButton) {
+        onTapStatus?()
     }
 }
 

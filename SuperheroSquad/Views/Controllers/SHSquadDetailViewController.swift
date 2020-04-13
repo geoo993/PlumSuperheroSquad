@@ -17,22 +17,23 @@ final class SHSquadDetailViewController: UIViewController {
     // MARK: - UIConstants
 
     enum UIConstants {
-        
+        static let background: UIColor = .brandPrimary
     }
 
     // MARK: - IBOutlet properties
 
+    @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - Properties
     
-    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     private let viewModel: SHSquadDetailViewModel
     private var squadDetailCollectionViewManager: SHSquadDetailCollectionViewManager?
+    private var transition: CardTransition?
     
     // MARK: - Initializers
-
+    
     init(viewModel: SHSquadDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -47,34 +48,25 @@ final class SHSquadDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        refreshUI()
-
+        viewModel.reload()
     }
 
     // MARK: - UI Setup
 
     private func setup() {
-        view.backgroundColor = SHHomeViewController.UIConstants.background
+        view.backgroundColor = UIConstants.background
         view.clipsToBounds = true
+        closeButton.tintColor = UIColor.brandDeluge
+        closeButton.isHidden = true
         squadDetailCollectionViewManager = SHSquadDetailCollectionViewManager(viewModel: viewModel, collectionView: collectionView)
         squadDetailCollectionViewManager?.delegate = self
         viewModel.delegate = self
     }
 
-    // MARK: - Update
-
-    func refreshUI() {
-        viewModel.reload()
-        
-    }
-    
-    // MARK: - Update
+    // MARK: - Dismiss
     
     @IBAction func dismiss(_ sender: UIButton) {
+        closeButton.isHidden = true
         dismiss(animated: true, completion: nil)
     }
     
@@ -82,12 +74,13 @@ final class SHSquadDetailViewController: UIViewController {
 
 // MARK: -
 
-extension SHSquadDetailViewController: SHSquadDetailViewModelDelegate {
+extension SHSquadDetailViewController: SHViewModelDelegate {
     
     // MARK: - SHSquadDetailViewModelDelegate
 
-    func didGet(comics : [SHComic]) {
+    func didGet(_ elements : [Any]) {
         collectionView.reloadData()
+        closeButton.isHidden = false
     }
     
     func didLoad(isLoading: Bool) {
@@ -99,7 +92,18 @@ extension SHSquadDetailViewController: SHSquadDetailViewModelDelegate {
     }
     
     func didGet(error: SHError) {
-        
+        closeButton.isHidden = false
+        switch error {
+        case .noConnection, .noData, .badResponse, .outdatedRequest, .failed, .coreDataError:
+            let actions = [
+                SHAlertAction(title: "home_alert__try_again_btn".localized, style: .default, handler: { [weak self] () in
+                    self?.viewModel.reload()
+                }),
+                SHAlertAction(title: "home_alert__cancel_btn".localized, style: .cancel)
+            ]
+            presentAlert(title: "home_alert__title".localized, message: "home_alert__description".localized, actions: actions)
+        default: break
+        }
     }
 
 }
@@ -107,15 +111,30 @@ extension SHSquadDetailViewController: SHSquadDetailViewModelDelegate {
 // MARK: -
 
 extension SHSquadDetailViewController: SHSquadDetailCollectionViewManagerDelegate {
-    
+   
     // MARK: - SHSquadDetailCollectionViewManagerDelegate
     
-    func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didFireHeroFromSquad hero: SHCharacter) {
+    func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didSelectComic comic: SHComic,
+                 in cell: SHComicCollectionViewCell, at position: SHSquadDetailCollectionViewManager.SHComicPosition) {
         
-    }
+        let comicDetailVC = SHComicDetailViewController(comic: comic)
+        comicDetailVC.loadViewIfNeeded()
+        comicDetailVC.view.layoutIfNeeded()
+        cell.settings.cardVerticalExpandingStyle = .fromTop
+        cell.settings.cardHorizontalEPositioningStyle = (position == .right) ? .fromRight : .fromLeft
+        cell.settings.cardContainerPresentationBeginInsets = UIEdgeInsets(top: 0, left: (position == .right) ? 0 : 15, bottom: 0, right: (position == .right) ? -15 : 0)
+        let bottom = cell.frame.height - (cell.frame.width * SHComicsCollectionViewCell.UIConstants.imagesAspectRatio)
+        cell.settings.cardContainerPresentationInsets = UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
+        cell.settings.cardContainerDismissInsets = UIEdgeInsets(top: 0, left: (position == .right) ? 0 : 15, bottom: bottom, right: (position == .right) ? -15 : 0)
+        cell.settings.isEnabledBottomClose = false
+        
+        transition = CardTransition(cell: cell, settings: cell.settings)
+        
+        comicDetailVC.settings = cell.settings
+        comicDetailVC.transitioningDelegate = transition
+        comicDetailVC.modalPresentationStyle = .custom
+        present(viewController: comicDetailVC, from: cell, animated: true, completion: nil)
     
-    func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didSelectComic comic: SHComic) {
-        
     }
     
 }
@@ -136,3 +155,5 @@ extension SHSquadDetailViewController: CardDetailViewController {
     }
 
 }
+
+extension SHSquadDetailViewController: CardsViewController { }

@@ -25,6 +25,7 @@ final class SHLabelCollectionViewCell: UICollectionViewCell {
         case title
         case paragraph
         case heading
+        case more
     }
     
     // MARK: - IBOutlet Properties
@@ -50,7 +51,7 @@ final class SHLabelCollectionViewCell: UICollectionViewCell {
     func configure(with type: LabelType, text: String) {
         label.text = text
         label.font = SHLabelCollectionViewCell.font(of: type)
-        label.textAlignment = .left
+        label.textAlignment = SHLabelCollectionViewCell.textAlignment(of: type)
         label.textColor = UIConstants.textColor
     }
     
@@ -59,6 +60,14 @@ final class SHLabelCollectionViewCell: UICollectionViewCell {
         case .title: return SHFontStyle.title1.font
         case .paragraph: return SHFontStyle.body.font
         case .heading: return SHFontStyle.title3.font
+        case .more: return SHFontStyle.body.font
+        }
+    }
+    
+    static func textAlignment(of type: LabelType) -> NSTextAlignment {
+        switch type {
+        case .title, .paragraph, .heading: return .left
+        case .more: return .center
         }
     }
 

@@ -6,12 +6,13 @@
   Copyright © 2020 GEORGE QUENTIN. All rights reserved.
 */
 
-"home__background_title" = "THE SQUAD WILL BE HERE SOON";
 "home_alert__ok_btn" = "OK";
 "home_alert__try_again_btn" = "Try Again";
 "home_alert__cancel_btn" = "Cancel";
 "home_alert__title" = "😬😬😬";
-"home_alert__description" = "Sorry, something when wrong. Please try again or come back later.";
+"home_alert__description" = "Sorry, something when wrong. Please check you network connection and try again.";
+"home__my_squad" = "My Squad";
 "squad_detail__free_character" = "💪 Recruit to Squad";
-"squad_detail__hired_character" = "🔥 Fire from squad";
+"squad_detail__hired_character" = "🔥 Fire from Squad";
 "squad_detail__last_appeared" = "Last appeared in";
+"squad_detail__other_comic" = "and %@ other comic";

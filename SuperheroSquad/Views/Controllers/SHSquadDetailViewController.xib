@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SHSquadDetailViewController" customModule="SuperheroSquad" customModuleProvider="target">
             <connections>
+                <outlet property="closeButton" destination="3Ze-0l-vjw" id="4U4-XN-gGq"/>
                 <outlet property="collectionView" destination="7IK-dm-Jsc" id="9TJ-ud-3Ga"/>
                 <outlet property="containerView" destination="ILH-h7-1fu" id="8sL-45-8Pv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -47,8 +48,8 @@
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="7IK-dm-Jsc" secondAttribute="bottom" id="Tnc-c6-kG5"/>
+                        <constraint firstItem="3Ze-0l-vjw" firstAttribute="top" secondItem="ILH-h7-1fu" secondAttribute="top" constant="40" id="Zok-7B-ug1"/>
                         <constraint firstItem="7IK-dm-Jsc" firstAttribute="top" secondItem="ILH-h7-1fu" secondAttribute="top" id="cSu-fL-dcJ"/>
-                        <constraint firstItem="3Ze-0l-vjw" firstAttribute="top" secondItem="ILH-h7-1fu" secondAttribute="top" constant="40" id="dsX-52-3qB"/>
                         <constraint firstItem="7IK-dm-Jsc" firstAttribute="leading" secondItem="ILH-h7-1fu" secondAttribute="leading" id="dw6-45-E94"/>
                         <constraint firstAttribute="trailing" secondItem="3Ze-0l-vjw" secondAttribute="trailing" constant="30" id="o5o-Hk-0iu"/>
                         <constraint firstAttribute="trailing" secondItem="7IK-dm-Jsc" secondAttribute="trailing" id="rq5-9e-eAP"/>

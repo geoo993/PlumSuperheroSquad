@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="SHComicCollectionViewCell" customModule="SuperheroSquad" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="400"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="250" height="400"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wop-Iw-1IU">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="400"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Um9-6P-DWi">
+                                <rect key="frame" x="0.0" y="0.0" width="250" height="352.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Um9-6P-DWi" secondAttribute="height" multiplier="1:1.41" id="R6E-Yu-eeU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkP-QK-qMP">
+                                <rect key="frame" x="0.0" y="360.5" width="250" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Um9-6P-DWi" firstAttribute="leading" secondItem="wop-Iw-1IU" secondAttribute="leading" id="8ay-hh-ptS"/>
+                            <constraint firstItem="Um9-6P-DWi" firstAttribute="top" secondItem="wop-Iw-1IU" secondAttribute="top" id="Pt1-G6-xnF"/>
+                            <constraint firstItem="KkP-QK-qMP" firstAttribute="top" secondItem="Um9-6P-DWi" secondAttribute="bottom" constant="8" id="SlI-B1-LR4"/>
+                            <constraint firstAttribute="trailing" secondItem="KkP-QK-qMP" secondAttribute="trailing" id="gRa-H0-u7Q"/>
+                            <constraint firstItem="Um9-6P-DWi" firstAttribute="width" secondItem="wop-Iw-1IU" secondAttribute="width" id="h40-5x-irE"/>
+                            <constraint firstItem="KkP-QK-qMP" firstAttribute="leading" secondItem="wop-Iw-1IU" secondAttribute="leading" id="kUM-kQ-j5E"/>
+                            <constraint firstAttribute="trailing" secondItem="Um9-6P-DWi" secondAttribute="trailing" id="oTv-iv-pRy"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="wop-Iw-1IU" secondAttribute="trailing" id="UMk-nT-h6c"/>
+                <constraint firstAttribute="top" secondItem="wop-Iw-1IU" secondAttribute="top" id="oO9-FU-ebt"/>
+                <constraint firstItem="wop-Iw-1IU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="z0T-b8-XJ5"/>
+                <constraint firstItem="wop-Iw-1IU" firstAttribute="bottom" secondItem="gTV-IL-0wX" secondAttribute="bottom" id="zEG-SN-Lg4"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="containerView" destination="wop-Iw-1IU" id="ch7-LH-Kg5"/>
+                <outlet property="imageView" destination="Um9-6P-DWi" id="lhu-i6-BfF"/>
+                <outlet property="titleLabel" destination="KkP-QK-qMP" id="cZ1-c9-fS1"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="153"/>
+        </collectionViewCell>
+    </objects>
+</document>

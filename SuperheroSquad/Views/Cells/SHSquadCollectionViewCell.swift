@@ -7,18 +7,21 @@
 //
 
 import UIKit
+import SHCore
 
 final class SHSquadCollectionViewCell: UICollectionViewCell {
 
-  
     // MARK: - UI Constants
 
     enum UIConstants {
-        
+        static let textFont: UIFont = SHFontStyle.marvel(12).font(scalable: false)
+        static let textColor = UIColor.brandWhite
     }
 
     // MARK: - IBOutlet properties
-
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     // MARK: - UICollectionViewCell life cycle
 
@@ -27,27 +30,24 @@ final class SHSquadCollectionViewCell: UICollectionViewCell {
         setupUI()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.roundCorners()
+    }
+    
     // MARK: - Setup
     
     private func setupUI() {
-        
+        containerView.clipsToBounds = true
+        titleLabel.textColor = UIConstants.textColor
+        titleLabel.font = UIConstants.textFont
     }
     
     // MARK: - Cell configuration
     
-    func configure(name: String) {
-       
+    func configure(name: String, url: URL) {
+        imageView.setImage(with: url)
+        titleLabel.text = name
     }
   
-}
-
-// MARK: -
-
-extension SHSquadCollectionViewCell {
-    
-    // MARK: - Sizing
-    
-    static func height(forWidth width: CGFloat, name: String) -> CGFloat {
-        return 0.0
-    }
 }

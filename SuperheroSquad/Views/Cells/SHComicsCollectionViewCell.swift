@@ -8,6 +8,8 @@
 
 import UIKit
 import SHCore
+import SHData
+import TransitionAnimation
 
 final class SHComicsCollectionViewCell: UICollectionViewCell {
 
@@ -15,12 +17,8 @@ final class SHComicsCollectionViewCell: UICollectionViewCell {
     
     enum UIConstants {
         static let background = UIColor.brandPrimary
-        static let textColor = UIColor.brandWhite
         static let textFont: UIFont = SHFontStyle.subhead.font(scalable: false)
-        static let borderColor = UIColor.brandWhite
-        static let borderWidth: CGFloat = 4
         static let contentMargin: CGFloat = 15.0
-        static let cornerRadius: CGFloat = 4.0
         static let imageHorizontalSpacing: CGFloat = 20.0
         static let imageVerticalSpacing: CGFloat = 8.0
         static let imagesAspectRatio: CGFloat = 1.41
@@ -28,14 +26,15 @@ final class SHComicsCollectionViewCell: UICollectionViewCell {
     
     // MARK: - IBOutlet Properties
     
-    @IBOutlet weak var leftContainerView: UIView!
-    @IBOutlet weak var leftImageView: UIImageView!
-    @IBOutlet weak var leftLabel: UILabel!
-    @IBOutlet weak var rightContainerView: UIView!
-    @IBOutlet weak var rightImageView: UIImageView!
-    @IBOutlet weak var rightlabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
-   
+    // MARK: - Properties
+    
+    fileprivate var dataSource: [SHRow<SHComic>] = []
+    typealias ComicData = (comic: SHComic, cell: SHComicCollectionViewCell, indexPath: IndexPath)
+    var onTapComic: ((ComicData) -> Void)?
+    
     // MARK: - UICollectionViewCell life cycle
     
     override func awakeFromNib() {
@@ -47,28 +46,26 @@ final class SHComicsCollectionViewCell: UICollectionViewCell {
     
     private func setupUI() {
         backgroundColor = UIConstants.background
-        leftContainerView.clipsToBounds = true
-        leftImageView.roundCorners(withRadius: UIConstants.cornerRadius)
-        leftImageView.setBorder(width: UIConstants.borderWidth, color: UIConstants.borderColor)
-        leftLabel.textColor = UIConstants.textColor
-        leftLabel.font = UIConstants.textFont
-        rightContainerView.clipsToBounds = true
-        rightImageView.roundCorners(withRadius: UIConstants.cornerRadius)
-        rightImageView.setBorder(width: UIConstants.borderWidth, color: UIConstants.borderColor)
-        rightlabel.textColor = UIConstants.textColor
-        rightlabel.font = UIConstants.textFont
+        collectionView.registerNib(.comic)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = UIConstants.background
+        collectionView.contentInsetAdjustmentBehavior = .never
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.minimumLineSpacing = UIConstants.imageHorizontalSpacing
+        }
     }
     
     // MARK: - Configuration
     
-    func configure(leftImage: URL?, leftTitle: String?, rightImage: URL?, rightTitle: String?) {
-        leftLabel.text = leftTitle
-        leftImageView.setImage(with: leftImage)
-        rightlabel.text = rightTitle
-        rightImageView.setImage(with: rightImage)
+    func configure(leftComic: SHComic?, rightComic: SHComic?) {
+        dataSource = [leftComic, rightComic].compactMap{ $0 }.map { SHRow(.comic, data: $0) }
+        collectionView.reloadData()
     }
 
 }
+
+// MARK: -
 
 extension SHComicsCollectionViewCell {
     
@@ -90,5 +87,51 @@ extension SHComicsCollectionViewCell {
         height += max(leftTextHeight, rightTextHeight)
         height += UIConstants.contentMargin
         return height
+    }
+}
+
+// MARK: -
+
+extension SHComicsCollectionViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    // MARK: - UICollectionViewDataSource
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let item = dataSource[safe: indexPath.row] else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(item.type, for: indexPath) as? SHComicCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(image: item.data.thumbnail.url, title: item.data.title)
+        return cell
+    }
+    
+
+    // MARK: - UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard
+            let item = dataSource[safe: indexPath.row],
+            let cell = collectionView.cellForItem(at: indexPath) as? SHComicCollectionViewCell
+            else { return }
+        onTapComic?((item.data, cell, indexPath))
+    }
+
+}
+
+// MARK: -
+
+extension SHComicsCollectionViewCell: UICollectionViewDelegateFlowLayout {
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (frame.width - UIConstants.imageHorizontalSpacing) / 2
+        return CGSize(width: width, height: collectionView.frame.height)
     }
 }

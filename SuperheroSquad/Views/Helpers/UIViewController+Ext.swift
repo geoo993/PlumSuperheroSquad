@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SHCore
 import TransitionAnimation
 
 extension UIViewController {
@@ -45,4 +46,14 @@ extension UIViewController {
     }
     
     
+    func presentAlert(title: String, message: String, actions: [SHAlertAction]) {
+       let alert: UIAlertController = {
+           let actions = [
+            SHAlertAction(title: "home_alert__ok_btn".localized, style: .default)
+           ]
+           return UIAlertController(title: title, message: message, actions: actions)
+       }()
+       present(alert, animated: true, completion: nil)
+   }
+
 }

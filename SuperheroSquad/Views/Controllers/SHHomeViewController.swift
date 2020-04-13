@@ -19,19 +19,19 @@ final class SHHomeViewController: UIViewController {
     
     enum UIConstants {
         static let background: UIColor = .brandPrimary
-        static let backgroundTitle = "home__background_title".localized
-        static let backgroundFont = SHFontStyle.marvel(30).font
-        static let nextPageLoadingViewHeight: CGFloat = 80.0
+        static let squadTextColor = UIColor.brandWhite
+        static let squadTextFont = SHFontStyle.marvel(24).font(scalable: false)
     }
     
     // MARK: - IBOutlet properties
     @IBOutlet private weak var backgroundImageView: UIImageView!
-    @IBOutlet private weak var backgroundLabel: UILabel!
+    @IBOutlet private weak var squadContainer: UIView!
+    @IBOutlet private weak var squadLabel: UILabel!
+    @IBOutlet private weak var squadCollectionView: UICollectionView!
     @IBOutlet private weak var heroesCollectionView: UICollectionView!
     
     // MARK: - Properties
     
-    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     private let viewModel: SHHeroesViewModel
     private var squadCollectionViewManager: SHSquadCollectionViewManager?
     private var heroesCollectionViewManager: SHHeroesCollectionViewManager?
@@ -53,74 +53,87 @@ final class SHHomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        refreshUI()
+        viewModel.reload()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.reloadSquad()
     }
     
     // MARK: - UI Setup
     
     private func setup() {
+        
         view.backgroundColor = UIConstants.background
         backgroundImageView.image = viewModel.randomBackground
-        backgroundLabel.text = UIConstants.backgroundTitle
-        backgroundLabel.font = UIConstants.backgroundFont
-        backgroundLabel.textColor = UIColor.brandWhite
         setTitleView(with: UIImage(named: "marvel"))
         
+        squadLabel.text = "home__my_squad".localized
+        squadLabel.textColor = UIConstants.squadTextColor
+        squadLabel.font = UIConstants.squadTextFont
+        squadCollectionViewManager = SHSquadCollectionViewManager(viewModel: viewModel, collectionView: squadCollectionView)
+        squadCollectionViewManager?.delegate = self
         heroesCollectionView.refreshControl = UIRefreshControl()
         heroesCollectionView.refreshControl?.tintColor = UIColor.brandWhite
         heroesCollectionView.refreshControl?.addTarget(self, action: #selector(onPullToRefreshControl(sender:)), for: .valueChanged)
         heroesCollectionViewManager = SHHeroesCollectionViewManager(viewModel: viewModel, collectionView: heroesCollectionView)
         heroesCollectionViewManager?.delegate = self
         viewModel.delegate = self
+        hide(squad: true)
     }
     
     // MARK: - UI / Content update
-   
-    private func refreshUI() {
-        viewModel.reload()
-        
-    }
  
-    // MARK: - Update
-    
-    func updateUI(isActive active: Bool) {
-        
-        
+    private func hide(squad isHidden: Bool) {
+        if !isHidden {
+            self.squadContainer.isHidden = false
+            self.squadCollectionView.isHidden = false
+        }
+        UIView.animate(withDuration: 0.3, animations: { [weak self] () in
+            self?.squadContainer.alpha = isHidden ? 0 : 1
+            self?.squadCollectionView.alpha = isHidden ? 0 : 1
+            self?.view.layoutIfNeeded()
+        }, completion: { [weak self] finished in
+            self?.squadContainer.isHidden = isHidden
+            self?.squadCollectionView.isHidden = isHidden
+        })
     }
-   
+    
     // MARK: - Actions
     
     @objc func onPullToRefreshControl(sender: UIRefreshControl) {
         sender.beginRefreshing()
-        refreshUI()
+        viewModel.reload()
     }
     
-    func presentAlert(title: String, message: String) {
-        let alert: UIAlertController = {
-            let actions = [
-                SHAlertAction(title: "home_alert__ok_btn".localized, style: .default)
-            ]
-            return UIAlertController(title: title, message: message, actions: actions)
-        }()
-        present(alert, animated: true, completion: nil)
-    }
-
 }
 
 // MARK: -
 
-extension SHHomeViewController: SHHeroesViewModelDelegate {
+extension SHHomeViewController: SHViewModelDelegate {
     
     // MARK: - SHHeroesViewModelDelegate
     
-    func didGet(characters: [SHCharacter]) {
-        heroesCollectionView.reloadData()
+    func didGet( _ elements: [Any]) {
+        
+        if elements is [SHCharacter] {
+            heroesCollectionView.reloadData()
+        }
+        
+        if let squad = elements as? [SHCharacterModel] {
+            if squad.hasSquad {
+                squadCollectionView.reloadData()
+            }
+            hide(squad: !squad.hasSquad)
+        }
         
     }
     
     func didLoad(isLoading: Bool) {
         if !isLoading {
             heroesCollectionView.refreshControl?.endRefreshing()
+            hide(squad: !viewModel.squad.hasSquad)
         }
     }
     
@@ -131,8 +144,11 @@ extension SHHomeViewController: SHHeroesViewModelDelegate {
     func didGet(error: SHError) {
         heroesCollectionView.refreshControl?.endRefreshing()
         switch error {
-        case .noConnection, .noData, .badResponse, .outdatedRequest, .failed:
-            presentAlert(title: "home_alert__title".localized, message: "home_alert__description".localized)
+        case .noConnection, .noData, .badResponse, .outdatedRequest, .failed, .coreDataError:
+            let actions = [
+                SHAlertAction(title: "home_alert__ok_btn".localized, style: .default)
+            ]
+            presentAlert(title: "home_alert__title".localized, message: "home_alert__description".localized, actions: actions)
         default: break
         }
     }
@@ -140,7 +156,7 @@ extension SHHomeViewController: SHHeroesViewModelDelegate {
 
 // MARK: -
 
-extension SHHomeViewController: SHHeroesCollectionViewManagerDelegate {
+extension SHHomeViewController: SHHeroesCollectionViewManagerDelegate, SHSquadCollectionViewManagerDelegate {
 
     
     // MARK: - SHHeroesTableViewManagerDelegate
@@ -154,7 +170,10 @@ extension SHHomeViewController: SHHeroesCollectionViewManagerDelegate {
         cell.settings.isEnabledBottomClose = false
         cell.settings.cardCornerRadius = SHHereosCollectionViewCell.UIConstants.cornerRadius
         cell.settings.cardVerticalExpandingStyle = .fromTop
-        cell.settings.cardContainerInsets = UIEdgeInsets.zero
+        cell.settings.cardHorizontalEPositioningStyle = .fromCenter
+        cell.settings.cardContainerPresentationBeginInsets = UIEdgeInsets.zero
+        cell.settings.cardContainerPresentationInsets = UIEdgeInsets.zero
+        cell.settings.cardContainerDismissInsets = UIEdgeInsets.zero
         transition = CardTransition(cell: cell, settings: cell.settings)
         
         squadVC.settings = cell.settings
@@ -165,6 +184,8 @@ extension SHHomeViewController: SHHeroesCollectionViewManagerDelegate {
         
     }
     
+    func manager(_ collectionViewManager: SHSquadCollectionViewManager, didSelectHero hero: SHCharacter, in cell: SHSquadCollectionViewCell) {
+    }
 }
 
 extension SHHomeViewController: CardsViewController { }
