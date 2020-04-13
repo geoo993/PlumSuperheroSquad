@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SHCore
 
 final class SHHeaderCollectionViewCell: UICollectionViewCell {
 

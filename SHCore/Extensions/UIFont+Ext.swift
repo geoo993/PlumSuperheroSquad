@@ -12,7 +12,7 @@ public enum SHFontStyle {
     
     // MARK: - Cases (fixed font sizes)
     
-    case main
+    case marvel(CGFloat)
 
     // MARK: - Cases (dynamic font sizes)
     
@@ -20,9 +20,7 @@ public enum SHFontStyle {
     case title3
     case headline
     case body
-    case callout
     case subhead
-    case marvel(CGFloat)
 
     // MARK: - Public helpers
     
@@ -32,7 +30,7 @@ public enum SHFontStyle {
     
     public func font(scalable: Bool) -> UIFont {
         switch self {
-        case .main: return UIFont(name: "AvenirNext-DemiBold", size: 22) ?? UIFont.boldSystemFont(ofSize: 22)
+        case .marvel(let size): return UIFont(name: "Marvel-Regular", size: size) ?? UIFont.boldSystemFont(ofSize: size)
         
         default:
             let tuple = scalableFontStyleTuple
@@ -53,19 +51,8 @@ public enum SHFontStyle {
         case .title3: return (UIFont.TextStyle.title2, UIFont.boldSystemFont(ofSize: 20))
         case .headline: return (UIFont.TextStyle.headline, UIFont.boldSystemFont(ofSize: 17))
         case .body: return (UIFont.TextStyle.body, UIFont.systemFont(ofSize: 17))
-        case .callout: return (UIFont.TextStyle.callout, UIFont.systemFont(ofSize: 15))
         case .subhead: return (UIFont.TextStyle.subheadline, UIFont.boldSystemFont(ofSize: 13))
-        case .marvel(let size): return (UIFont.TextStyle.headline, marvelFont(size))
         default: return (UIFont.TextStyle.title1, UIFont.systemFont(ofSize: 17))
         }
-    }
-}
-
-// MARK: - Custom Fonts
-
-extension SHFontStyle {
-    
-    fileprivate func marvelFont(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "Marvel-Regular", size: size) ?? UIFont.systemFont(ofSize: size)
     }
 }

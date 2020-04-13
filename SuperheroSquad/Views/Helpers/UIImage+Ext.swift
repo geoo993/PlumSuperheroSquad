@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImage {
     
-    public func roundedCorners(with radius: CGFloat) -> UIImage? {
+    func roundedCorners(with radius: CGFloat) -> UIImage? {
         
         let imageLayer = CALayer()
         imageLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)

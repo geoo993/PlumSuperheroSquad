@@ -14,13 +14,9 @@ extension String {
     // MARK: - Localization
     
     public var localized: String {
-        return localizedWithComment("")
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
 
-    public func localizedWithComment(_ comment: String) -> String {
-        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: comment)
-    }
-   
     // MARK: - Sizing
     
     public func boundingBox(constrainedWith width: CGFloat, font: UIFont) -> CGRect {

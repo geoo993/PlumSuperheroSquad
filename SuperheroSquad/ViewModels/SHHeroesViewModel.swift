@@ -144,7 +144,7 @@ extension SHHeroesViewModel: SHPageModel {
 extension SHHeroesViewModel {
     
     var randomBackground: UIImage? {
-        let index = Int.random(min: 0, max: Constants.backgroundImages.count - 1)
+        let index = Int.random(in: 0..<Constants.backgroundImages.count)
         guard let randomImage = Constants.backgroundImages[safe: index] else { return nil }
         return UIImage(named: randomImage)
     }

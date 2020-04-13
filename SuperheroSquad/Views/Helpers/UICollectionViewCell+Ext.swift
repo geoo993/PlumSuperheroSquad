@@ -14,7 +14,7 @@ extension UICollectionViewCell {
           return super.snapshotView(afterScreenUpdates: true)
     }
     
-    public func setupGradient(in container: UIView, with colors: [CGColor]) -> CALayer {
+    func setupGradient(in container: UIView, with colors: [CGColor]) -> CALayer {
        let gradientLayer = CAGradientLayer()
        gradientLayer.colors = colors
        gradientLayer.locations = [0.7, 1]
