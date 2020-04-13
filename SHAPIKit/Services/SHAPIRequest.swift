@@ -50,7 +50,6 @@ class SHAPIRequest<SHEndpoint: SHEndpointType>: SHURLRequestProtocol {
                         if 200..<300 ~= response.statusCode {
                             completion(data, nil)
                         } else {
-                            
                             let responseError = self.session.handleResponse(with: response)
                             completion(nil, responseError)
                         }
@@ -71,14 +70,14 @@ class SHAPIRequest<SHEndpoint: SHEndpointType>: SHURLRequestProtocol {
     
     // MARK: - Helpers
     
-    fileprivate func request(from endoint: SHEndpoint) throws -> URLRequest {
-        guard let url = endoint.baseURL else { throw SHError.urlMissing }
-        var request = URLRequest(url: url.appendingPathComponent(endoint.path),
+    fileprivate func request(from endPoint: SHEndpoint) throws -> URLRequest {
+        guard let url = endPoint.baseURL else { throw SHError.urlMissing }
+        var request = URLRequest(url: url.appendingPathComponent(endPoint.path),
                                  cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
-                                 timeoutInterval: endoint.timeoutInterval)
-        request.httpMethod = endoint.method.rawValue
+                                 timeoutInterval: endPoint.timeoutInterval)
+        request.httpMethod = endPoint.method.rawValue
         do {
-            switch endoint.task {
+            switch endPoint.task {
             case .request:
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             case .requestParameters(let bodyParameters, let urlParameters):

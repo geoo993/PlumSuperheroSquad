@@ -95,6 +95,7 @@
 		C7BDD1192444607B002A0DDB /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E6E792438DFCB005F67B4 /* UIFont+Ext.swift */; };
 		C7E136E32444E93300C3D0EC /* UICollectionViewCell+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E136E22444E93300C3D0EC /* UICollectionViewCell+Ext.swift */; };
 		C7E136E52444EAA200C3D0EC /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E136E42444EAA200C3D0EC /* DataModelTests.swift */; };
+		C7E136E624450E8300C3D0EC /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E57280243A2A2C0019E95F /* CryptoSwift.framework */; };
 		C7E4E7EA243A4E3B00982553 /* URLSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E4E7E9243A4E3B00982553 /* URLSessionTests.swift */; };
 		C7E5727E243A29B70019E95F /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = C7E5727C243A29B70019E95F /* Cartfile */; };
 		C7E5727F243A29B70019E95F /* Cartfile.resolved in Resources */ = {isa = PBXBuildFile; fileRef = C7E5727D243A29B70019E95F /* Cartfile.resolved */; };
@@ -111,8 +112,6 @@
 		C7F2C2F02443BD940000D892 /* SHSquadStatus+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F2C2EF2443BD940000D892 /* SHSquadStatus+Ext.swift */; };
 		C7F4948D243A7E780096556E /* APIRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F4948C243A7E780096556E /* APIRequestTests.swift */; };
 		C7FCCC91243CFC4200851CFC /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7FCCC90243CFC4200851CFC /* SDWebImage.framework */; };
-		C7FCCC92243CFC7100851CFC /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7FCCC90243CFC4200851CFC /* SDWebImage.framework */; };
-		C7FCCC93243CFC7100851CFC /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7FCCC90243CFC4200851CFC /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C7FCCC95243CFD8900851CFC /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7FCCC90243CFC4200851CFC /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -174,17 +173,6 @@
 				C7FCCC95243CFD8900851CFC /* SDWebImage.framework in Embed Frameworks */,
 				C753C87724405376001995AE /* TransitionAnimation.framework in Embed Frameworks */,
 				C721EB5E243B643800844C0C /* SHAPIKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C7FCCC94243CFC7100851CFC /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C7FCCC93243CFC7100851CFC /* SDWebImage.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,7 +307,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7FCCC92243CFC7100851CFC /* SDWebImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +327,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7E136E624450E8300C3D0EC /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,7 +734,6 @@
 				C721EB8E243BAFF000844C0C /* Sources */,
 				C721EB8F243BAFF000844C0C /* Frameworks */,
 				C721EB90243BAFF000844C0C /* Resources */,
-				C7FCCC94243CFC7100851CFC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1450,6 +1437,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TTRX47ZAU4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = SuperheroSquadTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1472,6 +1463,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TTRX47ZAU4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = SuperheroSquadTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (

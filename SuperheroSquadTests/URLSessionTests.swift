@@ -14,8 +14,13 @@ import XCTest
 
 class MockURLSessionDataTask: SHURLSessionDataTaskProtocol {
     private (set) var resumeWasCalled = false
+    private (set) var taskCancelled = false
     func resume() {
         resumeWasCalled = true
+    }
+    
+    func cancel() {
+        taskCancelled = true
     }
 }
 
@@ -296,6 +301,7 @@ class URLSessionTests: XCTestCase {
         }
         
         XCTAssertTrue(json == expectedString)
+        XCTAssertTrue(expectedData == resultData!)
         XCTAssertTrue(session.lastURL == url)
         XCTAssertTrue(httpReponse?.url == url)
         XCTAssertTrue(httpReponse?.statusCode == 250)
