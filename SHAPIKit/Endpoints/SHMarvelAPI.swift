@@ -14,11 +14,13 @@ private enum Constants {
     static let PRIVATE_KEY = "f476d29d563b604c805f704ba4196ac5342d2a9c"
     static let ts = Date().timeIntervalSince1970.description
     static let hash = "\(ts)\(PRIVATE_KEY)\(PUBLIC_KEY)".md5()
+    static let CHARACTERS_LIMIT = 50
+    static let COMICS_LIMIT = 25
 }
 
 enum SHMarvelAPI {
-    case characters(limit: Int, offset: Int)
-    case comics(characterId: Int, limit: Int, offset: Int)
+    case characters(offset: Int)
+    case comics(characterId: Int, offset: Int)
     case comic(comicId: Int)
 }
 
@@ -34,7 +36,7 @@ extension SHMarvelAPI: SHEndpointType {
         switch self {
         case .characters:
             return "/v1/public/characters"
-        case .comics(let characterId, _, _):
+        case .comics(let characterId, _):
             return "/v1/public/characters/\(characterId)/comics"
         case .comic(let comicId):
             return "/v1/public/comics/\(comicId)"
@@ -47,20 +49,20 @@ extension SHMarvelAPI: SHEndpointType {
     
     var task: SHHTTPTask {
         switch self {
-        case .comics(_, let limit, let offset):
+        case .comics(_, let offset):
             return .requestParameters(body: nil,
                                       url: ["ts":       Constants.ts,
                                             "apikey":   Constants.PUBLIC_KEY,
                                             "hash":     Constants.hash,
-                                            "limit":    limit,
+                                            "limit":    Constants.COMICS_LIMIT,
                                             "offset":   offset
             ])
-        case .characters(let limit, let offset):
+        case .characters(let offset):
             return .requestParameters(body: nil,
                                       url: ["ts":       Constants.ts,
                                             "apikey":   Constants.PUBLIC_KEY,
                                             "hash":     Constants.hash,
-                                            "limit":    limit,
+                                            "limit":    Constants.CHARACTERS_LIMIT,
                                             "offset":   offset
             ])
         default:
@@ -68,7 +70,7 @@ extension SHMarvelAPI: SHEndpointType {
                                       url: ["ts":       Constants.ts,
                                             "apikey":   Constants.PUBLIC_KEY,
                                             "hash":     Constants.hash,
-                                            "limit":    "100",
+                                            "limit":    Constants.CHARACTERS_LIMIT,
                                             "offset":   "0"
             ])
         }

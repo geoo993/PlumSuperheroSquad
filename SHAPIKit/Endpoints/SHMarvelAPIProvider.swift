@@ -6,6 +6,8 @@
 //  Copyright © 2020 GEORGE QUENTIN. All rights reserved.
 //
 
+import UIKit
+import CoreData
 import SHData
 
 // MARK: - SHNetworkResult
@@ -28,13 +30,15 @@ public final class SHMarvelAPIProvider {
     
     // MARK: - Initializer
 
-    public init() {}
+    static public let shared = SHMarvelAPIProvider()
+    
+    private init() {}
     
     // MARK: - Helper functions
     
-    public func fetchCharacters(limit: Int = 50, offset: Int = 0, completion: @escaping ((SHNetworkResult<SHCharactersResult>) -> Void) ) {
+    public func fetchCharacters(offset: Int = 0, completion: @escaping ((SHNetworkResult<SHCharactersResult>) -> Void) ) {
         let complete: ((SHNetworkResult<SHCharactersResult>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
-        marvel.request(with: .characters(limit: limit, offset: offset)) { (data, error) in
+        marvel.request(with: .characters(offset: offset)) { (data, error) in
             if let error = error {
                 complete(SHNetworkResult.error(error))
             } else {
@@ -57,9 +61,9 @@ public final class SHMarvelAPIProvider {
         }
     }
     
-    public func fetchComics(character: SHCharacter, limit: Int = 50, offset: Int = 0,completion: @escaping ((SHNetworkResult<SHComicsResult>) -> Void) ) {
+    public func fetchComics(characterId: Int, offset: Int = 0, completion: @escaping ((SHNetworkResult<SHComicsResult>) -> Void) ) {
         let complete: ((SHNetworkResult<SHComicsResult>) -> Void)  = { result in DispatchQueue.main.async { completion(result) } }
-        marvel.request(with: .comics(characterId: character.id, limit: limit, offset: offset)) { (data, error) in
+        marvel.request(with: .comics(characterId: characterId, offset: offset)) { (data, error) in
             if let error = error {
                 complete(SHNetworkResult.error(error))
             } else {
