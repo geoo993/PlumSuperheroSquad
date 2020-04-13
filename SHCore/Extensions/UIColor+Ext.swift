@@ -25,6 +25,13 @@ public extension UIColor {
     }
 
     /**
+     Style guide: Third Main color - Deluge
+     */
+    static var brandTertiary: UIColor {
+        return UIColor(hex: 0x827397)
+    }
+    
+    /**
      Style guide: Main red color
      */
     static var brandRed: UIColor {
@@ -36,27 +43,6 @@ public extension UIColor {
     */
     static var brandWhite: UIColor {
         return UIColor(red: 240, green: 240, blue: 255)
-    }
-    
-    /**
-    Style guide: Main gray color
-    */
-    static var brandGray: UIColor {
-        return UIColor(hex: 0x979797)
-    }
-    
-    /**
-    Style guide: Main Deluge color
-    */
-    static var brandDeluge: UIColor {
-        return UIColor(hex: 0x827397)
-    }
-    
-    /**
-    Style guide: Main dark blue color
-    */
-    static var brandDarkBlue: UIColor {
-        return UIColor(hex: 0x335473)
     }
     
     // MARK: - Initializers

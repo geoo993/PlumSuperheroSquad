@@ -31,9 +31,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MSe-ww-9da">
-                    <rect key="frame" x="0.0" y="44" width="414" height="160"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="0.0"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fis-iC-pG6">
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fis-iC-pG6">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Squad" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfj-1j-DdV">
@@ -45,14 +45,14 @@
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="GRF-Ws-dLK"/>
-                                <constraint firstAttribute="trailing" secondItem="Yfj-1j-DdV" secondAttribute="trailing" constant="15" id="TUL-x8-DaO"/>
                                 <constraint firstItem="Yfj-1j-DdV" firstAttribute="top" secondItem="fis-iC-pG6" secondAttribute="top" id="e30-5R-5jB"/>
                                 <constraint firstAttribute="bottom" secondItem="Yfj-1j-DdV" secondAttribute="bottom" id="f12-46-ygn"/>
+                                <constraint firstAttribute="trailing" secondItem="Yfj-1j-DdV" secondAttribute="trailing" constant="15" id="iUF-ii-giT"/>
                                 <constraint firstItem="Yfj-1j-DdV" firstAttribute="leading" secondItem="fis-iC-pG6" secondAttribute="leading" constant="15" id="qzk-Mo-FjH"/>
                             </constraints>
                         </view>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="lqM-kc-7pH">
-                            <rect key="frame" x="0.0" y="40" width="414" height="120"/>
+                        <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="lqM-kc-7pH">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="120" id="5er-vy-8DZ"/>
                             </constraints>
@@ -66,7 +66,7 @@
                     </subviews>
                 </stackView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="znd-da-KgM">
-                    <rect key="frame" x="0.0" y="204" width="414" height="658"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="15" id="Njk-3x-Pnx">
                         <size key="itemSize" width="50" height="50"/>

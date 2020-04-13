@@ -12,7 +12,7 @@ import SHAPIKit
 import UIKit
 import TransitionAnimation
 
-final class SHComicDetailViewController: UIViewController {
+final class SHComicDetailViewController: SHDismissibleViewController {
 
     // MARK: - UIConstants
 
@@ -55,7 +55,7 @@ final class SHComicDetailViewController: UIViewController {
         view.backgroundColor = UIConstants.background
         view.clipsToBounds = true
         closeButton.isHidden = false
-        closeButton.tintColor = UIColor.brandDeluge
+        closeButton.tintColor = UIColor.brandTertiary
         contentScrollView.contentInsetAdjustmentBehavior = .never
         imageView.setImage(with: comic.thumbnail.url)
     }
@@ -64,7 +64,7 @@ final class SHComicDetailViewController: UIViewController {
     
     @IBAction func dismiss() {
         closeButton.isHidden = true
-        dismiss(animated: true, completion: nil)
+        didDismiss?()
     }
     
 }

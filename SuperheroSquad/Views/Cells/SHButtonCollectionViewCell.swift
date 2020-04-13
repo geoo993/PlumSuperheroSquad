@@ -60,6 +60,8 @@ final class SHButtonCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func statusButton(_ sender: UIButton) {
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
         onTapStatus?()
     }
 }

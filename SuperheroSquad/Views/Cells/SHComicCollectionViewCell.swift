@@ -28,6 +28,8 @@ final class SHComicCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
+    // MARK: - Properties
+    private let generator = UIImpactFeedbackGenerator()
     
     // MARK: - UICollectionViewCell life cycle
     
@@ -54,6 +56,25 @@ final class SHComicCollectionViewCell: UICollectionViewCell {
         titleLabel.text = title
     }
 
+    // MARK: Gestures
+    
+    // Make it appears very responsive to touch
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        generator.prepare()
+        generator.impactOccurred()
+        animate(isHighlighted: true)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        animate(isHighlighted: false)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        animate(isHighlighted: false)
+    }
 }
 
 extension SHComicCollectionViewCell: CardCollectionViewCell {

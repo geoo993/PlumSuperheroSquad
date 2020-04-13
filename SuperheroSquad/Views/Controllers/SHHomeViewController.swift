@@ -80,7 +80,6 @@ final class SHHomeViewController: UIViewController {
         heroesCollectionViewManager = SHHeroesCollectionViewManager(viewModel: viewModel, collectionView: heroesCollectionView)
         heroesCollectionViewManager?.delegate = self
         viewModel.delegate = self
-        hide(squad: true)
     }
     
     // MARK: - UI / Content update
@@ -91,12 +90,14 @@ final class SHHomeViewController: UIViewController {
             self.squadCollectionView.isHidden = false
         }
         UIView.animate(withDuration: 0.3, animations: { [weak self] () in
-            self?.squadContainer.alpha = isHidden ? 0 : 1
-            self?.squadCollectionView.alpha = isHidden ? 0 : 1
-            self?.view.layoutIfNeeded()
+            guard let self = self else { return }
+            self.squadContainer.alpha = isHidden ? 0 : 1
+            self.squadCollectionView.alpha = isHidden ? 0 : 1
+            self.view.layoutIfNeeded()
         }, completion: { [weak self] finished in
-            self?.squadContainer.isHidden = isHidden
-            self?.squadCollectionView.isHidden = isHidden
+            guard let self = self else { return }
+            self.squadContainer.isHidden = isHidden
+            self.squadCollectionView.isHidden = isHidden
         })
     }
     
@@ -158,15 +159,11 @@ extension SHHomeViewController: SHViewModelDelegate {
 
 extension SHHomeViewController: SHHeroesCollectionViewManagerDelegate, SHSquadCollectionViewManagerDelegate {
 
-    
     // MARK: - SHHeroesTableViewManagerDelegate
     
     func manager(_ collectionViewManager: SHHeroesCollectionViewManager, didSelectHero hero: SHCharacter, in cell: SHHereosCollectionViewCell) {
         
         let squadVC = SHSquadDetailViewController(viewModel: SHSquadDetailViewModel(character: hero))
-        squadVC.loadViewIfNeeded()
-        squadVC.view.layoutIfNeeded()
-        
         cell.settings.isEnabledBottomClose = false
         cell.settings.cardCornerRadius = SHHereosCollectionViewCell.UIConstants.cornerRadius
         cell.settings.cardVerticalExpandingStyle = .fromTop
@@ -175,16 +172,22 @@ extension SHHomeViewController: SHHeroesCollectionViewManagerDelegate, SHSquadCo
         cell.settings.cardContainerPresentationInsets = UIEdgeInsets.zero
         cell.settings.cardContainerDismissInsets = UIEdgeInsets.zero
         transition = CardTransition(cell: cell, settings: cell.settings)
-        
         squadVC.settings = cell.settings
         squadVC.transitioningDelegate = transition
         squadVC.modalPresentationStyle = .custom
-        
-        present(viewController: squadVC, from: cell, animated: true, completion: nil)
-        
+        present(viewController: squadVC, from: cell)
     }
     
+    // MARK: - SHSquadCollectionViewManagerDelegate
+    
     func manager(_ collectionViewManager: SHSquadCollectionViewManager, didSelectHero hero: SHCharacter, in cell: SHSquadCollectionViewCell) {
+        let squadVC = SHSquadDetailViewController(viewModel: SHSquadDetailViewModel(character: hero))
+        transition = nil
+        squadVC.transitioningDelegate = transition
+        squadVC.modalPresentationStyle = .custom
+        present(viewController: squadVC, from: cell, onCompletion: nil) { [weak self] () in
+            self?.viewWillAppear(true)
+        }
     }
 }
 

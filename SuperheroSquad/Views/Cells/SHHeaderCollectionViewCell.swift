@@ -26,7 +26,7 @@ final class SHHeaderCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
     // MARK: - Properties
-    var layers: [String: CALayer] = [:]
+    private var layers: [String: CALayer] = [:]
     
     // MARK: - UICollectionViewCell life cycle
     

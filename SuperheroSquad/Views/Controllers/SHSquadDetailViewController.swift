@@ -12,7 +12,7 @@ import SHAPIKit
 import UIKit
 import TransitionAnimation
 
-final class SHSquadDetailViewController: UIViewController {
+final class SHSquadDetailViewController: SHDismissibleViewController {
 
     // MARK: - UIConstants
 
@@ -56,7 +56,7 @@ final class SHSquadDetailViewController: UIViewController {
     private func setup() {
         view.backgroundColor = UIConstants.background
         view.clipsToBounds = true
-        closeButton.tintColor = UIColor.brandDeluge
+        closeButton.tintColor = UIColor.brandTertiary
         closeButton.isHidden = true
         squadDetailCollectionViewManager = SHSquadDetailCollectionViewManager(viewModel: viewModel, collectionView: collectionView)
         squadDetailCollectionViewManager?.delegate = self
@@ -67,7 +67,7 @@ final class SHSquadDetailViewController: UIViewController {
     
     @IBAction func dismiss(_ sender: UIButton) {
         closeButton.isHidden = true
-        dismiss(animated: true, completion: nil)
+        didDismiss?()
     }
     
 }
@@ -118,8 +118,6 @@ extension SHSquadDetailViewController: SHSquadDetailCollectionViewManagerDelegat
                  in cell: SHComicCollectionViewCell, at position: SHSquadDetailCollectionViewManager.SHComicPosition) {
         
         let comicDetailVC = SHComicDetailViewController(comic: comic)
-        comicDetailVC.loadViewIfNeeded()
-        comicDetailVC.view.layoutIfNeeded()
         cell.settings.cardVerticalExpandingStyle = .fromTop
         cell.settings.cardHorizontalEPositioningStyle = (position == .right) ? .fromRight : .fromLeft
         cell.settings.cardContainerPresentationBeginInsets = UIEdgeInsets(top: 0, left: (position == .right) ? 0 : 15, bottom: 0, right: (position == .right) ? -15 : 0)
@@ -133,8 +131,7 @@ extension SHSquadDetailViewController: SHSquadDetailCollectionViewManagerDelegat
         comicDetailVC.settings = cell.settings
         comicDetailVC.transitioningDelegate = transition
         comicDetailVC.modalPresentationStyle = .custom
-        present(viewController: comicDetailVC, from: cell, animated: true, completion: nil)
-    
+        present(viewController: comicDetailVC, from: cell, onCompletion: nil, onDismiss: nil)
     }
     
 }

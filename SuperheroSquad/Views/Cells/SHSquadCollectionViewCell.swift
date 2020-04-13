@@ -8,6 +8,7 @@
 
 import UIKit
 import SHCore
+import TransitionAnimation
 
 final class SHSquadCollectionViewCell: UICollectionViewCell {
 
@@ -50,4 +51,18 @@ final class SHSquadCollectionViewCell: UICollectionViewCell {
         titleLabel.text = name
     }
   
+}
+
+// MARK: -
+
+extension SHSquadCollectionViewCell: CardCollectionViewCell {
+    
+    // MARK: - Transition
+    
+    var cardContentView: UIView {
+        get {
+            return containerView
+        }
+    }
+    
 }

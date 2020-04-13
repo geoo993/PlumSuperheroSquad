@@ -7,9 +7,11 @@
 //
 
 import SHData
+import UIKit
 
 protocol SHPageModel {
     associatedtype T
+    var notificationFeedback: UINotificationFeedbackGenerator { get }
     var isLoading: Bool { get set }
     var isLoadingNextPage: Bool { get set }
     var pagination: SHPagination? { get set }

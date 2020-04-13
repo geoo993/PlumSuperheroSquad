@@ -28,6 +28,7 @@ final class SHHeroesViewModel: NSObject {
     private (set)var characters = [SHCharacter]()
     private (set)var squad = [SHCharacterModel]()
     
+    let notificationFeedback = UINotificationFeedbackGenerator()
     var pagination: SHPagination?
     var isLoading: Bool = false
     var isLoadingNextPage: Bool = false
@@ -67,15 +68,18 @@ extension SHHeroesViewModel: SHPageModel {
         delegate?.didLoad(isLoading: true)
         
         SHMarvelAPIProvider.shared.fetchCharacters { [weak self] (result) in
+            guard let self = self else { return }
             switch result {
             case .value(let data):
-                self?.isLoading = false
-                self?.delegate?.didLoad(isLoading: false)
-                self?.update(marvelData: data.characters, and: data.pagination)
+                self.isLoading = false
+                self.delegate?.didLoad(isLoading: false)
+                self.notificationFeedback.notificationOccurred(.success)
+                self.update(marvelData: data.characters, and: data.pagination)
             case .error(let error):
-                self?.isLoading = false
-                self?.delegate?.didLoad(isLoading: false)
-                self?.delegate?.didGet(error: error)
+                self.isLoading = false
+                self.delegate?.didLoad(isLoading: false)
+                self.notificationFeedback.notificationOccurred(.error)
+                self.delegate?.didGet(error: error)
             }
         }
     }
@@ -92,15 +96,18 @@ extension SHHeroesViewModel: SHPageModel {
         delegate?.didLoadNextPage(isLoading: true)
         
         SHMarvelAPIProvider.shared.fetchCharacters(offset: pagination.nextOffset) { [weak self] (result) in
+            guard let self = self else { return }
             switch result {
             case .value(let data):
-                self?.isLoadingNextPage = false
-                self?.delegate?.didLoadNextPage(isLoading: false)
-                self?.update(marvelData: data.characters, and: data.pagination, isNextPage: true)
+                self.isLoadingNextPage = false
+                self.delegate?.didLoadNextPage(isLoading: false)
+                self.notificationFeedback.notificationOccurred(.success)
+                self.update(marvelData: data.characters, and: data.pagination, isNextPage: true)
             case .error(let error):
-                self?.isLoadingNextPage = false
-                self?.delegate?.didLoadNextPage(isLoading: false)
-                self?.delegate?.didGet(error: error)
+                self.isLoadingNextPage = false
+                self.delegate?.didLoadNextPage(isLoading: false)
+                self.notificationFeedback.notificationOccurred(.error)
+                self.delegate?.didGet(error: error)
             }
         }
     }
@@ -119,12 +126,13 @@ extension SHHeroesViewModel: SHPageModel {
     func updateStatus()  {
         
         SHMarvelAPIProvider.shared.fetchSquad { [weak self] (result) in
+            guard let self = self else { return }
             switch result {
             case .value(let data):
-                self?.squad = data
-                self?.delegate?.didGet(data)
+                self.squad = data
+                self.delegate?.didGet(data)
             case .error(let error):
-                self?.delegate?.didGet(error: error)
+                self.delegate?.didGet(error: error)
             }
         }
     }

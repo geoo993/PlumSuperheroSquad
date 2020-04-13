@@ -12,31 +12,30 @@ import TransitionAnimation
 
 extension UIViewController {
     
-    func present(viewController: UIViewController, from cell: CardCollectionViewCell, animated flag: Bool, completion: (() -> Void)? = nil) {
-        
+    func present(viewController: SHDismissibleViewController, from cell: CardCollectionViewCell, onCompletion: (() -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
+        viewController.didDismiss = { [weak self] () in
+            onDismiss?()
+            self?.dismiss(animated: true)
+        }
         present(viewController, animated: true, completion: { [unowned cell] in
             // Unfreeze
             cell.unfreezeAnimations()
+            onCompletion?()
         })
     }
+}
+
+extension UIViewController {
+    
     
     public func setTitleView(with image: UIImage?) {
         var titleView: UIImageView? {
             guard let image = image else { return nil }
             let imageView = UIImageView(image: image)
-            let frame: CGRect
-            if let navigationController = self.navigationController {
-                let bannerWidth = navigationController.navigationBar.frame.size.width
-                let bannerHeight = navigationController.navigationBar.frame.size.height
-                let bannerX = bannerWidth / 2 - image.size.width / 2
-                let bannerY = bannerHeight / 2 - image.size.height / 2
-                frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth, height: bannerHeight)
-            } else {
-                let defaultSize = CGSize(width: 129, height: 63)
-                let bannerX = defaultSize.width / 2 - image.size.width / 2
-                let bannerY = defaultSize.height / 2 - image.size.height / 2
-                frame = CGRect(x: bannerX, y: bannerY, width: defaultSize.width, height: defaultSize.height)
-            }
+            let defaultSize = CGSize(width: 80, height: 32)
+            let bannerX = defaultSize.width / 2 - image.size.width / 2
+            let bannerY = defaultSize.height / 2 - image.size.height / 2
+            let frame = CGRect(x: bannerX, y: bannerY, width: defaultSize.width, height: defaultSize.height)
             imageView.frame = frame
             imageView.contentMode = .scaleAspectFit
             

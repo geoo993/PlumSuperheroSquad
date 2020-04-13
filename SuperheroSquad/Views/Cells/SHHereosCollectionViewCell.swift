@@ -33,7 +33,9 @@ final class SHHereosCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     
     // MARK: - Properties
-    var layers: [String: CALayer] = [:]
+    
+    private let generator = UIImpactFeedbackGenerator()
+    private var layers: [String: CALayer] = [:]
     
     // MARK: - UICollectionViewCell life cycle
 
@@ -78,6 +80,8 @@ final class SHHereosCollectionViewCell: UICollectionViewCell {
     // Make it appears very responsive to touch
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        generator.prepare()
+        generator.impactOccurred()
         animate(isHighlighted: true)
     }
     
