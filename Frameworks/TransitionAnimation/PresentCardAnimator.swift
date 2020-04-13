@@ -115,8 +115,8 @@ final class PresentCardTransitionDriver {
         
         do /* Fix centerX/width/height of animated container to container */ {
             let animatedContainerConstraints = [
-                animatedContainerView.widthAnchor.constraint(equalToConstant: container.bounds.width - (params.settings.cardContainerInsets.left + params.settings.cardContainerInsets.right)),
-                animatedContainerView.heightAnchor.constraint(equalToConstant: container.bounds.height - (params.settings.cardContainerInsets.top + params.settings.cardContainerInsets.bottom)),
+                animatedContainerView.widthAnchor.constraint(equalToConstant: container.bounds.width - (params.settings.cardContainerPresentationInsets.left + params.settings.cardContainerPresentationInsets.right)),
+                animatedContainerView.heightAnchor.constraint(equalToConstant: container.bounds.height - (params.settings.cardContainerPresentationInsets.top + params.settings.cardContainerPresentationInsets.bottom)),
                 animatedContainerView.centerXAnchor.constraint(equalTo: container.centerXAnchor)
             ]
             NSLayoutConstraint.activate(animatedContainerConstraints)
@@ -130,7 +130,7 @@ final class PresentCardTransitionDriver {
                     constant: (fromCardFrame.height/2 + fromCardFrame.minY) - container.bounds.height/2
                 )
             case .fromTop:
-                return animatedContainerView.topAnchor.constraint(equalTo: container.topAnchor, constant: fromCardFrame.minY + params.settings.cardContainerInsets.top)
+                return animatedContainerView.topAnchor.constraint(equalTo: container.topAnchor, constant: fromCardFrame.minY + params.settings.cardContainerPresentationInsets.top)
             }
             
         }()
@@ -150,15 +150,22 @@ final class PresentCardTransitionDriver {
                     return cardDetailView.topAnchor.constraint(equalTo: animatedContainerView.topAnchor)
                 }
             }()
-            let cardConstraints = [
-                verticalAnchor,
-                cardDetailView.centerXAnchor.constraint(equalTo: animatedContainerView.centerXAnchor),
-            ]
+            let cardConstraints = [ verticalAnchor ]
             NSLayoutConstraint.activate(cardConstraints)
         }
-        let cardWidthConstraint = cardDetailView.widthAnchor.constraint(equalToConstant: fromCardFrame.width - (params.settings.cardContainerInsets.left + params.settings.cardContainerInsets.right))
-        let cardHeightConstraint = cardDetailView.heightAnchor.constraint(equalToConstant: fromCardFrame.height - (params.settings.cardContainerInsets.top + params.settings.cardContainerInsets.bottom))
-        NSLayoutConstraint.activate([cardWidthConstraint, cardHeightConstraint])
+        let horizontalConstraint: NSLayoutConstraint = {
+           switch params.settings.cardHorizontalEPositioningStyle {
+           case .fromLeft:
+               return cardDetailView.leftAnchor.constraint(equalTo: animatedContainerView.leftAnchor, constant: params.settings.cardContainerPresentationBeginInsets.left)
+           case .fromCenter:
+               return cardDetailView.centerXAnchor.constraint(equalTo: animatedContainerView.centerXAnchor)
+           case .fromRight:
+               return cardDetailView.rightAnchor.constraint(equalTo: animatedContainerView.rightAnchor, constant: params.settings.cardContainerPresentationBeginInsets.right)
+           }
+       }()
+        let cardWidthConstraint = cardDetailView.widthAnchor.constraint(equalToConstant: fromCardFrame.width - (params.settings.cardContainerPresentationInsets.left + params.settings.cardContainerPresentationInsets.right))
+        let cardHeightConstraint = cardDetailView.heightAnchor.constraint(equalToConstant: fromCardFrame.height - (params.settings.cardContainerPresentationInsets.top + params.settings.cardContainerPresentationInsets.bottom))
+        NSLayoutConstraint.activate([cardWidthConstraint, cardHeightConstraint, horizontalConstraint])
         
         cardDetailView.layer.cornerRadius = params.settings.cardCornerRadius
         
@@ -187,8 +194,9 @@ final class PresentCardTransitionDriver {
         func animateCardDetailViewSizing() {
             screens.cardDetail.didStartPresentAnimationProgress()
             
-            cardWidthConstraint.constant = animatedContainerView.bounds.width + (params.settings.cardContainerInsets.left + params.settings.cardContainerInsets.right)
-            cardHeightConstraint.constant = animatedContainerView.bounds.height + (params.settings.cardContainerInsets.top + params.settings.cardContainerInsets.bottom)
+            horizontalConstraint.constant = 0
+            cardWidthConstraint.constant = animatedContainerView.bounds.width + (params.settings.cardContainerPresentationInsets.left + params.settings.cardContainerPresentationInsets.right)
+            cardHeightConstraint.constant = animatedContainerView.bounds.height + (params.settings.cardContainerPresentationInsets.top + params.settings.cardContainerPresentationInsets.bottom)
             cardDetailView.layer.cornerRadius = 0
             container.layoutIfNeeded()
         }

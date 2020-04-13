@@ -78,7 +78,8 @@ public extension CardCollectionViewCell {
                            delay: 0,
                            usingSpringWithDamping: 1,
                            initialSpringVelocity: 0,
-                           options: animationOptions, animations: {
+                           options: animationOptions, animations: { [weak self] () in
+                            guard let self = self else { return }
                             self.transform = .init(scaleX: self.settings.cardHighlightedFactor, y: self.settings.cardHighlightedFactor)
             }, completion: completion)
         } else {
@@ -86,8 +87,8 @@ public extension CardCollectionViewCell {
                            delay: 0,
                            usingSpringWithDamping: 1,
                            initialSpringVelocity: 0,
-                           options: animationOptions, animations: {
-                            self.transform = .identity
+                           options: animationOptions, animations: { [weak self] () in
+                            self?.transform = .identity
             }, completion: completion)
         }
     }

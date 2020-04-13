@@ -64,12 +64,22 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
         // Card fills inside animated container view
         cardDetailView.edges(to: animatedContainerView)
         
-        animatedContainerView.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
-        let animatedContainerTopConstraint = animatedContainerView.topAnchor.constraint(equalTo: container.topAnchor, constant: params.settings.cardContainerInsets.top)
-        let animatedContainerWidthConstraint = animatedContainerView.widthAnchor.constraint(equalToConstant: cardDetailView.frame.width - (params.settings.cardContainerInsets.left + params.settings.cardContainerInsets.right))
-        let animatedContainerHeightConstraint = animatedContainerView.heightAnchor.constraint(equalToConstant: cardDetailView.frame.height - (params.settings.cardContainerInsets.top + params.settings.cardContainerInsets.bottom))
+        let animatedHorizontalConstraint: NSLayoutConstraint = {
+            switch params.settings.cardHorizontalEPositioningStyle {
+            case .fromLeft:
+                return animatedContainerView.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 0)
+            case .fromCenter:
+                return animatedContainerView.centerXAnchor.constraint(equalTo: container.centerXAnchor)
+            case .fromRight:
+                return animatedContainerView.rightAnchor.constraint(equalTo: container.rightAnchor, constant: 0)
+            }
+        }()
+        let animatedContainerTopConstraint = animatedContainerView.topAnchor.constraint(equalTo: container.topAnchor, constant: params.settings.cardContainerDismissInsets.top)
+        let animatedContainerWidthConstraint = animatedContainerView.widthAnchor.constraint(equalToConstant: cardDetailView.frame.width - (params.settings.cardContainerDismissInsets.left + params.settings.cardContainerDismissInsets.right))
+        let animatedContainerHeightConstraint = animatedContainerView.heightAnchor.constraint(equalToConstant: cardDetailView.frame.height - (params.settings.cardContainerDismissInsets.top + params.settings.cardContainerDismissInsets.bottom))
+        let animatedContainerBottomConstraint = animatedContainerView.bottomAnchor.constraint(equalTo: screens.cardDetail.cardContentView.bottomAnchor, constant: params.settings.cardContainerDismissInsets.bottom)
         
-        NSLayoutConstraint.activate([animatedContainerTopConstraint, animatedContainerWidthConstraint, animatedContainerHeightConstraint])
+        NSLayoutConstraint.activate([animatedHorizontalConstraint, animatedContainerTopConstraint, animatedContainerWidthConstraint, animatedContainerHeightConstraint, animatedContainerBottomConstraint])
         
         // Fix weird top inset
         let topTemporaryFix = screens.cardDetail.cardContentView.topAnchor.constraint(equalTo: cardDetailView.topAnchor)
@@ -77,20 +87,24 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
         
         container.layoutIfNeeded()
         
-        // Force card filling bottom
-        let stretchCardToFillBottom = screens.cardDetail.cardContentView.bottomAnchor.constraint(equalTo: cardDetailView.bottomAnchor)
-        // for tableview header required confilcts with autoresizing mask constraints
-        stretchCardToFillBottom.priority = .defaultHigh
-        
+    
         func animateCardViewBackToPlace() {
-            stretchCardToFillBottom.isActive = true
+            //stretchCardToFillBottom.isActive = true
             //screens.cardDetail.isFontStateHighlighted = false
             // Back to identity
             // NOTE: Animated container view in a way, helps us to not messing up `transform` with `AutoLayout` animation.
+            switch params.settings.cardHorizontalEPositioningStyle {
+            case .fromLeft:
+                animatedHorizontalConstraint.constant =  params.settings.cardContainerDismissInsets.left
+            case .fromCenter: break
+            case .fromRight:
+                animatedHorizontalConstraint.constant =  params.settings.cardContainerDismissInsets.right
+            }
+            
             cardDetailView.transform = CGAffineTransform.identity
-            animatedContainerTopConstraint.constant = self.params.fromCardFrameWithoutTransform.minY + params.settings.cardContainerInsets.top
-            animatedContainerWidthConstraint.constant = self.params.fromCardFrameWithoutTransform.width - (params.settings.cardContainerInsets.left + params.settings.cardContainerInsets.right)
-            animatedContainerHeightConstraint.constant = self.params.fromCardFrameWithoutTransform.height - (params.settings.cardContainerInsets.top + params.settings.cardContainerInsets.bottom)
+            animatedContainerTopConstraint.constant = self.params.fromCardFrameWithoutTransform.minY + params.settings.cardContainerDismissInsets.top
+            animatedContainerWidthConstraint.constant = self.params.fromCardFrameWithoutTransform.width
+            animatedContainerHeightConstraint.constant = self.params.fromCardFrameWithoutTransform.height
             container.layoutIfNeeded()
         }
         
@@ -106,10 +120,8 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
                 
                 // Remove temporary fixes if not success!
                 topTemporaryFix.isActive = false
-                stretchCardToFillBottom.isActive = false
                 
                 cardDetailView.removeConstraint(topTemporaryFix)
-                cardDetailView.removeConstraint(stretchCardToFillBottom)
                 
                 container.removeConstraints(container.constraints)
                 
@@ -125,8 +137,8 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
             completeEverything()
         }
         
-        UIView.animate(withDuration: transitionDuration(using: ctx) * 0.4) {
-            //print("godam")
+        UIView.animate(withDuration: transitionDuration(using: ctx) * 0.4) { [weak self] () in
+            guard let self = self else { return }
             //screens.cardDetail.scrollView.setContentOffset(self.params.settings.dismissalScrollViewContentOffset, animated: true)
             screens.cardDetail.scrollView.contentOffset = self.params.settings.dismissalScrollViewContentOffset
         }

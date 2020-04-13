@@ -18,6 +18,7 @@ public class TransitionSettings {
     public var blurAlpha: CGFloat = 1.0
     
     public var cardVerticalExpandingStyle: CardVerticalExpandingStyle = .fromTop
+    public var cardHorizontalEPositioningStyle: CardHorizontalEPositioningStyle = .fromCenter
     
     /// Without this, there'll be weird offset (probably from scrollView) that obscures the card content view of the cardDetailView.
     public var isEnabledWeirdTopInsetsFix = true
@@ -34,7 +35,9 @@ public class TransitionSettings {
     /// If true, will always allow user to scroll while it's animated.
     public var isEnabledAllowsUserInteractionWhileHighlightingCard = true
     
-    public var cardContainerInsets: UIEdgeInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
+    public var cardContainerPresentationBeginInsets: UIEdgeInsets = UIEdgeInsets.zero
+    public var cardContainerPresentationInsets: UIEdgeInsets = UIEdgeInsets.zero
+    public var cardContainerDismissInsets: UIEdgeInsets = UIEdgeInsets.zero
     
     public enum CardVerticalExpandingStyle {
         /// Expanding card pinning at the top of animatingContainerView
@@ -42,6 +45,17 @@ public class TransitionSettings {
         
         /// Expanding card pinning at the center of animatingContainerView
         case fromCenter
+    }
+    
+    public enum CardHorizontalEPositioningStyle {
+        /// Expanding card pinning at the left of animatingContainerView
+        case fromLeft
+        
+        /// Expanding card pinning at the center of animatingContainerView
+        case fromCenter
+        
+        /// Expanding card pinning at the right of animatingContainerView
+        case fromRight
     }
     
     public init() {

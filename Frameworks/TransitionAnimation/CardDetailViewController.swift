@@ -227,7 +227,6 @@ public final class CardDismissHandler: NSObject {
         case .ended, .cancelled:
             if dismissalAnimator == nil {
                 // Gesture's too quick that it doesn't have dismissalAnimator!
-                print("Too quick there's no animator!")
                 didCancelDismissalTransition()
                 return
             }
