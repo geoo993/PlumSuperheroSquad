@@ -17,7 +17,7 @@ final class SHHeroesViewModel: NSObject {
     // MARK: - Constants
     
     enum Constants {
-        static let backgroundImages = ["captain-marvel", "iron-man"]
+        static let backgroundImages = ["captain-marvel", "iron-man", "deadpool", "thanos", "hulk"]
         static let charactersLimit: Int = 50
     }
     
