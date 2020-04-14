@@ -34,16 +34,10 @@ final class SHAPINetworkStatusMonitor {
     
     private init() {
         networkStatusListener = {
-            if #available(iOSApplicationExtension 12.0, *) {
-                let monitor = NWPathMonitor()
-                let bundleIdentifier = Bundle.main.bundleIdentifier ?? "com.geo-games.SHAPIKit"
-                monitor.start(queue: DispatchQueue(label: "\(bundleIdentifier).NetworkMonitor"))
-                return monitor
-            } else {
-                let reachability = Reachability()
-                try? reachability?.startNotifier()
-                return reachability
-            }
+            let monitor = NWPathMonitor()
+            let bundleIdentifier = Bundle.main.bundleIdentifier ?? "com.geo-games.SHAPIKit"
+            monitor.start(queue: DispatchQueue(label: "\(bundleIdentifier).NetworkMonitor"))
+            return monitor
         }()
         setup()
     }
@@ -69,20 +63,6 @@ protocol SHAPINetworkStatusListenable: class {
     func onNetworkStatusUpdate(_ closure: @escaping (SHAPINetworkStatus) -> Void)
 }
 
-extension Reachability: SHAPINetworkStatusListenable {
-
-    func onNetworkStatusUpdate(_ closure: @escaping (SHAPINetworkStatus) -> Void) {
-        whenReachable = { _ in
-            closure(.online)
-        }
-        whenUnreachable = { _ in
-            closure(.offline)
-        }
-        closure(connection == .none ? .offline : .online)
-    }
-}
-
-@available(iOSApplicationExtension 12.0, *)
 extension NWPathMonitor: SHAPINetworkStatusListenable {
     
     func onNetworkStatusUpdate(_ closure: @escaping (SHAPINetworkStatus) -> Void) {

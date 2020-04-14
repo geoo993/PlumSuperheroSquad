@@ -22,7 +22,6 @@
 		C721EB5D243B643800844C0C /* SHAPIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C721EB56243B643800844C0C /* SHAPIKit.framework */; };
 		C721EB5E243B643800844C0C /* SHAPIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C721EB56243B643800844C0C /* SHAPIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C721EB62243B645800844C0C /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E57280243A2A2C0019E95F /* CryptoSwift.framework */; };
-		C721EB65243BA9C800844C0C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E82B8B2439186C0008C67F /* Reachability.swift */; };
 		C721EB66243BA9EF00844C0C /* SHAPINetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7275D1B2439F0D00069471C /* SHAPINetworkStatus.swift */; };
 		C721EB67243BA9F900844C0C /* SHParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70633B02439D6A40037BBAC /* SHParameterEncoding.swift */; };
 		C721EB68243BA9F900844C0C /* SHURLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7275D152439DC580069471C /* SHURLParameterEncoder.swift */; };
@@ -268,7 +267,6 @@
 		C7E82B85243911DF0008C67F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C7E82B87243912580008C67F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		C7E82B89243914B20008C67F /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
-		C7E82B8B2439186C0008C67F /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		C7E82B8E243925A20008C67F /* SHCharacterModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SHCharacterModel.xcdatamodel; sourceTree = "<group>"; };
 		C7E983D22438AA07003A8E54 /* SHNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHNavigationViewController.swift; sourceTree = "<group>"; };
 		C7E983D62438AB82003A8E54 /* SHHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHHomeViewController.swift; sourceTree = "<group>"; };
@@ -359,6 +357,7 @@
 				C70633AE2439D5850037BBAC /* SHHTTPTask.swift */,
 				C78E6E6B2438C315005F67B4 /* SHURLSession.swift */,
 				C7275D192439EEF50069471C /* SHAPIRequest.swift */,
+				C7275D1B2439F0D00069471C /* SHAPINetworkStatus.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -379,7 +378,6 @@
 				C7275D142439DC130069471C /* Encoding */,
 				C70633A92439D3B50037BBAC /* Services */,
 				C70633A82439D3A50037BBAC /* Endpoints */,
-				C7B57BC32438994C00C94378 /* Reachability */,
 				C721EB58243B643800844C0C /* SHAPIKit.h */,
 				C721EB59243B643800844C0C /* Info.plist */,
 			);
@@ -574,15 +572,6 @@
 				C7E82B8D243925A20008C67F /* SHCharacterModel.xcdatamodeld */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		C7B57BC32438994C00C94378 /* Reachability */ = {
-			isa = PBXGroup;
-			children = (
-				C7275D1B2439F0D00069471C /* SHAPINetworkStatus.swift */,
-				C7E82B8B2439186C0008C67F /* Reachability.swift */,
-			);
-			path = Reachability;
 			sourceTree = "<group>";
 		};
 		C7B57BC42438995600C94378 /* Resources */ = {
@@ -936,7 +925,6 @@
 				C721EB6E243BA9FF00844C0C /* SHAPIRequest.swift in Sources */,
 				C721EB6B243BA9FF00844C0C /* SHHTTPMethod.swift in Sources */,
 				C721EB6A243BA9FF00844C0C /* SHError.swift in Sources */,
-				C721EB65243BA9C800844C0C /* Reachability.swift in Sources */,
 				C721EB67243BA9F900844C0C /* SHParameterEncoding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
