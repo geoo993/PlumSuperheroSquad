@@ -18,6 +18,7 @@ protocol SHSquadDetailCollectionViewManagerDelegate: class {
     
     func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didSelectComic comic: SHComic,
                  in cell: SHComicCollectionViewCell, at position: SHSquadDetailCollectionViewManager.SHComicPosition)
+    func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didFire character: SHCharacter, with status: SHSquadStatus)
 }
 
 
@@ -137,10 +138,11 @@ extension SHSquadDetailCollectionViewManager: UICollectionViewDataSource {
             return cell
         case .button(let status):
             guard let cell = collectionView.dequeueReusableCell(item.type, for: indexPath) as? SHButtonCollectionViewCell else { return UICollectionViewCell() }
+            let character = viewModel.character
             cell.configure(with:  status)
             cell.onTapStatus = { [weak self] () in
                 guard let self = self else { return }
-                self.viewModel.updateStatus()
+                self.delegate?.manager(self, didFire: character, with: status)
             }
             return cell
         case .paragraph(let text):

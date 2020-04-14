@@ -134,6 +134,23 @@ extension SHSquadDetailViewController: SHSquadDetailCollectionViewManagerDelegat
         present(viewController: comicDetailVC, from: cell, onCompletion: nil, onDismiss: nil)
     }
     
+    func manager(_ collectionViewManager: SHSquadDetailCollectionViewManager, didFire character: SHCharacter, with status: SHSquadStatus) {
+        if status == .hired {
+            let alert: UIAlertController = {
+                  let actions = [
+                    SHAlertAction(title: "home_alert__cancel_btn".localized, style: .cancel),
+                    SHAlertAction(title: "home_alert__confirm_btn".localized, style: .default, handler: { [weak self] () in
+                        self?.viewModel.updateStatus()
+                    }),
+                  ]
+                return UIAlertController(title: String(format: "home_alert__downgrade_title".localized, character.name), message: nil, actions: actions)
+              }()
+            present(alert, animated: true, completion: nil)
+        } else {
+             self.viewModel.updateStatus()
+        }
+    }
+    
 }
 
 // MARK: -
