@@ -34,6 +34,8 @@ in the Account section.
 
 <img src="Images/part3.png" width="334" height="750" >                  <img src="Images/part4.png" width="334" height="750" >
 
+<img src="Images/part5.png" width="334" height="750" >                  <img src="Images/part6.png" width="334" height="750" >
+
 
 ## Usage and Requirements:
 * Xcode 11.3 with swift 5
