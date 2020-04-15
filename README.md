@@ -78,5 +78,12 @@ The following are the development strategies, tools and examples used to develop
 - I was mostly following the Test Driven Development methodology, by testing the main business logics first or after initial implemenation of features to ensure and validate that the app works as intented. 
 - I tested the networking layer, the marvel api endpoints, the model data objects and helper/extension properties.
 
+## Marvel API Documentation
+
+- [Getting started](https://developer.marvel.com/documentation/getting_started) with Marvel Comics API
+- [Authorizing and signing requests](https://developer.marvel.com/documentation/authorization)
+- [Interactive API Tester](https://developer.marvel.com/docs#!/public/getCreatorCollection_get_22), with the list of all the endpoints, parameters and error messages available in the Marvel API
+- [Marvel API result structure](https://developer.marvel.com/documentation/apiresults)
+
 
 
