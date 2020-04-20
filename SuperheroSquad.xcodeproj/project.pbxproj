@@ -3,12 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C709C5E7243A2E25006883BA /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E57280243A2A2C0019E95F /* CryptoSwift.framework */; };
-		C709C5E8243A2E25006883BA /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7E57280243A2A2C0019E95F /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C70DA3FF2438E82600EF7217 /* SHSquadCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70DA3FE2438E82600EF7217 /* SHSquadCollectionViewManager.swift */; };
 		C70DA4012438E84000EF7217 /* SHHeroesCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70DA4002438E84000EF7217 /* SHHeroesCollectionViewManager.swift */; };
 		C70DA4062438E99200EF7217 /* SHSquadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70DA4042438E99200EF7217 /* SHSquadCollectionViewCell.swift */; };
@@ -21,7 +19,6 @@
 		C721EB5A243B643800844C0C /* SHAPIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C721EB58243B643800844C0C /* SHAPIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C721EB5D243B643800844C0C /* SHAPIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C721EB56243B643800844C0C /* SHAPIKit.framework */; };
 		C721EB5E243B643800844C0C /* SHAPIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C721EB56243B643800844C0C /* SHAPIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C721EB62243B645800844C0C /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E57280243A2A2C0019E95F /* CryptoSwift.framework */; };
 		C721EB66243BA9EF00844C0C /* SHAPINetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7275D1B2439F0D00069471C /* SHAPINetworkStatus.swift */; };
 		C721EB67243BA9F900844C0C /* SHParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70633B02439D6A40037BBAC /* SHParameterEncoding.swift */; };
 		C721EB68243BA9F900844C0C /* SHURLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7275D152439DC580069471C /* SHURLParameterEncoder.swift */; };
@@ -46,6 +43,9 @@
 		C721EBAE243BB0E400844C0C /* SHRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70DA4022438E8E400EF7217 /* SHRow.swift */; };
 		C721EBAF243BB0E400844C0C /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AF4DA52438EF8A0066DEB0 /* UICollectionView+Ext.swift */; };
 		C721EBB6243BC7ED00844C0C /* SHHeroesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C721EBB5243BC7ED00844C0C /* SHHeroesViewModel.swift */; };
+		C7270682244DC0300047BDEE /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = C7270681244DC0300047BDEE /* SDWebImage */; };
+		C7270688244DC0FB0047BDEE /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C7270687244DC0FB0047BDEE /* CryptoSwift */; };
+		C727068A244DC2360047BDEE /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C7270689244DC2360047BDEE /* CryptoSwift */; };
 		C740F7142436363200C47497 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740F7132436363200C47497 /* AppDelegate.swift */; };
 		C740F7162436363200C47497 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740F7152436363200C47497 /* SceneDelegate.swift */; };
 		C740F71D2436363600C47497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C740F71C2436363600C47497 /* Assets.xcassets */; };
@@ -94,10 +94,7 @@
 		C7BDD1192444607B002A0DDB /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E6E792438DFCB005F67B4 /* UIFont+Ext.swift */; };
 		C7E136E32444E93300C3D0EC /* UICollectionViewCell+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E136E22444E93300C3D0EC /* UICollectionViewCell+Ext.swift */; };
 		C7E136E52444EAA200C3D0EC /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E136E42444EAA200C3D0EC /* DataModelTests.swift */; };
-		C7E136E624450E8300C3D0EC /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E57280243A2A2C0019E95F /* CryptoSwift.framework */; };
 		C7E4E7EA243A4E3B00982553 /* URLSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E4E7E9243A4E3B00982553 /* URLSessionTests.swift */; };
-		C7E5727E243A29B70019E95F /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = C7E5727C243A29B70019E95F /* Cartfile */; };
-		C7E5727F243A29B70019E95F /* Cartfile.resolved in Resources */ = {isa = PBXBuildFile; fileRef = C7E5727D243A29B70019E95F /* Cartfile.resolved */; };
 		C7E82B84243911DF0008C67F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C7E82B86243911DF0008C67F /* Localizable.strings */; };
 		C7E82B8F243925A20008C67F /* SHCharacterModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7E82B8D243925A20008C67F /* SHCharacterModel.xcdatamodeld */; };
 		C7E983D32438AA07003A8E54 /* SHNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E983D22438AA07003A8E54 /* SHNavigationViewController.swift */; };
@@ -110,8 +107,6 @@
 		C7F2C2EC2443B5B30000D892 /* SHPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F2C2EB2443B5B30000D892 /* SHPageModel.swift */; };
 		C7F2C2F02443BD940000D892 /* SHSquadStatus+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F2C2EF2443BD940000D892 /* SHSquadStatus+Ext.swift */; };
 		C7F4948D243A7E780096556E /* APIRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F4948C243A7E780096556E /* APIRequestTests.swift */; };
-		C7FCCC91243CFC4200851CFC /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7FCCC90243CFC4200851CFC /* SDWebImage.framework */; };
-		C7FCCC95243CFD8900851CFC /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7FCCC90243CFC4200851CFC /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,8 +163,6 @@
 			files = (
 				C721EB9A243BAFF000844C0C /* SHCore.framework in Embed Frameworks */,
 				C721EB7F243BAC6300844C0C /* SHData.framework in Embed Frameworks */,
-				C709C5E8243A2E25006883BA /* CryptoSwift.framework in Embed Frameworks */,
-				C7FCCC95243CFD8900851CFC /* SDWebImage.framework in Embed Frameworks */,
 				C753C87724405376001995AE /* TransitionAnimation.framework in Embed Frameworks */,
 				C721EB5E243B643800844C0C /* SHAPIKit.framework in Embed Frameworks */,
 			);
@@ -261,9 +254,6 @@
 		C7E136E42444EAA200C3D0EC /* DataModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
 		C7E4E7E9243A4E3B00982553 /* URLSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionTests.swift; sourceTree = "<group>"; };
 		C7E4E7EB243A4E7B00982553 /* SHImageResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHImageResource.swift; sourceTree = "<group>"; };
-		C7E5727C243A29B70019E95F /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
-		C7E5727D243A29B70019E95F /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = SOURCE_ROOT; };
-		C7E57280243A2A2C0019E95F /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = "<group>"; };
 		C7E82B85243911DF0008C67F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C7E82B87243912580008C67F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		C7E82B89243914B20008C67F /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
@@ -281,7 +271,6 @@
 		C7F2C2EB2443B5B30000D892 /* SHPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHPageModel.swift; sourceTree = "<group>"; };
 		C7F2C2EF2443BD940000D892 /* SHSquadStatus+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SHSquadStatus+Ext.swift"; sourceTree = "<group>"; };
 		C7F4948C243A7E780096556E /* APIRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestTests.swift; sourceTree = "<group>"; };
-		C7FCCC90243CFC4200851CFC /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,8 +278,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C721EB62243B645800844C0C /* CryptoSwift.framework in Frameworks */,
 				C721EB88243BAD4100844C0C /* SHData.framework in Frameworks */,
+				C7270688244DC0FB0047BDEE /* CryptoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,12 +301,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7FCCC91243CFC4200851CFC /* SDWebImage.framework in Frameworks */,
 				C721EB99243BAFF000844C0C /* SHCore.framework in Frameworks */,
 				C721EB7E243BAC6300844C0C /* SHData.framework in Frameworks */,
-				C709C5E7243A2E25006883BA /* CryptoSwift.framework in Frameworks */,
 				C753C87624405376001995AE /* TransitionAnimation.framework in Frameworks */,
 				C721EB5D243B643800844C0C /* SHAPIKit.framework in Frameworks */,
+				C7270682244DC0300047BDEE /* SDWebImage in Frameworks */,
+				C727068A244DC2360047BDEE /* CryptoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +314,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7E136E624450E8300C3D0EC /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,7 +453,6 @@
 		C740F7122436363200C47497 /* SuperheroSquad */ = {
 			isa = PBXGroup;
 			children = (
-				C7E5727B243A29A60019E95F /* Config */,
 				C7B57BBF2438966A00C94378 /* AppDelegate */,
 				C7B57BC22438990700C94378 /* Models */,
 				C7E983DA2438ABE1003A8E54 /* Views */,
@@ -614,19 +601,8 @@
 			isa = PBXGroup;
 			children = (
 				C753C86124405333001995AE /* TransitionAnimation */,
-				C7FCCC90243CFC4200851CFC /* SDWebImage.framework */,
-				C7E57280243A2A2C0019E95F /* CryptoSwift.framework */,
 			);
 			path = Frameworks;
-			sourceTree = "<group>";
-		};
-		C7E5727B243A29A60019E95F /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				C7E5727C243A29B70019E95F /* Cartfile */,
-				C7E5727D243A29B70019E95F /* Cartfile.resolved */,
-			);
-			path = Config;
 			sourceTree = "<group>";
 		};
 		C7E983DA2438ABE1003A8E54 /* Views */ = {
@@ -693,6 +669,9 @@
 				C721EB8B243BAD4100844C0C /* PBXTargetDependency */,
 			);
 			name = SHAPIKit;
+			packageProductDependencies = (
+				C7270687244DC0FB0047BDEE /* CryptoSwift */,
+			);
 			productName = SHAPIKit;
 			productReference = C721EB56243B643800844C0C /* SHAPIKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -751,6 +730,10 @@
 				C753C87524405376001995AE /* PBXTargetDependency */,
 			);
 			name = SuperheroSquad;
+			packageProductDependencies = (
+				C7270681244DC0300047BDEE /* SDWebImage */,
+				C7270689244DC2360047BDEE /* CryptoSwift */,
+			);
 			productName = PlumSuperheroSquad;
 			productReference = C740F7102436363200C47497 /* SuperheroSquad.app */;
 			productType = "com.apple.product-type.application";
@@ -832,6 +815,10 @@
 				Base,
 			);
 			mainGroup = C740F7072436363200C47497;
+			packageReferences = (
+				C7270680244DC0300047BDEE /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				C7270686244DC0FB0047BDEE /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+			);
 			productRefGroup = C740F7112436363200C47497 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -877,13 +864,11 @@
 				C753C88A24406727001995AE /* SHLoadingCollectionViewCell.xib in Resources */,
 				C740F7202436363600C47497 /* LaunchScreen.storyboard in Resources */,
 				C740F71D2436363600C47497 /* Assets.xcassets in Resources */,
-				C7E5727E243A29B70019E95F /* Cartfile in Resources */,
 				C7889D6F2442EC7A00064BF3 /* SHComicCollectionViewCell.xib in Resources */,
 				C76126ED2440CC7C0083EA07 /* SHComicsCollectionViewCell.xib in Resources */,
 				C78E6E7C2438E032005F67B4 /* Marvel-Regular.ttf in Resources */,
 				C76126F12440D81B0083EA07 /* SHHeaderCollectionViewCell.xib in Resources */,
 				C752223D244264CF00DF249F /* SHComicDetailViewController.xib in Resources */,
-				C7E5727F243A29B70019E95F /* Cartfile.resolved in Resources */,
 				C7E82B84243911DF0008C67F /* Localizable.strings in Resources */,
 				C76126E92440C8BF0083EA07 /* SHButtonCollectionViewCell.xib in Resources */,
 				C70DA4072438E99200EF7217 /* SHSquadCollectionViewCell.xib in Resources */,
@@ -1593,6 +1578,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C7270680244DC0300047BDEE /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.2;
+			};
+		};
+		C7270686244DC0FB0047BDEE /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C7270681244DC0300047BDEE /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7270680244DC0300047BDEE /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		C7270687244DC0FB0047BDEE /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7270686244DC0FB0047BDEE /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+		C7270689244DC2360047BDEE /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7270686244DC0FB0047BDEE /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		C7E82B8D243925A20008C67F /* SHCharacterModel.xcdatamodeld */ = {

@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import CryptoSwift
 @testable import SHAPIKit
 
 // MARK: - Mock Endpoint
