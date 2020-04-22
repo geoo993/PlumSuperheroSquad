@@ -60,7 +60,7 @@ The following are the development strategies, tools and examples used to develop
 - **Modulisation** of code into frameworks to encourage decoupling and make the codebase more testable.
 
 ### Libraries
-- Using [**Carthage**](https://github.com/Carthage/Carthage) as the dependecy manager, which is much easier as oppose to using [Cocoa Pods](https://cocoapods.org) which setups and modifies the project by creating a new workspace and adding unnecessary configurations.
+- I started the project [**Carthage**](https://github.com/Carthage/Carthage) as the dependecy manager, which is much easier as oppose to using [Cocoa Pods](https://cocoapods.org) which setups and modifies the project by creating a new workspace and adding unnecessary configurations. But now using Swift Package Manager which makes the project even even more cleaner.
 - [**CrytoSwift**](https://github.com/krzyzanowskim/CryptoSwift), was added to help convert String in [md5](https://en.wikipedia.org/wiki/MD5) format, which was required to successfully make calls to the Marvel API.
 - [**SDWebImage**](https://github.com/SDWebImage/SDWebImage), was added to cache images of the Marval API. SDWebimage could do this asynchronous by downloading and caching images from the Marvel API.
 
